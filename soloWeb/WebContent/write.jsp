@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-  <form action="index.jsp" method="post" onsubmit="return formCheck();">
+  <form action="insert.jsp" method="post" onsubmit="return formCheck();">
     <span>제목</span><input type="text" name="title" /><br>
     <span>작성자</span><input type="text" name="writer" /><br>
     <span>내용</span><textarea rows="10" cols="20" name="content"></textarea><br>
@@ -26,14 +26,14 @@ function formCheck()
   {
     alert("제목을 입력해주세요.");
     document.forms[0].writer.focus();
-    return;
+    return false;
   }
   
   if(content == null || content == "")
   {
     alert("내용을 입력해주세요.");
     document.forms[0].content.focus();
-    return;
+    return false;
   }
 }
 
