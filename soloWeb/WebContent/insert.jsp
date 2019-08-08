@@ -25,21 +25,29 @@
         out.println("제대로 연결되었습니다.");
         
         Statement stmt = conn.createStatement();
-        String query = "SELECT * FROM VR_PA1010 WHERE C_CD = '10' AND STAT_CD LIKE '1%'";
+        //         String query = "SELECT * FROM VR_PA1010 WHERE C_CD = '10' AND STAT_CD LIKE '1%'";
+        String query = "INSERT INTO BR0010(SEQ_NO, TITLE, CONTENT, WRITER, INS_YMDHMS, VIEW_CNT) " + "VALUES ((SELECT NVL(MAX(SEQ_NO + 1), 1) FROM BR0010 WHERE WRITER = '" + writer + "'), '" + title + "', '" + content + "', '" + writer + "', SYSDATE, 0)";
+        
+        out.println(query);
+        
         stmt.executeUpdate(query);
         
-        ResultSet rs = stmt.getResultSet();
+        //         ResultSet rs = stmt.getResultSet();
         
-        while (rs.next())
-        {
-            out.println(rs.getString(2) + "\n");
-        }
+        //         while (rs.next())
+        //         {
+        //             out.println(rs.getString(2) + "\n");
+        //         }
         
         conn.close();
     }
     catch (Exception e)
     {
         e.printStackTrace();
+    }
+    finally
+    {
+        out.println("<script>location.href='list.jsp';</script>");
     }
 %>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
