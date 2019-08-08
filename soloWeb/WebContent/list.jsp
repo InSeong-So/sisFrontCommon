@@ -19,7 +19,7 @@
         out.println("제대로 연결되었습니다.");
         Statement stmt = conn.createStatement();
         String query = "SELECT * FROM BR0010 ORDER BY SEQ_NO DESC";
-        out.println(query);
+        out.println("<br>실행쿼리 >>>>>>> "+query);
         rs = stmt.executeQuery(query);
 %>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -42,12 +42,12 @@
         while (rs.next())
             {
                 out.println("<tr>");
-                out.println("<td>" + rs.getString(1) + "</td>");
-                out.println("<td>" + rs.getString(2) + "</td>");
-                out.println("<td>" + rs.getString(3) + "</td>");
-                out.println("<td>" + rs.getString(4) + "</td>");
-                out.println("<td>" + rs.getString(5) + "</td>");
-                out.println("<td>" + rs.getString(6) + "</td>");
+                out.println("<td>" + rs.getString("SEQ_NO") + "</td>");
+                out.println("<td>" + rs.getString("TITLE") + "</td>");
+                out.println("<td><a href='content.jsp?SEQ_NO=" + rs.getString("SEQ_NO") + "&WRITER=" + rs.getString("WRITER") + "'>" + rs.getString("CONTENT") + "</a></td>");
+                out.println("<td>" + rs.getString("WRITER") + "</td>");
+                out.println("<td>" + rs.getString("INS_YMDHMS") + "</td>");
+                out.println("<td>" + rs.getString("VIEW_CNT") + "</td>");
                 out.println("</tr>");
             }
     %>
@@ -58,8 +58,8 @@
       }
       catch (Exception e)
       {
-          out.println("Oracle Database Connection Something Problem. <hr>");
-          out.println(e.getMessage());
+          out.println("<br>Oracle Database Connection Something Problem. <hr>");
+          out.println("<br>"+e.getMessage());
           e.printStackTrace();
       }
   %>
