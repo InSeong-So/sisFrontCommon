@@ -32,6 +32,7 @@ public class CommonProperties extends Properties
         if (fileCONF_FILE == null)
         {
             setConfFilePath(System.getProperty("ehr.CONF_FILE_PATH"));
+            log.debug(System.getProperty("biz.CONF_FILE_PATH"));
         }
         
         if (fileCONF_FILE == null)
@@ -141,7 +142,7 @@ public class CommonProperties extends Properties
     {
         CONF_FILE_PATH = conf_file_path;
         fileCONF_FILE = new File(CONF_FILE_PATH);
-        System.setProperty("ehr.CONF_FILE_PATH", CONF_FILE_PATH);
+        System.setProperty("biz.CONF_FILE_PATH", CONF_FILE_PATH);
     }
     
     public static void setDefaultProperty(String key, String val)

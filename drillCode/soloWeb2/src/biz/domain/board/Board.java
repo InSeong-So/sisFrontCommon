@@ -1,4 +1,4 @@
-package domain.board;
+package biz.domain.board;
 
 public class Board
 {

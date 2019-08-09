@@ -72,6 +72,6 @@
   </table>
   <a href="delete.jsp?SEQ_NO=${SEQ_NO}&WRITER=${WRITER}">게시글 삭제</a>
   <a href="modify_write.jsp?SEQ_NO=${SEQ_NO}&WRITER=${WRITER}">게시글 삭제</a>
-  <a href="list.jsp">목록으로</a>
+  <a href="list.do">목록으로</a>
 </body>
 </html>

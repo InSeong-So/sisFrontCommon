@@ -40,7 +40,7 @@
     }
     finally
     {
-//         out.println("<script>location.href='list.jsp';</script>");
+        out.println("<script>location.href='list.jsp';</script>");
     }
 %>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
