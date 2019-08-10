@@ -13,47 +13,6 @@
 <meta name="viewport" content="width=device-width" Initial-scale="1">
 <title>Insert title here</title>
 </head>
-<%
-    Connection conn = null;
-    try
-    {
-        String jdbcUrl = "jdbc:oracle:thin:@10.66.1.104:1522:GRSEHR";
-        String dbId = "GRSEHR";
-        String dbPass = "GRS$EHR!11";
-        ResultSet rs = null;
-        Class.forName("oracle.jdbc.driver.OracleDriver");
-        conn = DriverManager.getConnection(jdbcUrl, dbId, dbPass);
-        out.println("제대로 연결되었습니다.");
-        Statement stmt = conn.createStatement();
-        String query = "SELECT * FROM BR0010 ORDER BY SEQ_NO DESC";
-        out.println("<br>실행쿼리 >>>>>>> " + query);
-        rs = stmt.executeQuery(query);
-        
-        ArrayList<Board> boardList = new ArrayList<Board>();
-        
-        while (rs.next())
-        {
-            Board board = new Board();
-            board.setSeq_no(rs.getInt("SEQ_NO"));
-            board.setTitle(rs.getString("TITLE"));
-            board.setContent(rs.getString("CONTENT"));
-            board.setWriter(rs.getString("WRITER"));
-            board.setReg_date(rs.getString("REG_DATE"));
-            board.setView_cnt(rs.getInt("VIEW_CNT"));
-            boardList.add(board);
-        }
-        
-        request.setAttribute("boardList", boardList);
-        
-        conn.close();
-    }
-    catch (Exception e)
-    {
-        out.println("<br>Oracle Database Connection Something Problem. <hr>");
-        out.println("<br>" + e.getMessage());
-        e.printStackTrace();
-    }
-%>
 <body>
   <h1>게시글</h1>
   <table>

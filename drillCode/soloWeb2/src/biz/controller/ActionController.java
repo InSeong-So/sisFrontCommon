@@ -35,7 +35,7 @@ public class ActionController extends sisServlet
     protected void sisAction(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         CommonProperties prop = CommonProperties.getInstance();
-        
+
         String viewPath = null;
         
         MainAction ma = null;
@@ -46,12 +46,12 @@ public class ActionController extends sisServlet
             if (uriPath.indexOf(request.getContextPath()) == 0)
                 uriPath = uriPath.substring(request.getContextPath().length());
             
-            ma = (MainAction) uriMap.get(uriPath);
-            if (ma == null)
-            {
-                log.debug("URI PATH NOT FOUND : " + uriPath);
-                return;
-            }
+//            ma = (MainAction) uriMap.get(uriPath);
+//            if (ma == null)
+//            {
+//                log.debug("URI PATH NOT FOUND : " + uriPath);
+//                return;
+//            }
             
             viewPath = ma.sisAction(request, response);
             

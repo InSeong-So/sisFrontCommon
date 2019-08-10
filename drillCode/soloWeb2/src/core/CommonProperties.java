@@ -31,25 +31,28 @@ public class CommonProperties extends Properties
     {
         if (fileCONF_FILE == null)
         {
-            setConfFilePath(System.getProperty("ehr.CONF_FILE_PATH"));
-            log.debug(System.getProperty("biz.CONF_FILE_PATH"));
+            setConfFilePath(System.getProperty("biz.CONF_FILE_PATH"));
         }
         
         if (fileCONF_FILE == null)
             throw new RuntimeException("Conf file is not set.");
+        
         lastModified = fileCONF_FILE.lastModified();
+        
+        try
+        {
+            instance.reload();
+        }
+        catch (Exception e)
+        {
+        }
+        
         if (instance.lastModified != lastModified)
         {
-            try
-            {
-                instance.reload();
-            }
-            catch (Exception e)
-            {
-            }
             instance.lastModified = lastModified;
             log.info(instance);
         }
+        
         return instance;
     }
     
