@@ -6,6 +6,7 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Properties;
+import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -25,10 +26,12 @@ public class CommonProperties extends Properties
     
     private static CommonProperties instance = new CommonProperties();
     
-    private static HashMap defaultMap = new HashMap();
+    public static HashMap defaultMap = new HashMap();
     
     public static CommonProperties getInstance()
     {
+        String confFile = System.getProperty("biz.CONF_FILE_PATH");
+        
         if (fileCONF_FILE == null)
         {
             setConfFilePath(System.getProperty("biz.CONF_FILE_PATH"));
@@ -52,6 +55,8 @@ public class CommonProperties extends Properties
             instance.lastModified = lastModified;
             log.info(instance);
         }
+        
+        loadProperties(confFile);
         
         return instance;
     }
@@ -113,7 +118,7 @@ public class CommonProperties extends Properties
         return false;
     }
     
-    String remake(String key)
+    private String remake(String key)
     {
         String val = getProperty(key);
         Matcher matcher = pattern.matcher(val);
@@ -151,5 +156,37 @@ public class CommonProperties extends Properties
     public static void setDefaultProperty(String key, String val)
     {
         defaultMap.put(key, val);
+    }
+    
+    // properties 설정 
+    private static void loadProperties(String path)
+    {
+        ResourceBundle rbHome = ResourceBundle.getBundle(path);
+        Enumeration<String> actionEnumHome = rbHome.getKeys();
+        while (actionEnumHome.hasMoreElements())
+        {
+            String command = actionEnumHome.nextElement();
+            String className = rbHome.getString(command);
+            try
+            {
+                Class commandClass = Class.forName(className);
+                Object commandInstance = commandClass.newInstance(); 
+                log.debug("command : "+command);
+                log.debug("commandInstance : "+commandInstance);
+                defaultMap.put(command, commandInstance); 
+            }
+            catch (ClassNotFoundException e)
+            {
+                continue;
+            }
+            catch (InstantiationException e)
+            {
+                e.printStackTrace();
+            }
+            catch (IllegalAccessException e)
+            {
+                e.printStackTrace();
+            }
+        }
     }
 }

@@ -64,7 +64,7 @@ public class ListService implements MainAction
             e.printStackTrace();
         }
         
-        return "list.jsp";
+        return "/list.jsp";
     }
     
 }

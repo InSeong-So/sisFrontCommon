@@ -35,29 +35,27 @@ public class ActionController extends sisServlet
     protected void sisAction(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         CommonProperties prop = CommonProperties.getInstance();
-
-        String viewPath = null;
         
-        MainAction ma = null;
+        String view = null;
         
+        MainAction com = null;
         try
         {
-            String uriPath = request.getRequestURI();
-            if (uriPath.indexOf(request.getContextPath()) == 0)
-                uriPath = uriPath.substring(request.getContextPath().length());
-            
-//            ma = (MainAction) uriMap.get(uriPath);
-//            if (ma == null)
-//            {
-//                log.debug("URI PATH NOT FOUND : " + uriPath);
-//                return;
-//            }
-            
-            viewPath = ma.sisAction(request, response);
-            
-            if (viewPath == null)
+            String command = request.getRequestURI();
+            if (command.indexOf(request.getContextPath()) == 0)
             {
-                log.debug("VIEW PATH NOT FOUND : " + viewPath);
+                command = command.substring(request.getContextPath().length());
+            }
+            com = (MainAction) prop.defaultMap.get(command);
+            if (com == null)
+            {
+                log.debug("not found command : " + command);
+                return;
+            }
+            view = com.sisAction(request, response);
+            if (view == null)
+            {
+                log.debug("not found view : " + view);
                 return;
             }
         }
@@ -66,7 +64,7 @@ public class ActionController extends sisServlet
             throw new ServletException(e);
         }
         
-        RequestDispatcher dispatcher = request.getRequestDispatcher(viewPath);
+        RequestDispatcher dispatcher = request.getRequestDispatcher(view);
         
         dispatcher.forward(request, response);
     }
