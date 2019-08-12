@@ -20,8 +20,6 @@ public class ActionController extends sisServlet
     
     private Logger log = Logger.getRootLogger();
     
-    private CommonProperties prop = CommonProperties.getInstance();
-    
     private List<String> urls;
     
     private List<MainAction> ctrls;
@@ -46,6 +44,8 @@ public class ActionController extends sisServlet
     
     protected void sisAction(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
+        CommonProperties prop = CommonProperties.getInstance();
+        
         String uri = request.getRequestURI();
         
         MainAction ma = null;

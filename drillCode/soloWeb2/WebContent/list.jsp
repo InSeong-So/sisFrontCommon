@@ -11,30 +11,38 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width" Initial-scale="1">
+<link type="text/css" rel="stylesheet" href="common/lib/css/bootstrap.min.css">
+<link type="text/css" rel="stylesheet" href="common/css/common.css">
 <title>Insert title here</title>
 </head>
 <body>
+  <div class="container">
   <h1>게시글</h1>
-  <table>
-    <tr>
-      <th>번호</th>
-      <th>제목</th>
-      <th>내용</th>
-      <th>작성자</th>
-      <th>작성일</th>
-      <th>조회수</th>
-    </tr>
-    <c:forEach items="${boardList }" var="board">
+  <table class="table table-striped table-hover table-condensed">
+    <thead>
       <tr>
-        <td>${board.seq_no }</td>
-        <td><a href="content.jsp?SEQ_NO=${board.seq_no}&WRITER=${board.writer}">${board.title }</a></td>
-        <td>${board.content }</td>
-        <td>${board.writer }</td>
-        <td>${board.reg_date }</td>
-        <td>${board.view_cnt }</td>
+        <th>번호</th>
+        <th>제목</th>
+        <th>내용</th>
+        <th>작성자</th>
+        <th>작성일</th>
+        <th>조회수</th>
       </tr>
-    </c:forEach>
+    </thead>
+    <tbody>
+      <c:forEach items="${boardList }" var="board">
+        <tr>
+          <td>${board.seq_no }</td>
+          <td><a href="content.jsp?SEQ_NO=${board.seq_no}&WRITER=${board.writer}">${board.title }</a></td>
+          <td>${board.content }</td>
+          <td>${board.writer }</td>
+          <td>${board.reg_date }</td>
+          <td>${board.view_cnt }</td>
+        </tr>
+      </c:forEach>
+    </tbody>
   </table>
   <a href="write.jsp">글쓰기</a>
+  </div>
 </body>
 </html>

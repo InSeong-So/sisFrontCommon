@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width" Initial-scale="1">
-<link type="text/css" rel="stylesheet" href="common/css/bootstrap.min.css">
+<link type="text/css" rel="stylesheet" href="common/lib/css/bootstrap.min.css">
 <title>Jsp 게시판</title>
 </head>
 <body>
@@ -53,6 +53,6 @@
   <!-- 애니매이션 담당 JQUERY -->
   <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
   <!-- 부트스트랩 JS  -->
-  <script src="common/js/bootstrap.min.js"></script>
+  <script src="common/lib/js/bootstrap.min.js"></script>
 </body>
 </html>
