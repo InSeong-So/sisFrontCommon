@@ -24,12 +24,12 @@ public class ListService implements MainAction
         Connection conn = null;
         try
         {
-            //            String jdbcUrl = "jdbc:oracle:thin:@10.66.1.104:1522:GRSEHR";
-            //            String dbId = "GRSEHR";
-            //            String dbPass = "GRS$EHR!11";
-            String jdbcUrl = "jdbc:oracle:thin:@localhost:1521:orcl";
-            String dbId = "SISMASTER";
-            String dbPass = "SIS!MASTER";
+            String jdbcUrl = "jdbc:oracle:thin:@10.66.1.104:1522:GRSEHR";
+            String dbId = "GRSEHR";
+            String dbPass = "GRS$EHR!11";
+            //            String jdbcUrl = "jdbc:oracle:thin:@localhost:1521:orcl";
+            //            String dbId = "SISMASTER";
+            //            String dbPass = "SIS!MASTER";
             ResultSet rs = null;
             Class.forName("oracle.jdbc.driver.OracleDriver");
             conn = DriverManager.getConnection(jdbcUrl, dbId, dbPass);
@@ -64,7 +64,7 @@ public class ListService implements MainAction
             e.printStackTrace();
         }
         
-        return "/list.jsp";
+        return "list.jsp";
     }
     
 }

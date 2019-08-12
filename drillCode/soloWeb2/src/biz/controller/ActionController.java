@@ -1,8 +1,8 @@
 package biz.controller;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -20,6 +20,18 @@ public class ActionController extends sisServlet
     
     private Logger log = Logger.getRootLogger();
     
+    private CommonProperties prop = CommonProperties.getInstance();
+    
+    private List<String> urls;
+    
+    private List<MainAction> ctrls;
+    
+    public ActionController()
+    {
+        urls = new ArrayList<String>();
+        ctrls = new ArrayList<MainAction>();
+    }
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
@@ -34,38 +46,30 @@ public class ActionController extends sisServlet
     
     protected void sisAction(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-        CommonProperties prop = CommonProperties.getInstance();
+        String uri = request.getRequestURI();
         
-        String view = null;
+        MainAction ma = null;
         
-        MainAction com = null;
+        if (uri.indexOf(request.getContextPath()) == 0)
+            uri = uri.substring(request.getContextPath().length());
+        
+        if (!uri.equals(prop.getProperty("/list.do")))
+            uri = prop.getProperty("/list.do");
         try
         {
-            String command = request.getRequestURI();
-            if (command.indexOf(request.getContextPath()) == 0)
-            {
-                command = command.substring(request.getContextPath().length());
-            }
-            com = (MainAction) prop.defaultMap.get(command);
-            if (com == null)
-            {
-                log.debug("not found command : " + command);
-                return;
-            }
-            view = com.sisAction(request, response);
-            if (view == null)
-            {
-                log.debug("not found view : " + view);
-                return;
-            }
+            Class commandClass = Class.forName(uri);
+            Object commandInstance = commandClass.newInstance();
+            
+            ma = (MainAction) commandInstance;
+            uri = ma.sisAction(request, response);
         }
         catch (Throwable e)
         {
-            throw new ServletException(e);
+            log.debug("AcitonController Exception : " + e);
+            throw new ServletException();
         }
         
-        RequestDispatcher dispatcher = request.getRequestDispatcher(view);
-        
+        RequestDispatcher dispatcher = request.getRequestDispatcher(uri);
         dispatcher.forward(request, response);
     }
 }

@@ -6,7 +6,6 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Properties;
-import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -30,8 +29,6 @@ public class CommonProperties extends Properties
     
     public static CommonProperties getInstance()
     {
-        String confFile = System.getProperty("biz.CONF_FILE_PATH");
-        
         if (fileCONF_FILE == null)
         {
             setConfFilePath(System.getProperty("biz.CONF_FILE_PATH"));
@@ -56,8 +53,6 @@ public class CommonProperties extends Properties
             log.info(instance);
         }
         
-        loadProperties(confFile);
-        
         return instance;
     }
     
@@ -68,6 +63,7 @@ public class CommonProperties extends Properties
         try
         {
             fis = new FileInputStream(CONF_FILE_PATH);
+            
             load(fis);
             
             Iterator keyIter = defaultMap.keySet().iterator();
@@ -75,10 +71,11 @@ public class CommonProperties extends Properties
             {
                 
                 String key = (String) keyIter.next();
+                
                 String val = (String) defaultMap.get(key);
+                
                 if (!hasKey(key))
                     setProperty(key, val);
-                
             }
             Enumeration enum1 = keys();
             while (enum1.hasMoreElements())
@@ -86,11 +83,9 @@ public class CommonProperties extends Properties
                 String key = (String) enum1.nextElement();
                 remake(key);
             }
-            
         }
         finally
         {
-            
             if (fis != null)
             {
                 try
@@ -156,37 +151,5 @@ public class CommonProperties extends Properties
     public static void setDefaultProperty(String key, String val)
     {
         defaultMap.put(key, val);
-    }
-    
-    // properties 설정 
-    private static void loadProperties(String path)
-    {
-        ResourceBundle rbHome = ResourceBundle.getBundle(path);
-        Enumeration<String> actionEnumHome = rbHome.getKeys();
-        while (actionEnumHome.hasMoreElements())
-        {
-            String command = actionEnumHome.nextElement();
-            String className = rbHome.getString(command);
-            try
-            {
-                Class commandClass = Class.forName(className);
-                Object commandInstance = commandClass.newInstance(); 
-                log.debug("command : "+command);
-                log.debug("commandInstance : "+commandInstance);
-                defaultMap.put(command, commandInstance); 
-            }
-            catch (ClassNotFoundException e)
-            {
-                continue;
-            }
-            catch (InstantiationException e)
-            {
-                e.printStackTrace();
-            }
-            catch (IllegalAccessException e)
-            {
-                e.printStackTrace();
-            }
-        }
     }
 }
