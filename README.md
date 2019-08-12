@@ -1,6 +1,9 @@
 # sisFrontCommon
 **인성이** 전용 정의함수집(sisCommon.js) 만들긔
 
+<br>
+<hr>
+
 ## 목차
 - Front-end : Javascript
 - Back-end : Java
@@ -36,7 +39,8 @@
 ## DrillCode
 - 개인 숙달용 프로젝트
   - soloWeb : MVC1로 게시판 구현하기(19. 08. 05 ~ 19. 08. 08)
-  - soloWeb2 : MVC2로 게시판 구현하기(19. 08. 08 ~ 현재)
+  - soloWeb2 : MVC2로 게시판 구현하기(19. 08. 08 ~ 19. 08. 12)
+  - soloWeb3 : My-Batis로 게시판 구현하기(19. 08. 12 ~ 현재)
 
 <br>
 <hr>
