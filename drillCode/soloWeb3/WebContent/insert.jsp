@@ -22,15 +22,17 @@
         out.println("제대로 연결되었습니다.");
         
         Statement stmt = conn.createStatement();
-        String query = "INSERT INTO BR0010(SEQ_NO, TITLE, CONTENT, WRITER, REG_DATE, VIEW_CNT) "
-        + "VALUES ((SELECT NVL(MAX(SEQ_NO + 1), 1) FROM BR0010 WHERE WRITER = '"
-        + writer + "'), '"
+        String query = "INSERT INTO BR0010(SEQ_NO, TITLE, CONTENT, WRITER, WRITE_NO, REG_DATE, VIEW_CNT) "
+        + "VALUES ((SELECT NVL(MAX(SEQ_NO + 1), 1) FROM BR0010), '"
         + title + "', '"
         + content + "', '"
+        + writer + "', "
+        + "(SELECT NVL(MAX(WRITE_NO + 1), 1) FROM BR0010 WHERE WRITER = '"
         + writer
-        + "', SYSDATE, 0)";
+        + "'), SYSDATE, 0)";
         
         out.println(query);
+        
         stmt.executeUpdate(query);
         conn.close();
     }
@@ -40,7 +42,7 @@
     }
     finally
     {
-        out.println("<script>location.href='list.jsp';</script>");
+        out.println("<script>location.href='list.do';</script>");
     }
 %>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">

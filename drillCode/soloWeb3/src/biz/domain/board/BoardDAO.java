@@ -19,9 +19,9 @@ public class BoardDAO extends DBConnector
     }
     
     @SuppressWarnings("unchecked")
-    public ArrayList<Board> getBoardList() throws SQLException
+    public ArrayList<Board> getBoardList(int page) throws SQLException
     {
         log.debug("excute : getBoardList");
-        return (ArrayList<Board>) getDb().queryForList("getBoardList", null);
+        return (ArrayList<Board>) getDb().queryForList("getBoardList", null, page, 10);
     }
 }

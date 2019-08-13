@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
     request.setCharacterEncoding("UTF-8");
-    String SEQ_NO = request.getParameter("SEQ_NO");
+    String WRITE_NO = request.getParameter("WRITE_NO");
     String WRITER = request.getParameter("WRITER");
     
     Connection conn = null;
@@ -17,7 +17,7 @@
         out.println("제대로 연결되었습니다.");
         ResultSet rs = null;
         Statement stmt = conn.createStatement();
-        String query = "SELECT * FROM BR0010 WHERE SEQ_NO=" + SEQ_NO + " AND WRITER='" + WRITER + "'";
+        String query = "SELECT * FROM BR0010 WHERE WRITE_NO=" + WRITE_NO + " AND WRITER='" + WRITER + "'";
         
         out.print("<br>실행 쿼리 >>>>>> " + query);
         
@@ -25,7 +25,7 @@
         
         while (rs.next())
         {
-            request.setAttribute("SEQ_NO", rs.getString("SEQ_NO"));
+            request.setAttribute("WRITE_NO", rs.getString("WRITE_NO"));
             request.setAttribute("WRITER", rs.getString("WRITER"));
             request.setAttribute("REG_DATE", rs.getString("REG_DATE"));
             request.setAttribute("VIEW_CNT", rs.getString("VIEW_CNT"));
@@ -53,7 +53,7 @@
   <table border="1">
     <tr>
       <th>번호</th>
-      <td>${SEQ_NO}</td>
+      <td>${WRITE_NO}</td>
       <th>작성자</th>
       <td>${WRITER}%></td>
       <th>작성일</th>
@@ -70,8 +70,8 @@
       <td colspan="6">${CONTENT}</td>
     </tr>
   </table>
-  <a href="delete.jsp?SEQ_NO=${SEQ_NO}&WRITER=${WRITER}">게시글 삭제</a>
-  <a href="modify_write.jsp?SEQ_NO=${SEQ_NO}&WRITER=${WRITER}">게시글 삭제</a>
+  <a href="delete.jsp?WRITE_NO=${WRITE_NO}&WRITER=${WRITER}">게시글 삭제</a>
+  <a href="modify_write.jsp?WRITE_NO=${WRITE_NO}&WRITER=${WRITER}">게시글 삭제</a>
   <a href="list.do">목록으로</a>
 </body>
 </html>

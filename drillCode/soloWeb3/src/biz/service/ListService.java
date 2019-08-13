@@ -18,8 +18,15 @@ public class ListService implements MainAction
     @Override
     public String sisAction(HttpServletRequest request, HttpServletResponse response) throws Throwable
     {
-        ArrayList<Board> boardList = BoardDAO.getInstance().getBoardList();
+        int page = 0;
+        
+        if(request.getParameter("page") != null)
+            page = Integer.parseInt(request.getParameter("page"));
+        
+        ArrayList<Board> boardList = BoardDAO.getInstance().getBoardList(page);
+        
         request.setAttribute("boardList", boardList);
+        request.setAttribute("page", page);
         return "list.jsp";
     }
 }

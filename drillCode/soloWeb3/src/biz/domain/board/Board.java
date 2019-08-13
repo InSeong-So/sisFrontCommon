@@ -10,6 +10,8 @@ public class Board
     
     private String writer;
     
+    private int write_no;
+    
     private String reg_date;
     
     private int view_cnt;
@@ -54,6 +56,16 @@ public class Board
         this.writer = writer;
     }
     
+    public int getWrite_no()
+    {
+        return write_no;
+    }
+    
+    public void setWrite_no(int write_no)
+    {
+        this.write_no = write_no;
+    }
+    
     public String getReg_date()
     {
         return reg_date;
@@ -73,5 +85,4 @@ public class Board
     {
         this.view_cnt = view_cnt;
     }
-    
 }
