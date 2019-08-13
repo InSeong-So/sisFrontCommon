@@ -1,6 +1,5 @@
 package biz.domain.user;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
@@ -30,13 +29,6 @@ public class UserDAO extends DBConnector
         String query = "SELECT * FROM SY0000 WHERE USER_ID = '" + userId + "' AND USER_PASSWORD = '" + userPassword + "'";
         
         log.debug("Excute Query : " + query);
-        
-        ResultSet rs = openConnection().executeQuery(query);
-        
-        if (rs.next())
-            return LOGIN_SUCCESS;
-        
-        closeConnection();
         
         return LOGIN_FAILED;
     }

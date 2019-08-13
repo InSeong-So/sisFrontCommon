@@ -1,79 +1,25 @@
 package core.db;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
-
 import org.apache.log4j.Logger;
 
-import core.CommonProperties;
+import com.ibatis.sqlmap.client.SqlMapClient;
 
 public class DBConnector
 {
     static Logger log = Logger.getRootLogger();
     
-    private CommonProperties prop = CommonProperties.getInstance();
+    private SqlMapClient myDb;
     
-    private final String DB_CASS = prop.getProperty("DB_CLASS");
-    
-    private final String DB_URL = prop.getProperty("DB_URL");
-    
-    private final String DB_USER = prop.getProperty("DB_USER");
-    
-    private final String DB_USERPWD = prop.getProperty("DB_USERPWD");
-    
-    private Connection conn = null;
-    
-    private Statement stmt = null;
-    
-    public Statement openConnection() throws SQLException
+    public void setDb()
     {
-        conn = null;
-        
-        if (conn != null)
-        {
-            throw new SQLException("Connection has Already Used!");
-        }
-        
-        try
-        {
-            Class.forName(DB_CASS);
-            
-            conn = DriverManager.getConnection(DB_URL, DB_USER, DB_USERPWD);
-            log.debug("DBConnection Info : Oracle Database Connection Success!");
-            
-            stmt = conn.createStatement();
-            
-        }
-        catch (SQLException e)
-        {
-            log.debug("DBConnection Info : Oracle Database Connection Normally Problem.");
-            log.debug("SQLException : " + e.getMessage());
-            e.printStackTrace();
-        }
-        catch (ClassNotFoundException e)
-        {
-            log.debug("DBConnection Info : Oracle Database Connection Class Not Founded.");
-            log.debug("ClassNotFoundException : " + e.getMessage());
-            e.printStackTrace();
-        }
-        
-        return stmt;
+        log.debug("DBConnector setDb : 시작");
+        myDb = IBatisDBConnector.getSqlMapInstance();
+        log.debug("DBConnector setDb : 종료");
     }
     
-    public void closeConnection()
+    protected SqlMapClient getDb()
     {
-        try
-        {
-            if(!conn.isClosed())
-                conn.close();
-        }
-        catch (SQLException e)
-        {
-            log.debug("DBConnection Info : Oracle Database Connection Normally Problem.");
-            log.debug("SQLException : " + e.getMessage());
-            e.printStackTrace();
-        }
+        log.debug("DBConnector getDb : DB 정보 반환");
+        return myDb;
     }
 }

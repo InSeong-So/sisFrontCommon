@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map Config 2.0//EN" "http://www.ibatis.com/dtd/sql-map-config-2.dtd">
+
+<sqlMap namespace="Board">
+
+  <cacheModel id="boardCache" type="LRU">
+    <flushInterval hours="24" />
+    <property name="size" value="1000" />
+  </cacheModel>
+
+  <typeAlias alias="str" type="java.lang.String" />
+  <typeAlias alias="int" type="java.lang.Integer" />
+  <typeAlias alias="board" type="biz.domain.board.Board" />
+
+  <resultMap id="boardResult" class="board">
+    <result property="id" column="PRD_ID" />
+    <result property="description" column="PRD_DESCRIPTION" />
+  </resultMap>
+
+  <select id="getBoardList" resultMap="boardResult" cacheMode="boardCache">
+    <![CDATA[
+      SELECT * FROM BR0010 ORDER BY SEQ_NO DESC
+    ]]>
+  </select>
+
+</sqlMap>
