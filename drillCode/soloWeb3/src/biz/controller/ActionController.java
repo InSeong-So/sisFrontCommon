@@ -9,16 +9,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
-
 import core.CommonProperties;
 import core.sisServlet;
 
 public class ActionController extends sisServlet
 {
     private static final long serialVersionUID = 1L;
-    
-    private Logger log = Logger.getRootLogger();
     
     private List<String> urls;
     

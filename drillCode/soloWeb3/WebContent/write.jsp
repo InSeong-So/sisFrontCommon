@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-  <form action="insert.jsp" method="post" onsubmit="return formCheck();">
+  <form action="insert.do" method="post" onsubmit="return formCheck();">
     <span>제목</span><input type="text" name="title" /><br>
     <span>작성자</span><input type="text" name="writer" /><br>
     <span>내용</span><textarea rows="10" cols="20" name="content"></textarea><br>

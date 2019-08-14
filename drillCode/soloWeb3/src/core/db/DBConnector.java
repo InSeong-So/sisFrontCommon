@@ -6,7 +6,7 @@ import com.ibatis.sqlmap.client.SqlMapClient;
 
 public class DBConnector
 {
-    static Logger log = Logger.getRootLogger();
+    public static Logger log = Logger.getRootLogger();
     
     private SqlMapClient myDb;
     

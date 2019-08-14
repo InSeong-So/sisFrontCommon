@@ -19,6 +19,7 @@ CREATE TABLE BR0010(SEQ_NO              NUMBER DEFAULT 0 NOT NULL
                    ,CONTENT             VARCHAR2(4000 BYTE)
                    ,WRITER              VARCHAR2(60 BYTE)
                    ,WRITE_NO            NUMBER DEFAULT 0 NOT NULL
+                   ,REG_IP              VARCHAR2(30 BYTE) DEFAULT '127.0.0.1' NOT NULL
                    ,REG_DATE            TIMESTAMP WITH TIME ZONE
                    ,VIEW_CNT            NUMBER DEFAULT 0
                    ,CONSTRAINT PK_BR0010 PRIMARY KEY(WRITER, WRITE_NO));

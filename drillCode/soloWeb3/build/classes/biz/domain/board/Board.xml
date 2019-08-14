@@ -7,10 +7,42 @@
 
   <typeAlias alias="board" type="biz.domain.board.Board" />
 
-  <select id="getBoardList" resultClass="board" >
+  <select id="getBoardList" resultClass="board">
     <![CDATA[
-      SELECT * FROM BR0010 ORDER BY SEQ_NO DESC
+      SELECT SEQ_NO
+            ,TITLE
+            ,WRITER
+            ,CONTENT
+            ,WRITE_NO
+            ,REG_DATE
+            ,VIEW_CNT
+        FROM BR0010
+    ORDER BY SEQ_NO DESC
     ]]>
   </select>
+  
+  <insert id="insertBoard" parameterClass="board">
+    <![CDATA[
+      INSERT INTO BR0010
+              (
+                  SEQ_NO
+                 ,TITLE
+                 ,CONTENT
+                 ,WRITER
+                 ,WRITE_NO
+                 ,REG_DATE
+                 ,VIEW_CNT
+              )
+       VALUES ((SELECT NVL(MAX(SEQ_NO + 1), 1) FROM BR0010)
+              ,#title#
+              ,#content#
+              ,#writer#
+              ,(SELECT NVL(MAX(WRITE_NO + 1), 1)
+                  FROM BR0010
+                 WHERE WRITER = #writer#)
+              ,SYSDATE
+              ,0)
+    ]]>
+  </insert>
 
 </sqlMap>

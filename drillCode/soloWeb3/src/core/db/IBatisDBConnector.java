@@ -10,7 +10,7 @@ import com.ibatis.sqlmap.client.SqlMapClientBuilder;
 
 public final class IBatisDBConnector
 {
-    static Logger log = Logger.getRootLogger();
+    public static Logger log = Logger.getRootLogger();
     
     private static SqlMapClient sqlMapClient;
     
@@ -18,15 +18,10 @@ public final class IBatisDBConnector
     {
         try
         {
-//            String resource = "C:/EHR_PROJECT/soloWeb3/WebContent//WEB-INF/sql-config.xml";
-            log.debug("1");
-            String path = ClassLoader.getSystemResource("").getPath() + "sql-config.xml";
-            log.debug("path : " + path);
+//            String path = ClassLoader.getSystemResource("").getPath() + "sql-config.xml";
 //            Reader reader = new FileReader(path.substring(1));
             Reader reader = new FileReader("C:/EHR_PROJECT/soloWeb3/WebContent/WEB-INF/sql-config.xml");
-            log.debug("2");
             sqlMapClient = SqlMapClientBuilder.buildSqlMapClient(reader);
-            log.debug("3");
         }
         catch (Exception e)
         {
