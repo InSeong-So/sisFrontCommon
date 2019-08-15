@@ -8,7 +8,7 @@
 </head>
 <body>
   <h1>modify This</h1>
-  <form action="modify.do?idx=<%=idx%>" method="post" onsubmit="return formCheck();">
+  <form action="modify.do?WRITE_NO=<%=WRITE_NO%>" method="post" onsubmit="return formCheck();">
     제목: <input type="text" name="title" /> <br /> 작성자: <input type="text" name="writer" /> <br /> 내용:
     <textarea rows="10" cols="20" name="content" />
     </textarea>
