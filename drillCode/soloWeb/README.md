@@ -36,7 +36,9 @@ html                  img                 WEB_INF(web.xml)
 위 스키마는 sun 사에서 미리 정의된것이다.
 
 
-웹 어플리케이션의 환경 설정
+> 웹 어플리케이션의 환경 설정
+
+---
 
 <web-app>    <servlet>
      <servlet-name>       사용되는 클래스명         </servlet-name> "가"
@@ -48,7 +50,7 @@ html                  img                 WEB_INF(web.xml)
    </servlet-mapping>
 실행순서.  라 -->다--->가--->나(패키지명.클래스 실행)
  
- 
+ ---
  
  <mime-mapping>
       <extension>txt</extension>
