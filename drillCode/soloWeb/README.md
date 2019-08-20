@@ -6,9 +6,9 @@
   - 기본적인 web.xml 파일이 생성됨
   
 ## web.xml 설정
-web.xml이란...
+> Web Application의 구조
 
-Web Application의 구조
+'''
                                                Root                          
                                                   |
  
@@ -17,23 +17,28 @@ html                  img                 WEB_INF(web.xml)
                                                 |             |            |
  
                                         classes          tld         lib
- 
-DD:(Deployment Descriptor)로 각 어플리케이션의 환경을 설정하는 부분을 담당한다. (deploy)'배치'
+'''
+
+> DD:(Deployment Descriptor)로 각 어플리케이션의 환경을 설정하는 부분을 담당한다. (deploy)'배치'
 
       WAR 파일이 패키지 될 때 같이 포함되며 root directory 밑에 /WEB-INF 디렉토리에 위치한다.
 
-web.xml 의 구조
+### web.xml 의 구조
+> xml 정의와 schema 선언
 
-xml 정의와 schema 선언
-
+'''xml
 <?xml version="1.0" encoding="EUC-KR"?>
 
 <!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
     "http://java.sun.com/dtd/web-app_2_3.dtd>
+'''
+
 위 스키마는 sun 사에서 미리 정의된것이다.
 
 
-웹 어플리케이션의 환경 설정
+> 웹 어플리케이션의 환경 설정
+
+---
 
 <web-app>    <servlet>
      <servlet-name>       사용되는 클래스명         </servlet-name> "가"
@@ -45,7 +50,7 @@ xml 정의와 schema 선언
    </servlet-mapping>
 실행순서.  라 -->다--->가--->나(패키지명.클래스 실행)
  
- 
+ ---
  
  <mime-mapping>
       <extension>txt</extension>
