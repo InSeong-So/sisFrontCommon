@@ -7,20 +7,6 @@
 
   <typeAlias alias="board" type="biz.domain.board.Board" />
 
-  <select id="getBoardList" resultClass="board">
-    <![CDATA[
-      SELECT SEQ_NO
-            ,TITLE
-            ,WRITER
-            ,CONTENT
-            ,WRITE_NO
-            ,REG_DATE
-            ,VIEW_CNT
-        FROM BR0010
-    ORDER BY SEQ_NO DESC
-    ]]>
-  </select>
-  
   <insert id="insertBoard" parameterClass="board">
     <![CDATA[
       INSERT INTO BR0010
@@ -45,4 +31,61 @@
     ]]>
   </insert>
 
+  <select id="getBoardList" resultClass="board">
+    <![CDATA[
+      SELECT SEQ_NO
+            ,TITLE
+            ,WRITER
+            ,CONTENT
+            ,WRITE_NO
+            ,REG_DATE
+            ,VIEW_CNT
+        FROM BR0010
+    ORDER BY SEQ_NO DESC
+    ]]>
+  </select>
+
+  <select id="getContent" parameterClass="int"
+    resultClass="board">
+    <![CDATA[
+      SELECT T1.TITLE
+        ,T1.CONTENT
+        ,T1.WRITER
+        ,T1.WRITE_NO
+        ,T1.REG_IP
+        ,T1.VIEW_CNT
+    FROM BR0010 T1
+   WHERE T1.WRITER = #WRITER#
+     AND T1.WRITE_NO = #WRITE_NO#
+    ]]>
+  </select>
+
+  <update id="updateBoard" parameterClass="board">
+    <![CDATA[
+      UPDATE BR0010
+         SET TITLE             = #TITLE#
+            ,CONTENT           = #CONTENT#
+            ,MOD_DATE          = SYSDATE
+       WHERE WRITER = #WRITER#
+         AND WRITE_NO = #WRITE_NO#
+    ]]>
+  </update>
+
+  <update id="setBoardViewCnt" parameterClass="board">
+    <![CDATA[
+      UPDATE BR0010
+         SET VIEW_CNT          = #VIEW_CNT#
+       WHERE WRITER = #WRITER#
+         AND WRITE_NO = #WRITE_NO#;
+    ]]>
+  </update>
+
+  <delete id="deleteBoard" parameterClass="board">
+    <![CDATA[
+      DELETE FROM BR0010
+            WHERE WRITER = #WRITER#
+              AND WRITE_NO = #WRITE_NO#
+    ]]>
+  </delete>
+  
 </sqlMap>

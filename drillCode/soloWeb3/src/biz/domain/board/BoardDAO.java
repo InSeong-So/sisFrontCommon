@@ -14,6 +14,12 @@ public class BoardDAO extends DBConnector
         return instance;
     }
     
+    public void insertBoard(Board board) throws SQLException
+    {
+        log.debug("excute : insertBoard");
+        getDb().insert("insertBoard", board);
+    }
+    
     @SuppressWarnings("unchecked")
     public ArrayList<Board> getBoardList(int page) throws SQLException
     {
@@ -26,14 +32,18 @@ public class BoardDAO extends DBConnector
         return (Board) getDb().queryForObject("getContent", board);
     }
     
-    public void insertBoard(Board board) throws SQLException
+    public void updateBoard(Board board) throws SQLException
     {
-        log.debug("excute : insertBoard");
-        getDb().insert("insertBoard", board);
+        getDb().update("updateBoard", board);
+    }
+    
+    public void setBoardViewCnt(Board board) throws SQLException
+    {
+        getDb().update("setBoardViewCnt", board);
     }
     
     public void deleteBoard(Board board) throws SQLException
     {
-        getDb().delete("insertBoard", board);
+        getDb().delete("deleteBoard", board);
     }
 }
