@@ -49,15 +49,18 @@ public class ActionController extends sisServlet
         if (uri.indexOf(request.getContextPath()) == 0)
             uri = uri.substring(request.getContextPath().length());
         
-        if (!uri.equals(prop.getProperty("/list.do")))
-            uri = prop.getProperty("/list.do");
+        String afterUri = prop.getProperty(uri);
+        
+        //        if (!uri.equals(prop.getProperty("/list.do")))
+        //            uri = prop.getProperty("/list.do");
+        
         try
         {
-            Class commandClass = Class.forName(uri);
+            Class commandClass = Class.forName(afterUri);
             Object commandInstance = commandClass.newInstance();
             
             ma = (MainAction) commandInstance;
-            uri = ma.sisAction(request, response);
+            afterUri = ma.sisAction(request, response);
         }
         catch (Throwable e)
         {
@@ -65,7 +68,7 @@ public class ActionController extends sisServlet
             throw new ServletException();
         }
         
-        RequestDispatcher dispatcher = request.getRequestDispatcher(uri);
+        RequestDispatcher dispatcher = request.getRequestDispatcher(afterUri);
         dispatcher.forward(request, response);
     }
 }

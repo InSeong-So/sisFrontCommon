@@ -18,8 +18,8 @@ public final class IBatisDBConnector
     {
         try
         {
-//            String path = ClassLoader.getSystemResource("").getPath() + "sql-config.xml";
-//            Reader reader = new FileReader(path.substring(1));
+            //            String path = ClassLoader.getSystemResource("").getPath() + "sql-config.xml";
+            //            Reader reader = new FileReader(path.substring(1));
             Reader reader = new FileReader("C:/EHR_PROJECT/soloWeb3/WebContent/WEB-INF/sql-config.xml");
             sqlMapClient = SqlMapClientBuilder.buildSqlMapClient(reader);
         }

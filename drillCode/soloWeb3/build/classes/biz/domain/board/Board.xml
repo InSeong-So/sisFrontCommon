@@ -63,28 +63,28 @@
   <update id="updateBoard" parameterClass="board">
     <![CDATA[
       UPDATE BR0010
-         SET TITLE             = #TITLE#
-            ,CONTENT           = #CONTENT#
+         SET TITLE             = #title#
+            ,CONTENT           = #content#
             ,MOD_DATE          = SYSDATE
-       WHERE WRITER = #WRITER#
-         AND WRITE_NO = #WRITE_NO#
+       WHERE WRITER = #writer#
+         AND WRITE_NO = #write_no#
     ]]>
   </update>
 
   <update id="setBoardViewCnt" parameterClass="board">
     <![CDATA[
       UPDATE BR0010
-         SET VIEW_CNT          = #VIEW_CNT#
-       WHERE WRITER = #WRITER#
-         AND WRITE_NO = #WRITE_NO#;
+         SET VIEW_CNT          = #view_cnt#
+       WHERE WRITER = #writer#
+         AND WRITE_NO = #write_no#;
     ]]>
   </update>
 
   <delete id="deleteBoard" parameterClass="board">
     <![CDATA[
       DELETE FROM BR0010
-            WHERE WRITER = #WRITER#
-              AND WRITE_NO = #WRITE_NO#
+            WHERE WRITER = #writer#
+              AND WRITE_NO = #write_no#
     ]]>
   </delete>
   
