@@ -5,6 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width" Initial-scale="1">
 <link type="text/css" rel="stylesheet" href="common/lib/css/bootstrap.min.css">
+<link type="text/css" rel="stylesheet" href="common/css/common.css">
 <title>Jsp 게시판</title>
 </head>
 <body>

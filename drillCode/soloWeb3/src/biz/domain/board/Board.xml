@@ -45,18 +45,18 @@
     ]]>
   </select>
 
-  <select id="getContent" parameterClass="int"
-    resultClass="board">
+  <select id="getContent" parameterClass="board" resultClass="board">
     <![CDATA[
-      SELECT T1.TITLE
-        ,T1.CONTENT
-        ,T1.WRITER
-        ,T1.WRITE_NO
-        ,T1.REG_IP
-        ,T1.VIEW_CNT
-    FROM BR0010 T1
-   WHERE T1.WRITER = #WRITER#
-     AND T1.WRITE_NO = #WRITE_NO#
+      SELECT T1.SEQ_NO
+            ,T1.TITLE
+            ,T1.WRITER
+            ,T1.CONTENT
+            ,T1.WRITE_NO
+            ,T1.REG_DATE
+            ,T1.VIEW_CNT
+        FROM BR0010 T1
+       WHERE T1.WRITER = #writer#
+         AND T1.WRITE_NO = #write_no#
     ]]>
   </select>
 

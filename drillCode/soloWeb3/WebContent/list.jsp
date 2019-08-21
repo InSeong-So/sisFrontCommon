@@ -8,7 +8,7 @@
 <%
     request.setCharacterEncoding("UTF-8");
 %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -35,7 +35,7 @@
         <c:forEach items="${boardList }" var="board">
           <tr>
             <td>${board.seq_no }</td>
-            <td><a href="content.jsp?WRITE_NO=${board.write_no}&WRITER=${board.writer}">${board.title }</a></td>
+            <td><a href="content.do?WRITE_NO=${board.write_no}&WRITER=${board.writer}">${board.title }</a></td>
             <td>${board.content }</td>
             <td>${board.writer }</td>
             <td>${board.reg_date }</td>

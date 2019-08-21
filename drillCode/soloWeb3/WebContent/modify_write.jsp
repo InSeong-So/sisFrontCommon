@@ -2,9 +2,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width" Initial-scale="1">
-    <title>Insert title here</title>
+  <link type="text/css" rel="stylesheet" href="common/lib/css/bootstrap.min.css">
+  <link type="text/css" rel="stylesheet" href="common/css/common.css">
+  <title>게시판</title>
 </head>
 <body>
   <h1>modify This</h1>

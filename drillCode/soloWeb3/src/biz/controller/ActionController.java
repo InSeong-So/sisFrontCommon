@@ -51,8 +51,7 @@ public class ActionController extends sisServlet
         
         String afterUri = prop.getProperty(uri);
         
-        //        if (!uri.equals(prop.getProperty("/list.do")))
-        //            uri = prop.getProperty("/list.do");
+        log.debug("mapping servlet uri : "+afterUri);
         
         try
         {

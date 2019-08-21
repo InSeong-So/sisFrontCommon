@@ -12,18 +12,16 @@ public class ContentService implements MainAction
     
     @Override
     public String sisAction(HttpServletRequest request, HttpServletResponse response) throws Throwable
-    {
+    { 
         String writer = request.getParameter("WRITER");
         int write_no = Integer.parseInt(request.getParameter("WRITE_NO"));
         
         Board board = new Board();
         
-        board.setWriter("writer");
+        board.setWriter(writer);
         board.setWrite_no(write_no);
         
-        BoardDAO.getInstance().getContent(board);
-        
-        request.setAttribute("board", board);
+        request.setAttribute("board", BoardDAO.getInstance().getContent(board));
         
         return "content.jsp";
     }

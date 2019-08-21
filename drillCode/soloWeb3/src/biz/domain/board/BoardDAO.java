@@ -16,7 +16,7 @@ public class BoardDAO extends DBConnector
     
     public void insertBoard(Board board) throws SQLException
     {
-        log.debug("excute : insertBoard");
+        log.debug(">>>>>>>>>>>>>>>>>> excute : insertBoard");
         getDb().insert("insertBoard", board);
     }
     
@@ -29,21 +29,25 @@ public class BoardDAO extends DBConnector
     
     public Board getContent(Board board) throws SQLException
     {
+        log.debug(">>>>>>>>>>>>>>>>>> excute : getContent");
         return (Board) getDb().queryForObject("getContent", board);
     }
     
     public void updateBoard(Board board) throws SQLException
     {
+        log.debug(">>>>>>>>>>>>>>>>>> excute : updateBoard");
         getDb().update("updateBoard", board);
     }
     
     public void setBoardViewCnt(Board board) throws SQLException
     {
+        log.debug(">>>>>>>>>>>>>>>>>> excute : setBoardViewCnt");
         getDb().update("setBoardViewCnt", board);
     }
     
     public void deleteBoard(Board board) throws SQLException
     {
+        log.debug(">>>>>>>>>>>>>>>>>> excute : deleteBoard");
         getDb().delete("deleteBoard", board);
     }
 }

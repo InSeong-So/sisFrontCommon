@@ -4,10 +4,24 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width" Initial-scale="1">
-<title>Insert title here</title>
+<link type="text/css" rel="stylesheet" href="common/lib/css/bootstrap.min.css">
+<link type="text/css" rel="stylesheet" href="common/css/common.css">
+<title>게시판</title>
 </head>
 <body>
   <form action="insert.do" method="post" onsubmit="return formCheck();">
+    <div class="input-group">
+      <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+      <input id="email" type="text" class="form-control" name="email" placeholder="Email">
+    </div>
+    <div class="input-group">
+      <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+      <input id="password" type="password" class="form-control" name="password" placeholder="Password">
+    </div>
+    <div class="input-group">
+      <span class="input-group-addon">Text</span>
+      <input id="msg" type="text" class="form-control" name="msg" placeholder="Additional Info">
+    </div>
     <span>제목</span><input type="text" name="title" /><br>
     <span>작성자</span><input type="text" name="writer" /><br>
     <span>내용</span><textarea rows="10" cols="20" name="content"></textarea><br>
