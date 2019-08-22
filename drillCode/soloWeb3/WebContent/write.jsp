@@ -9,24 +9,23 @@
 <title>게시판</title>
 </head>
 <body>
-  <form action="insert.do" method="post" onsubmit="return formCheck();">
-    <div class="input-group">
-      <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-      <input id="email" type="text" class="form-control" name="email" placeholder="Email">
-    </div>
-    <div class="input-group">
-      <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-      <input id="password" type="password" class="form-control" name="password" placeholder="Password">
-    </div>
-    <div class="input-group">
-      <span class="input-group-addon">Text</span>
-      <input id="msg" type="text" class="form-control" name="msg" placeholder="Additional Info">
-    </div>
-    <span>제목</span><input type="text" name="title" /><br>
-    <span>작성자</span><input type="text" name="writer" /><br>
-    <span>내용</span><textarea rows="10" cols="20" name="content"></textarea><br>
-    <input type="submit"/>
-  </form>
+  <div class="container">
+    <form action="insert.do" method="post" onsubmit="return formCheck();">
+      <div class="form-group">
+        <label for="title">제목</label>
+        <input type="text" class="form-control" id="title" name="title">
+      </div>
+      <div class="form-group">
+        <label for="writer">작성자</label>
+        <input type="text" class="form-control" id="writer" name="writer">
+      </div>
+      <div class="form-group">
+        <label for="content">내용</label>
+        <textarea class="form-control" rows="5" id="content" name="content"></textarea>
+      </div>
+      <input type="submit"/>
+    </form>
+  </div>
 </body>
 <script type="text/javascript">
 function formCheck()

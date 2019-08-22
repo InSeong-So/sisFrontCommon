@@ -25,7 +25,7 @@ public class ModifyService implements MainAction
         board.setWrite_no(write_no);
         board.setContent(content);
         
-        BoardDAO.getInstance().getContent(board);
+        BoardDAO.getInstance().updateBoard(board);
         
         return "content.do?WRITE_NO=" + write_no + "&WRITER=" + writer;
     }

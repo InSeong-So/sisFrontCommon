@@ -65,7 +65,6 @@
       UPDATE BR0010
          SET TITLE             = #title#
             ,CONTENT           = #content#
-            ,MOD_DATE          = SYSDATE
        WHERE WRITER = #writer#
          AND WRITE_NO = #write_no#
     ]]>
