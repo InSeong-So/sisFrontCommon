@@ -24,6 +24,7 @@ public class InsertService extends DBConnector implements MainAction
         board.setTitle(title);
         board.setContent(content);
         board.setWriter(writer);
+        board.setReg_ip(reg_ip);
 
         BoardDAO.getInstance().insertBoard(board);
         

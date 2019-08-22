@@ -14,6 +14,10 @@ public class Board
     
     private String reg_date;
     
+    private String mod_date;
+    
+    private String reg_ip;
+    
     private int view_cnt;
     
     public int getSeq_no()
@@ -74,6 +78,26 @@ public class Board
     public void setReg_date(String reg_date)
     {
         this.reg_date = reg_date;
+    }
+    
+    public String getMod_date()
+    {
+        return mod_date;
+    }
+    
+    public void setMod_date(String mod_date)
+    {
+        this.mod_date = mod_date;
+    }
+    
+    public String getReg_ip()
+    {
+        return reg_ip;
+    }
+    
+    public void setReg_ip(String reg_ip)
+    {
+        this.reg_ip = reg_ip;
     }
     
     public int getView_cnt()

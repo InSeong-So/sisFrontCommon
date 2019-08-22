@@ -3,9 +3,6 @@
 <%@ page import="java.sql.*"%>
 <%@page import="biz.domain.board.Board"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%
-    request.setCharacterEncoding("UTF-8");
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,16 +18,18 @@
     <table class="table table-striped table-condensed">
       <thead>
         <tr>
-          <th class="col-md-3">게시글 번호</th>
-          <th class="col-md-3">작성자</th>
+          <th class="col-md-2">게시글 번호</th>
+          <th class="col-md-2">작성자</th>
+          <th class="col-md-3">작성자 IP</th>
           <th class="col-md-3">작성일</th>
-          <th class="col-md-3">조회수</th>
+          <th class="col-md-2">조회수</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td>${board.seq_no}</td>
           <td>${board.writer}</td>
+          <td>${board.reg_ip }</td>
           <td>${board.reg_date }</td>
           <td>${board.view_cnt }</td>
         </tr>

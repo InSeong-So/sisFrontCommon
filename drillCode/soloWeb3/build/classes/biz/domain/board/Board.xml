@@ -16,7 +16,9 @@
                  ,CONTENT
                  ,WRITER
                  ,WRITE_NO
+                 ,REG_IP
                  ,REG_DATE
+                 ,MOD_DATE
                  ,VIEW_CNT
               )
        VALUES ((SELECT NVL(MAX(SEQ_NO + 1), 1) FROM BR0010)
@@ -26,6 +28,8 @@
               ,(SELECT NVL(MAX(WRITE_NO + 1), 1)
                   FROM BR0010
                  WHERE WRITER = #writer#)
+              ,#reg_ip#
+              ,SYSDATE
               ,SYSDATE
               ,0)
     ]]>
@@ -38,6 +42,7 @@
             ,WRITER
             ,CONTENT
             ,WRITE_NO
+            ,REG_IP
             ,REG_DATE
             ,VIEW_CNT
         FROM BR0010
@@ -52,7 +57,9 @@
             ,T1.WRITER
             ,T1.CONTENT
             ,T1.WRITE_NO
+            ,T1.REG_IP
             ,T1.REG_DATE
+            ,T1.MOD_DATE
             ,T1.VIEW_CNT
         FROM BR0010 T1
        WHERE T1.WRITER = #writer#
