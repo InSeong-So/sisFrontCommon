@@ -72,6 +72,7 @@
       UPDATE BR0010
          SET TITLE             = #title#
             ,CONTENT           = #content#
+            ,MOD_DATE          = SYSDATE
        WHERE WRITER = #writer#
          AND WRITE_NO = #write_no#
     ]]>
@@ -82,7 +83,7 @@
       UPDATE BR0010
          SET VIEW_CNT          = #view_cnt#
        WHERE WRITER = #writer#
-         AND WRITE_NO = #write_no#;
+         AND WRITE_NO = #write_no#
     ]]>
   </update>
 

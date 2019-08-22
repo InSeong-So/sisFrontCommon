@@ -32,7 +32,7 @@
         <c:forEach items="${boardList }" var="board">
           <tr>
             <td>${board.seq_no }</td>
-            <td><a href="content.do?WRITE_NO=${board.write_no}&WRITER=${board.writer}">${board.title }</a></td>
+            <td><a href="count.do?WRITE_NO=${board.write_no}&WRITER=${board.writer}">${board.title }</a></td>
             <td>${board.content }</td>
             <td>${board.writer }</td>
             <td>${board.reg_date }</td>

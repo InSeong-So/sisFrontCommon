@@ -8,9 +8,8 @@ import biz.domain.board.Board;
 import biz.domain.board.BoardDAO;
 import core.db.DBConnector;
 
-public class InsertService extends DBConnector implements MainAction
+public class InsertService implements MainAction
 {
-    
     @Override
     public String sisAction(HttpServletRequest request, HttpServletResponse response) throws Throwable
     {
@@ -18,6 +17,8 @@ public class InsertService extends DBConnector implements MainAction
         String writer = request.getParameter("writer");
         String content = request.getParameter("content");
         String reg_ip = request.getRemoteAddr();
+        
+        log.debug("Insert IP : " + reg_ip);
         
         Board board = new Board();
         
