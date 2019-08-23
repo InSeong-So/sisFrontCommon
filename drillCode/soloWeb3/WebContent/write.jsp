@@ -29,9 +29,9 @@
 <!--         <input type="file" id="ex_filename" class="upload-hidden"> -->
 <!--       </div> -->
       <div class="form-group filebox bs3-primary preview-image">
-        <input class="form-control upload-name" value="파일명" disabled="disabled" style="width: 200px;">
+        <input type="text" id="input_file_nm" name="input_file_nm" class="form-control upload-name" value="파일명" disabled="disabled" style="width: 200px;">
         <label for="input_file">업로드</label> 
-        <input type="file" id="input_file" class="form-control upload-hidden"> 
+        <input type="file" id="input_file" name="input_file" class="form-control upload-hidden"> 
       </div>
       <div class="form-group">
         <div class="col-2">

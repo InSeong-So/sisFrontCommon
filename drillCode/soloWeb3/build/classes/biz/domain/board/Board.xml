@@ -17,6 +17,7 @@
                  ,WRITER
                  ,WRITE_NO
                  ,REG_IP
+                 ,FILE_NM
                  ,REG_DATE
                  ,MOD_DATE
                  ,VIEW_CNT
@@ -29,6 +30,7 @@
                   FROM BR0010
                  WHERE WRITER = #writer#)
               ,#reg_ip#
+              ,#file_nm#
               ,SYSDATE
               ,SYSDATE
               ,0)
@@ -58,6 +60,7 @@
             ,T1.CONTENT
             ,T1.WRITE_NO
             ,T1.REG_IP
+            ,T1.FILE_NM
             ,T1.REG_DATE
             ,T1.MOD_DATE
             ,T1.VIEW_CNT
@@ -72,6 +75,7 @@
       UPDATE BR0010
          SET TITLE             = #title#
             ,CONTENT           = #content#
+            ,FILE_NM           = #file_nm#
             ,MOD_DATE          = SYSDATE
        WHERE WRITER = #writer#
          AND WRITE_NO = #write_no#

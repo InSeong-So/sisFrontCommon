@@ -44,9 +44,13 @@
         <label for="content">내용</label>
         <textarea class="form-control" rows="5" id="content" name="content" disabled>${board.content }</textarea>
       </div>
+      <div class="form-group">
+        <label for="input_file_nm">첨부파일</label>
+        <input type="text" class="form-control" id="input_file_nm" name="input_file_nm" value="${board.file_nm }" disabled/>
+      </div>
     </form>
     <a href="delete.do?WRITE_NO=${board.write_no}&WRITER=${board.writer}">게시글 삭제</a>
-    <a href="modify_write.jsp?WRITE_NO=${board.write_no}&WRITER=${board.writer}">게시글 수정</a>
+    <a href="modify_write.jsp?WRITE_NO=${board.write_no}&WRITER=${board.writer }&TITLE=${board.title }&CONTENT=${board.content }&FILE_NM=${board.file_nm }">게시글 수정</a>
     <a href="list.do">목록으로</a>
   </div>
 </body>

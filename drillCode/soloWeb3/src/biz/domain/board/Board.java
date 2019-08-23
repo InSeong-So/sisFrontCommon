@@ -18,6 +18,8 @@ public class Board
     
     private String reg_ip;
     
+    private String file_nm;
+    
     private int view_cnt;
     
     public int getSeq_no()
@@ -109,4 +111,15 @@ public class Board
     {
         this.view_cnt = view_cnt;
     }
+    
+    public String getFile_nm()
+    {
+        return file_nm;
+    }
+    
+    public void setFile_nm(String file_nm)
+    {
+        this.file_nm = file_nm;
+    }
+    
 }

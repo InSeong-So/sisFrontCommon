@@ -11,25 +11,45 @@
 <%
 String WRITE_NO = request.getParameter("WRITE_NO");
 String WRITER = request.getParameter("WRITER");
+String TITLE = request.getParameter("TITLE");
+String CONTENT = request.getParameter("CONTENT");
+String FILE_NM = request.getParameter("FILE_NM");
 %>
 <body>
   <div class="container">
     <h1>글 수정</h1>
-    <form action="modify.do?WRITE_NO=<%=WRITE_NO%>&WRITER=<%=WRITER %>" method="post" onsubmit="return formCheck();">
+    <form action="modify.do?WRITE_NO=<%=WRITE_NO%>&WRITER=<%=WRITER %>" enctype="multipart/form-data" method="post" onsubmit="return formCheck();">
+      <input type="hidden" name="write_no" value="<%=WRITE_NO %>"/>
       <div class="form-group">
-        <label for="title">제목</label> <input type="text" class="form-control" id="title" name="title">
+        <label for="title">제목</label>
+        <input type="text" class="form-control" id="title" name="title" value="<%=TITLE %>">
       </div>
       <div class="form-group">
-        <label for="writer">작성자</label> <input type="text" class="form-control" id="writer" name="writer" value="<%=WRITER %>" disabled>
+        <label for="writer">작성자</label>
+        <input type="text" class="form-control" id="writer" name="writer" value="<%=WRITER %>" disabled>
       </div>
       <div class="form-group">
         <label for="content">내용</label>
-        <textarea class="form-control" rows="5" id="content" name="content"></textarea>
+        <textarea class="form-control" rows="5" id="content" name="content"><%=CONTENT %></textarea>
       </div>
-      <input type="hidden" name="write_no" value="<%=WRITE_NO %>"/>
-      <input type="submit" />
+      <div class="form-group filebox bs3-primary preview-image">
+        <input type="text" id="input_file_nm" name="input_file_nm" class="form-control upload-name" value="<%=FILE_NM %>" disabled="disabled" style="width: 200px;">
+        <label for="input_file">업로드</label> 
+        <input type="file" id="input_file" name="input_file" class="form-control upload-hidden"> 
+      </div>
+      <div class="form-group">
+        <div class="col-2">
+          <button type="submit" class="btn btn-default">작성</button>
+        </div>
+      </div>
     </form>
   </div>
+  <!-- 애니매이션 담당 JQUERY -->
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <!-- bootstrap.min.js  -->
+  <script src="common/lib/js/bootstrap.min.js"></script>
+  <!-- common.js  -->
+  <script src="common/js/common.js"></script>
 </body>
 <script type="text/javascript">
   function formCheck()
