@@ -10,7 +10,7 @@
 </head>
 <body>
   <div class="container">
-    <form action="insert.do" method="post" onsubmit="return formCheck();">
+    <form action="insert.do" method="post" enctype="multipart/form-data" onsubmit="return formCheck();">
       <div class="form-group">
         <label for="title">제목</label>
         <input type="text" class="form-control" id="title" name="title">
@@ -23,9 +23,29 @@
         <label for="content">내용</label>
         <textarea class="form-control" rows="5" id="content" name="content"></textarea>
       </div>
-      <input type="submit"/>
+<!--       <div class="filebox form-group"> -->
+<!--         <input class="upload-name" value="파일선택" disabled="disabled"> -->
+<!--         <label for="ex_filename">업로드</label> -->
+<!--         <input type="file" id="ex_filename" class="upload-hidden"> -->
+<!--       </div> -->
+      <div class="form-group filebox bs3-primary preview-image">
+        <input class="form-control upload-name" value="파일명" disabled="disabled" style="width: 200px;">
+        <label for="input_file">업로드</label> 
+        <input type="file" id="input_file" class="form-control upload-hidden"> 
+      </div>
+      <div class="form-group">
+        <div class="col-2">
+          <button type="submit" class="btn btn-default">작성</button>
+        </div>
+      </div>
     </form>
   </div>
+  <!-- 애니매이션 담당 JQUERY -->
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <!-- bootstrap.min.js  -->
+  <script src="common/lib/js/bootstrap.min.js"></script>
+  <!-- common.js  -->
+  <script src="common/js/common.js"></script>
 </body>
 <script type="text/javascript">
 function formCheck()
@@ -48,6 +68,5 @@ function formCheck()
     return false;
   }
 }
-
 </script>
 </html>
