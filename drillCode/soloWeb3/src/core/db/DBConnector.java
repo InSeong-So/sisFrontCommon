@@ -12,14 +12,14 @@ public class DBConnector
     
     public void setDb()
     {
-        log.debug("DBConnector setDb : 시작");
+//        log.debug("DBConnector setDb : 시작");
         myDb = IBatisDBConnector.getSqlMapInstance();
-        log.debug("DBConnector setDb : 종료");
+//        log.debug("DBConnector setDb : 종료");
     }
     
     protected SqlMapClient getDb()
     {
-        log.debug("DBConnector getDb : DB 정보 반환");
+//        log.debug("DBConnector getDb : DB 정보 반환");
         return myDb;
     }
 }

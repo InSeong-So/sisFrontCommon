@@ -51,7 +51,7 @@ public class ActionController extends sisServlet
         
         String afterUri = prop.getProperty(uri);
         
-        log.debug("mapping servlet uri : "+afterUri);
+        log.debug("Mapping Servlet URI : " + afterUri);
         
         try
         {
@@ -63,7 +63,7 @@ public class ActionController extends sisServlet
         }
         catch (Throwable e)
         {
-            log.debug("AcitonController Exception : " + e);
+            log.debug("AcitonController Exception : " + e + ", [ request.getRequestURI()" + request.getRequestURI() + " ]");
             throw new ServletException();
         }
         

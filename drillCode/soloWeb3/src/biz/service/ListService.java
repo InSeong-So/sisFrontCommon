@@ -19,7 +19,7 @@ public class ListService implements MainAction
         if(request.getParameter("page") != null)
             page = Integer.parseInt(request.getParameter("page"));
         
-        log.debug("page : " + page);
+//        log.debug("page : " + page);
         
         ArrayList<Board> boardList = BoardDAO.getInstance().getBoardList(page);
         

@@ -20,7 +20,7 @@ public abstract class sisServlet extends HttpServlet
     
     public void init()
     {
-        log.debug(String.valueOf(getClass().getName()) + ".init() Start ============================================");
+//        log.debug(String.valueOf(getClass().getName()) + ".init() Start ============================================");
         String prefix = getServletContext().getRealPath("/").replaceAll("\\\\", "/");
         char tmp = prefix.charAt(prefix.length() - 1);
         if (tmp != '/' && tmp != '\\')
@@ -46,7 +46,7 @@ public abstract class sisServlet extends HttpServlet
         
         CommonProperties prop = CommonProperties.getInstance();
         
-        log.debug(String.valueOf(getClass().getName()) + ".init() End ==============================================");
+//        log.debug(String.valueOf(getClass().getName()) + ".init() End ==============================================");
     }
     
     protected abstract void doGet(HttpServletRequest paramHttpServletRequest, HttpServletResponse paramHttpServletResponse) throws ServletException, IOException;
@@ -55,7 +55,7 @@ public abstract class sisServlet extends HttpServlet
     
     public void destroy()
     {
-        log.debug(String.valueOf(getClass().getName()) + ".destroy() Start ============================================");
-        log.debug(String.valueOf(getClass().getName()) + ".destroy() End ==============================================");
+//        log.debug(String.valueOf(getClass().getName()) + ".destroy() Start ============================================");
+//        log.debug(String.valueOf(getClass().getName()) + ".destroy() End ==============================================");
     }
 }

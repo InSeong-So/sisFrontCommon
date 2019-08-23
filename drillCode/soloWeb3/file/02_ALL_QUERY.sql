@@ -24,6 +24,7 @@ CREATE TABLE BR0010(SEQ_NO              NUMBER DEFAULT 0 NOT NULL
                    ,REG_DATE            TIMESTAMP WITH TIME ZONE
                    ,MOD_DATE            TIMESTAMP WITH TIME ZONE
                    ,VIEW_CNT            NUMBER DEFAULT 0
+                   ,DEL_YN              VARCHAR2(2 BYTE) DEFAULT 'N' NOT NULL
                    ,CONSTRAINT PK_BR0010 PRIMARY KEY(WRITER, WRITE_NO));
 
 -- DROP TABLE
@@ -41,14 +42,17 @@ INSERT INTO BR0010
                ,TITLE
                ,CONTENT
                ,WRITER
+               ,FILE_NM
                ,REG_DATE
-               ,VIEW_CNT
+               ,MOD_DATE
             )
      VALUES ((SELECT NVL(MAX(SEQ_NO + 1), 1)
                 FROM BR0010
-               WHERE WRITER = 'ASDFASF1234')
-            ,'1234'
-            ,'31241ASDF'
-            ,'ASDFASF1234'
+               WHERE WRITER = 'ADMIN')
+            ,'ADMIN_TEST'
+            ,'ADMIN_TEST_CONTENTS'
+            ,'ADMIN'
+            ,'123456789.jpg'
             ,SYSDATE
-            ,0);
+            ,SYSDATE
+            );

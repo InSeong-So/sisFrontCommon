@@ -25,7 +25,7 @@ public final class IBatisDBConnector
         }
         catch (Exception e)
         {
-            log.debug("IbatisDBConnector has Exception!!");
+//            log.debug("IbatisDBConnector has Exception!!");
             e.printStackTrace();
         }
     }

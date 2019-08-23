@@ -20,7 +20,7 @@ public class InsertService implements MainAction
         int size = 100 * 1024 * 1024;
         
         String savePath = request.getRealPath("/upload");
-        log.debug("savePath : " + savePath);
+//        log.debug("savePath : " + savePath);
         
         try
         {
@@ -38,7 +38,7 @@ public class InsertService implements MainAction
         String content = mrequest.getParameter("content");
         String reg_ip = request.getRemoteAddr();
         
-        log.debug("Insert IP : " + reg_ip);
+//        log.debug("Insert IP : " + reg_ip);
         
         Board board = new Board();
         

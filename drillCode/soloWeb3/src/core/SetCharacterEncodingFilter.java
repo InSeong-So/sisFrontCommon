@@ -24,7 +24,7 @@ public class SetCharacterEncodingFilter implements Filter
     @Override
     public void init(FilterConfig filterConfig) throws ServletException
     {
-        log.debug("SetCharacterEncodingFilter >>>>>>>>>>>>>>>>>>>>>>>>> init");
+//        log.debug("SetCharacterEncodingFilter >>>>>>>>>>>>>>>>>>>>>>>>> init");
         //초기화
         //getInitParameter() : web.xml에 초기화해서 지정한 파라미터 값을 불러오는 메소드 
         this.filterConfig = filterConfig;
@@ -34,7 +34,7 @@ public class SetCharacterEncodingFilter implements Filter
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException
     {
-        log.debug("SetCharacterEncodingFilter >>>>>>>>>>>>>>>>>>>>>>>>> doFilter");
+//        log.debug("SetCharacterEncodingFilter >>>>>>>>>>>>>>>>>>>>>>>>> doFilter");
         
         if (request.getCharacterEncoding() == null)
         {
@@ -48,7 +48,7 @@ public class SetCharacterEncodingFilter implements Filter
     @Override
     public void destroy()
     {
-        log.debug("SetCharacterEncodingFilter >>>>>>>>>>>>>>>>>>>>>>>>> destroy");
+//        log.debug("SetCharacterEncodingFilter >>>>>>>>>>>>>>>>>>>>>>>>> destroy");
         
         this.encoding = null;
         this.filterConfig = null;

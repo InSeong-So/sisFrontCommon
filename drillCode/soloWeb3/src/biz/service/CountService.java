@@ -25,9 +25,6 @@ public class CountService implements MainAction
         
         board = BoardDAO.getInstance().getContent(board);
         
-        log.debug("Regist IP : " + board.getReg_ip());
-        log.debug("Now IP : " + reg_ip);
-        
         if (TEST_ENV == 1)
         {
             log.debug("TEST Enviroment. Local IP Checked.");

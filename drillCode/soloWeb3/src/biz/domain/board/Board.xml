@@ -98,5 +98,14 @@
               AND WRITE_NO = #write_no#
     ]]>
   </delete>
+
+  <update id="deleteBoard2" parameterClass="board">
+    <![CDATA[
+      UPDATE BR0010
+         SET DEL_YN          = 'Y'
+       WHERE WRITER = #writer#
+         AND WRITE_NO = #write_no#
+    ]]>
+  </update>
   
 </sqlMap>
