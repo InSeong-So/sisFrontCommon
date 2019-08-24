@@ -11,6 +11,8 @@ import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 
+import core.util.StringUtil;
+
 public class CommonProperties extends Properties
 {
     static Logger log = Logger.getRootLogger();
@@ -128,7 +130,7 @@ public class CommonProperties extends Properties
             String val2 = getProperty(key2);
             if (val2 != null && pattern.matcher(val2).find())
                 val2 = remake(key2);
-            matcher.appendReplacement(sb, Util.nvl(val2));
+            matcher.appendReplacement(sb, StringUtil.nvl(val2));
         }
         matcher.appendTail(sb);
         String changedVal = sb.toString().trim();
