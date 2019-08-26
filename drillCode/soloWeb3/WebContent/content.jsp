@@ -6,11 +6,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <meta name="viewport" content="width=device-width" Initial-scale="1">
-  <link type="text/css" rel="stylesheet" href="common/lib/css/bootstrap.min.css">
-  <link type="text/css" rel="stylesheet" href="common/css/common.css">
-  <title>게시판</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width" Initial-scale="1">
+<link type="text/css" rel="stylesheet" href="common/lib/css/bootstrap.min.css">
+<link type="text/css" rel="stylesheet" href="common/css/common.css">
+<title>게시판</title>
 </head>
 <body>
   <div class="container">
@@ -37,8 +37,7 @@
     </table>
     <form action="insert.do" method="post" onsubmit="return formCheck();">
       <div class="form-group">
-        <label for="title">제목</label>
-        <input type="text" class="form-control" id="title" name="title" value="${board.title }" disabled/>
+        <label for="title">제목</label> <input type="text" class="form-control" id="title" name="title" value="${board.title }" disabled />
       </div>
       <div class="form-group">
         <label for="content">내용</label>
@@ -46,12 +45,19 @@
       </div>
       <div class="form-group">
         <label for="input_file_nm">첨부파일</label>
-        <input type="text" class="form-control" id="input_file_nm" name="input_file_nm" value="${board.file_nm }" disabled/>
+        <input type="text" class="form-control" id="input_file_nm" name="input_file_nm" value="${board.file_nm }" disabled />
+        <input type="button" class="btn btn-info" value="다운로드" onclick="onDownload('${board.write_no}', '${board.writer}')"/>
       </div>
     </form>
-    <a href="delete.do?WRITE_NO=${board.write_no}&WRITER=${board.writer}">게시글 삭제</a>
-    <a href="modify_write.jsp?WRITE_NO=${board.write_no}&WRITER=${board.writer }&TITLE=${board.title }&CONTENT=${board.content }&FILE_NM=${board.file_nm }">게시글 수정</a>
-    <a href="list.do">목록으로</a>
+    <iframe id="iframe01" style ="position:absolute;z-index:1;visibility:hidden;"></iframe>
+    <a href="delete.do?WRITE_NO=${board.write_no}&WRITER=${board.writer}">게시글 삭제</a> <a href="modify_write.jsp?WRITE_NO=${board.write_no}&WRITER=${board.writer }&TITLE=${board.title }&CONTENT=${board.content }&FILE_NM=${board.file_nm }">게시글 수정</a> <a href="list.do">목록으로</a>
   </div>
 </body>
+<script type="text/javascript">
+  function onDownload(write_no, writer)
+  {
+    var o = document.getElementById("iframe01");
+    o.src = "download.do?WRITE_NO=" + write_no + "&WRITER=" + writer;
+  }
+</script>
 </html>

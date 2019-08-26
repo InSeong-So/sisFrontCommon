@@ -22,6 +22,11 @@ public class InsertService implements MainAction
         String savePath = request.getRealPath("/upload");
 //        log.debug("savePath : " + savePath);
         
+        String rootPath = request.getSession().getServletContext().getRealPath("/");
+        String midPath = "upload/";
+        
+        log.debug("path >>>>>>>>>>>>>>>>>>>> " + rootPath + midPath);
+        
         try
         {
             mrequest = new MultipartRequest(request, savePath, size, "UTF-8", new DefaultFileRenamePolicy());

@@ -10,9 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import core.CommonProperties;
-import core.sisServlet;
+import core.SisServlet;
 
-public class ActionController extends sisServlet
+public class ActionController extends SisServlet
 {
     private static final long serialVersionUID = 1L;
     

@@ -50,3 +50,11 @@
     <!-- 내부 속성값 지정 -->
   </sqlMap>
   ```
+  
+<hr>
+<br>
+  
+## 파일업로드(MultipartRequest-cos.jar) 사용시
+- 로컬 파일업로드 테스트는 톰캣 서버 설정이 필요
+
+  ![톰캣설정_01](file/localFileuploadConfig.jpg)
