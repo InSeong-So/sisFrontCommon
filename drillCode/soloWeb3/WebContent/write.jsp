@@ -40,7 +40,7 @@
       </div>
     </form>
   </div>
-  <!-- 애니매이션 담당 JQUERY -->
+  <!-- Jquery -->
   <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
   <!-- bootstrap.min.js  -->
   <script src="common/lib/js/bootstrap.min.js"></script>

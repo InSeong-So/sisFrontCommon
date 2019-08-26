@@ -41,24 +41,31 @@
         </c:forEach>
       </tbody>
     </table>
-
-    <c:if test="${page > 0}">
-      <a href="list.do?page=${page - 10}">이전페이지</a>
-    </c:if>
-    <c:if test="${page == 0}">
-      <a href="#">이전페이지</a>
-    </c:if>
-
-    <fmt:parseNumber value="${page/10+1 }" type="number"  integerOnly="True" />현재페이지
-
-    <c:if test="${fn:length(boardList) < 10}">
-      <a href="#">다음페이지</a>
-    </c:if>
-    <c:if test="${fn:length(boardList) >= 10}">
-      <a href="list.do?page=${page + 10}">다음페이지</a>
-    </c:if>
-
+    <input type="hidden" name="page" id="page" value="${page}">
+    <a href="#" onclick="loadNextPage()">더보기</a>
     <a href="write.jsp">글쓰기</a>
   </div>
+  <!-- Jquery -->
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 </body>
+<script type="text/javascript">
+  function loadNextPage()
+  {
+    var page = $('#page').val();
+    page = parseInt(page);
+    page += 10;
+    $.ajax({
+      type : 'post',
+      url : 'ajaxList.do',
+      data : ({
+        page : page
+      }),
+      success : function(data)
+      {
+        $('tbody').append(data);
+        $('#page').val(page);
+      }
+    });
+  }
+</script>
 </html>
