@@ -1,0 +1,266 @@
+<?xml version='1.0' encoding='utf-8'?>
+<SQLResource version='1'>
+
+<query name='selectAuthTemp' note='권한 조회'><![CDATA[
+  SELECT C_CD
+      ,EMP_ID
+      ,ORG_ID
+  FROM TMP_AUTH  
+]]></query>
+
+<query name='selectMenuProfileId' note='사용자 메뉴 조회'><![CDATA[
+WITH AUTH
+     AS (  SELECT PROFILE_ID
+                 ,MAX(EMP_SCH_AUTH_CD) EMP_SCH_AUTH_CD
+             FROM (SELECT T1.PROFILE_ID
+                         ,(CASE T2.AUTH_APPLY_TYPE WHEN '10' THEN T1.EMP_SCH_AUTH_CD ELSE T2.EMP_SCH_AUTH_CD END)
+                              EMP_SCH_AUTH_CD
+                     FROM SY4310 T1
+                         ,SY4350 T2
+                    WHERE T1.C_CD = :C_CD
+                      AND T1.USE_YN = 'Y'
+                      AND T1.PROFILE_ID = :PAGE_PROFILE_ID
+                      AND T2.C_CD = T1.C_CD
+                      AND T2.PROFILE_ID = T1.PROFILE_ID
+                      AND TO_CHAR(SYSDATE, 'YYYYMMDD') BETWEEN T2.STA_YMD AND T2.END_YMD
+                      AND T2.MODULE_ID = :PAGE_MODULE_ID
+                      AND T2.USE_YN = 'Y'
+                      AND T2.MENU_ID = :PAGE_MENU_ID
+                   UNION
+                   SELECT T1.PROFILE_ID
+                         ,(CASE T2.AUTH_APPLY_TYPE WHEN '10' THEN T1.EMP_SCH_AUTH_CD ELSE T2.EMP_SCH_AUTH_CD END)
+                              EMP_SCH_AUTH_CD
+                     FROM SY4310 T1
+                         ,SY4351 T2
+                    WHERE T1.C_CD = :C_CD
+                      AND T1.USE_YN = 'Y'
+                      AND T1.PROFILE_ID = :PAGE_PROFILE_ID
+                      AND T2.C_CD = T1.C_CD
+                      AND T2.PROFILE_ID = T1.PROFILE_ID
+                      AND TO_CHAR(SYSDATE, 'YYYYMMDD') BETWEEN T2.STA_YMD AND T2.END_YMD
+                      AND T2.MODULE_ID = :PAGE_MODULE_ID
+                      AND T2.USE_YN = 'Y'
+                      AND T2.MENU_ID = :PAGE_MENU_ID
+                      AND T2.USER_ID = :PAGE_USER_ID
+                   UNION
+                   SELECT T1.PROFILE_ID
+                         ,(CASE T2.AUTH_APPLY_TYPE WHEN '10' THEN T1.EMP_SCH_AUTH_CD ELSE T2.EMP_SCH_AUTH_CD END)
+                              EMP_SCH_AUTH_CD
+                     FROM SY4310 T1
+                         ,SY4352 T2
+                    WHERE T1.C_CD = :C_CD
+                      AND T1.USE_YN = 'Y'
+                      AND T1.PROFILE_ID = :PAGE_PROFILE_ID
+                      AND T2.C_CD = T1.C_CD
+                      AND T2.PROFILE_ID = T1.PROFILE_ID
+                      AND TO_CHAR(SYSDATE, 'YYYYMMDD') BETWEEN T2.STA_YMD AND T2.END_YMD
+                      AND T2.MODULE_ID = :PAGE_MODULE_ID
+                      AND T2.USE_YN = 'Y'
+                      AND T2.MENU_ID = :PAGE_MENU_ID
+                      AND T2.USER_ID = :PAGE_USER_ID)
+         GROUP BY PROFILE_ID)
+    ,EXCE_AUTH
+     AS (SELECT T2.APPNT_ITEM_CD
+               ,ROW_NUMBER()
+                OVER
+                (
+                    PARTITION BY CASE
+                                     WHEN T2.APPNT_ITEM_CD = 'ORG_ID' AND T1.OP_CD = 'IN' THEN 'ORG_IN'
+                                     WHEN T2.APPNT_ITEM_CD = 'ORG_ID' AND T1.OP_CD = 'NOT IN' THEN 'ORG_NOT'
+                                     ELSE 'ETC'
+                                 END
+                    ORDER BY
+                        CASE
+                            WHEN T2.APPNT_ITEM_CD = 'ORG_ID' AND T1.OP_CD = 'IN' THEN 'ORG_IN'
+                            WHEN T2.APPNT_ITEM_CD = 'ORG_ID' AND T1.OP_CD = 'NOT IN' THEN 'ORG_NOT'
+                            ELSE 'ETC'
+                        END
+                )
+                    NUM
+               ,T1.OP_CD
+               ,T1.CD_TXT
+           FROM (SELECT C_CD
+                       ,USER_ID
+                       ,PROFILE_ID
+                       ,SQL_ITEM
+                       ,OP_CD
+                       ,CD_TXT
+                       ,'N' DUP_YN
+                   FROM SY4370 T1
+                  WHERE T1.C_CD = :C_CD AND T1.USER_ID = :PAGE_USER_ID AND (T1.OP_CD <> 'ALL' OR T1.SQL_ITEM = 'C_CD')
+                 UNION ALL
+                     --겸직조직추가
+                     SELECT C_CD
+                           ,USER_ID
+                           , :PAGE_PROFILE_ID PROFILE_ID
+                           ,'ORG_ID' SQL_ITEM
+                           ,'IN' OP_CD
+                           ,SUBSTR(MAX(SYS_CONNECT_BY_PATH(ORG_ID, ''',''')), 3) || '''' CD_TXT
+                           ,'Y' DUP_YN
+                       FROM (SELECT A.C_CD
+                                   ,A.ORG_ID
+                                   ,A.EMP_ID
+                                   ,B.USER_ID
+                                   ,ROW_NUMBER()
+                                        OVER
+                                        (
+                                            PARTITION BY A.EMP_ID
+                                            ORDER BY A.ORG_ID
+                                        )
+                                        RNUM
+                               FROM OM0020 A
+                                   ,SY4100 B
+                              WHERE A.C_CD = :C_CD
+                                AND TO_CHAR(SYSDATE, 'YYYYMMDD') BETWEEN A.STA_YMD AND A.END_YMD
+                                AND A.ROLE_CD = '01'
+                                AND B.C_CD = A.C_CD
+                                AND B.EMP_ID = A.EMP_ID
+                                AND B.USER_ID = :PAGE_USER_ID
+                                AND (SELECT EMP_SCH_AUTH_CD
+                                       FROM AUTH) <> '30')
+                 START WITH RNUM = 1
+                 CONNECT BY PRIOR RNUM = RNUM - 1 AND PRIOR EMP_ID = EMP_ID
+                   GROUP BY C_CD
+                           ,EMP_ID
+                           ,USER_ID) T1
+               ,SY6080 T2
+               ,(SELECT (CASE
+                             WHEN 'Y' IN (T2.EXCE_ORG_APPLY_YN
+                                         ,T2.BIZPL_AREA_YN
+                                         ,T2.PAS_AREA_YN
+                                         ,T2.PAY_AREA_YN
+                                         ,T2.ATTEND_AREA_YN) THEN
+                                 T2.BIZPL_AREA_YN
+                             ELSE
+                                 T1.APPL_AUTH_AREA_YN
+                         END)
+                            BIZPL_AREA_YN
+                       ,(CASE
+                             WHEN 'Y' IN (T2.EXCE_ORG_APPLY_YN
+                                         ,T2.BIZPL_AREA_YN
+                                         ,T2.PAS_AREA_YN
+                                         ,T2.PAY_AREA_YN
+                                         ,T2.ATTEND_AREA_YN) THEN
+                                 T2.PAS_AREA_YN
+                             ELSE
+                                 T1.PAS_AREA_YN
+                         END)
+                            PAS_AREA_YN
+                       ,(CASE
+                             WHEN 'Y' IN (T2.EXCE_ORG_APPLY_YN
+                                         ,T2.BIZPL_AREA_YN
+                                         ,T2.PAS_AREA_YN
+                                         ,T2.PAY_AREA_YN
+                                         ,T2.ATTEND_AREA_YN) THEN
+                                 T2.PAY_AREA_YN
+                             ELSE
+                                 T1.PAY_AREA_YN
+                         END)
+                            PAY_AREA_YN
+                       ,(CASE
+                             WHEN 'Y' IN (T2.EXCE_ORG_APPLY_YN
+                                         ,T2.BIZPL_AREA_YN
+                                         ,T2.PAS_AREA_YN
+                                         ,T2.PAY_AREA_YN
+                                         ,T2.ATTEND_AREA_YN) THEN
+                                 T2.ATTEND_AREA_YN
+                             ELSE
+                                 T1.ATTEND_AREA_YN
+                         END)
+                            ATTEND_AREA_YN
+                       ,(CASE
+                             WHEN 'Y' IN (T2.EXCE_ORG_APPLY_YN
+                                         ,T2.BIZPL_AREA_YN
+                                         ,T2.PAS_AREA_YN
+                                         ,T2.PAY_AREA_YN
+                                         ,T2.ATTEND_AREA_YN) THEN
+                                 T2.EXCE_ORG_APPLY_YN
+                             ELSE
+                                 T1.EXCE_ORG_APPLY_YN
+                         END)
+                            EXCE_ORG_APPLY_YN
+                       ,T2.EXCE_AUTH_IGNORE_YN
+                   FROM SY4330 T1
+                       ,SY4350 T2
+                  WHERE T1.C_CD = T2.C_CD
+                    AND T1.MODULE_ID = T2.MODULE_ID
+                    AND T2.C_CD = :C_CD
+                    AND T2.PROFILE_ID = :PAGE_PROFILE_ID
+                    AND T2.MODULE_ID = :PAGE_MODULE_ID
+                    AND T2.MENU_ID = :PAGE_MENU_ID) T3
+          WHERE T1.PROFILE_ID = :PAGE_PROFILE_ID
+            AND T2.C_CD = T1.C_CD
+            AND T2.SQL_ITEM = T1.SQL_ITEM
+            AND 1 = (CASE WHEN T3.EXCE_AUTH_IGNORE_YN = 'N' THEN 1 ELSE 0 END)
+            AND 1 = (CASE
+                         WHEN T3.BIZPL_AREA_YN = 'Y' AND T2.APPNT_ITEM_CD = 'PA1020.BIZPL_CD' THEN
+                             1
+                         WHEN T3.PAS_AREA_YN = 'Y' AND T2.APPNT_ITEM_CD = 'PA1020.PAS_AREA_CD' THEN
+                             1
+                         WHEN T3.PAY_AREA_YN = 'Y' AND T2.APPNT_ITEM_CD = 'PA1020.PAY_AREA_CD' THEN
+                             1
+                         WHEN T3.ATTEND_AREA_YN = 'Y' AND T2.APPNT_ITEM_CD = 'PA1020.ATTEND_AREA_CD' THEN
+                             1
+                         WHEN T1.DUP_YN = 'N' AND T3.EXCE_ORG_APPLY_YN = 'Y' AND T2.APPNT_ITEM_CD = 'ORG_ID' THEN
+                             1
+                         WHEN T1.DUP_YN = 'N'
+                          AND T2.APPNT_ITEM_CD IN ('PA1020.BIZPL_CD'
+                                                  ,'PA1020.PAS_AREA_CD'
+                                                  ,'PA1020.PAY_AREA_CD'
+                                                  ,'PA1020.ATTEND_AREA_CD'
+                                                  ,'ORG_ID') THEN
+                             0
+                         ELSE
+                             1
+                     END))
+SELECT T1.PROFILE_ID
+      ,T1.EMP_SCH_AUTH_CD
+      ,(    SELECT NVL(SUBSTR(REPLACE(MAX(SYS_CONNECT_BY_PATH(CD_TXT, '<$$>')), '<$$>', ','), 1), '''') ORG_IN
+              FROM (SELECT T1.NUM
+                          ,T1.OP_CD
+                          ,T1.CD_TXT
+                      FROM EXCE_AUTH T1
+                     WHERE T1.APPNT_ITEM_CD = 'ORG_ID' AND T1.OP_CD = 'IN')
+        START WITH NUM = 1
+        CONNECT BY PRIOR NUM = NUM - 1)
+           ORG_IN
+      ,(    SELECT NVL(SUBSTR(REPLACE(MAX(SYS_CONNECT_BY_PATH(CD_TXT, '<$$>')), '<$$>', ','), 2), '''') ORG_IN
+              FROM (SELECT T1.NUM
+                          ,T1.OP_CD
+                          ,T1.CD_TXT
+                      FROM EXCE_AUTH T1
+                     WHERE T1.APPNT_ITEM_CD = 'ORG_ID' AND T1.OP_CD = 'NOT IN')
+        START WITH NUM = 1
+        CONNECT BY PRIOR NUM = NUM - 1)
+           ORG_NOT
+      ,NVL((    SELECT SUBSTR(REPLACE(MAX(SYS_CONNECT_BY_PATH(CD_TXT, '<$$>')), '<$$>', ' '), 2) ORG_IN
+                  FROM (SELECT ROWNUM NUM
+                              ,' AND ' || T1.APPNT_ITEM_CD || ' ' || T1.OP_CD || ' (' || T1.CD_TXT || ')' CD_TXT
+                          FROM EXCE_AUTH T1
+                         WHERE T1.APPNT_ITEM_CD NOT IN ('ORG_ID'
+                                                       ,'PA1010.C_CD'))
+            START WITH NUM = 1
+            CONNECT BY PRIOR NUM = NUM - 1)
+          ,' ')
+           ETC
+      ,NVL((    SELECT SUBSTR(REPLACE(MAX(SYS_CONNECT_BY_PATH(CD_TXT, '<$$>')), '<$$>', ' '), 2) ORG_IN
+                  FROM (SELECT ROWNUM NUM
+                              ,CASE
+                                   WHEN T1.OP_CD = 'ALL' THEN 'ALL'
+                                   ELSE ' AND ' || T1.APPNT_ITEM_CD || ' ' || T1.OP_CD || ' (' || T1.CD_TXT || ')'
+                               END
+                                   AS CD_TXT
+                          FROM EXCE_AUTH T1
+                         WHERE T1.APPNT_ITEM_CD = 'PA1010.C_CD')
+            START WITH NUM = 1
+            CONNECT BY PRIOR NUM = NUM - 1)
+          ,' ')
+           AS ETC_C_CD
+      ,T2.CLOSE_ORG_SCH_YN
+  FROM AUTH T1
+      ,SY4310 T2
+ WHERE T1.PROFILE_ID = T2.PROFILE_ID AND T2.C_CD = :C_CD
+]]></query>
+
+
+</SQLResource>

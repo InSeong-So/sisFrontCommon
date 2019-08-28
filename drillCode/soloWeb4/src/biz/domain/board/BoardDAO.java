@@ -5,19 +5,12 @@ import java.util.ArrayList;
 
 import core.db.DBConnector;
 
-public class BoardDAO
+public class BoardDAO extends DBConnector
 {
-    public static BoardDAO getInstance()
-    {
-        BoardDAO instance = new BoardDAO();
-        instance.setDb();
-        return instance;
-    }
-    
     public void insertBoard(Board board) throws SQLException
     {
         log.debug("EXCUTE : insertBoard()");
-        getDb().insert("insertBoard", board);
+        getConnection.insert("insertBoard", board);
     }
     
     @SuppressWarnings("unchecked")
