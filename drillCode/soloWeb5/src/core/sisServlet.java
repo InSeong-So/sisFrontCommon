@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
-public abstract class sisServlet extends HttpServlet
+public abstract class SisServlet extends HttpServlet
 {
     // 직렬화 인터페이스
     private static final long serialVersionUID = 1L;

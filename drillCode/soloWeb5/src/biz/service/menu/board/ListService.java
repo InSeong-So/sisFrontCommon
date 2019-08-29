@@ -1,4 +1,4 @@
-package biz.service;
+package biz.service.menu.board;
 
 import java.util.ArrayList;
 
@@ -20,6 +20,6 @@ public class ListService implements MainAction
     {
         ArrayList<Board> boardList = BoardDAO.getBoardList();
         request.setAttribute("boardList", boardList);
-        return "list.jsp";
+        return "board/list.jsp";
     }
 }

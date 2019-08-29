@@ -1,3 +1,10 @@
+-- CREATE FILE_PATH TABLE
+CREATE TABLE SY0010(SEQ_NO              NUMBER NOT NULL
+                   ,CLASS_NAME          VARCHAR2(100 BYTE) NOT NULL
+                   ,CLASS_PATH          VARCHAR2(100 BYTE) NOT NULL
+                   ,CLASS_DESCRIPTION   VARCHAR2(400 BYTE)
+                   ,CONSTRAINT PK_SY0010 PRIMARY KEY(SEQ_NO, CLASS_NAME, CLASS_PATH))
+
 -- CREATE USER TABLE
 CREATE TABLE SY0000(SEQ_NO              NUMBER NOT NULL
                    ,USER_ID             VARCHAR2(20 BYTE)
@@ -18,9 +25,14 @@ CREATE TABLE BR0010(SEQ_NO              NUMBER DEFAULT 0 NOT NULL
                    ,TITLE               VARCHAR2(100 BYTE)
                    ,CONTENT             VARCHAR2(4000 BYTE)
                    ,WRITER              VARCHAR2(60 BYTE)
+                   ,WRITE_NO            NUMBER DEFAULT 0 NOT NULL
+                   ,REG_IP              VARCHAR2(30 BYTE) DEFAULT '127.0.0.1' NOT NULL
+                   ,FILE_NM             VARCHAR2(200 BYTE)
                    ,REG_DATE            TIMESTAMP WITH TIME ZONE
+                   ,MOD_DATE            TIMESTAMP WITH TIME ZONE
                    ,VIEW_CNT            NUMBER DEFAULT 0
-                   ,CONSTRAINT SEQ_NO_PK PRIMARY KEY(SEQ_NO, WRITER));
+                   ,DEL_YN              VARCHAR2(2 BYTE) DEFAULT 'N' NOT NULL
+                   ,CONSTRAINT PK_BR0010 PRIMARY KEY(WRITER, WRITE_NO));
 
 -- DROP TABLE
 DROP TABLE SY0000 PURGE;
@@ -37,14 +49,17 @@ INSERT INTO BR0010
                ,TITLE
                ,CONTENT
                ,WRITER
+               ,FILE_NM
                ,REG_DATE
-               ,VIEW_CNT
+               ,MOD_DATE
             )
      VALUES ((SELECT NVL(MAX(SEQ_NO + 1), 1)
                 FROM BR0010
-               WHERE WRITER = 'ASDFASF1234')
-            ,'1234'
-            ,'31241ASDF'
-            ,'ASDFASF1234'
+               WHERE WRITER = 'ADMIN')
+            ,'ADMIN_TEST'
+            ,'ADMIN_TEST_CONTENTS'
+            ,'ADMIN'
+            ,'123456789.jpg'
             ,SYSDATE
-            ,0);
+            ,SYSDATE
+            );

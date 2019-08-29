@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<SQLResource version='1'>
+
+<query name='search01'><![CDATA[
+SELECT * FROM BR0010 ORDER BY SEQ_NO DESC
+]]></query>
+
+</SQLResource>

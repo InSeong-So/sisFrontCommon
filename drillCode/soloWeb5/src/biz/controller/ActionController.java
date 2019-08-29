@@ -9,16 +9,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
-
 import core.CommonProperties;
-import core.sisServlet;
+import core.SisServlet;
 
-public class ActionController extends sisServlet
+public class ActionController extends SisServlet
 {
     private static final long serialVersionUID = 1L;
-    
-    private static Logger log = Logger.getRootLogger();
     
     private static List<String> urls;
     
@@ -53,11 +49,17 @@ public class ActionController extends sisServlet
         if (uri.indexOf(request.getContextPath()) == 0)
             uri = uri.substring(request.getContextPath().length());
         
+        log.debug("uri : " + uri);
+        
         if (!uri.equals(prop.getProperty("/list.do")))
             uri = prop.getProperty("/list.do");
+        
+        log.debug("uri : " + uri);
+        
         try
         {
             Class commandClass = Class.forName(uri);
+//            Method commandMethod = Method.
             Object commandInstance = commandClass.newInstance();
             
             ma = (MainAction) commandInstance;
@@ -72,4 +74,5 @@ public class ActionController extends sisServlet
         RequestDispatcher dispatcher = request.getRequestDispatcher(uri);
         dispatcher.forward(request, response);
     }
+    
 }
