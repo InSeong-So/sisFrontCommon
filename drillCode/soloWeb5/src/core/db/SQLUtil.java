@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 
-import core.CommonProperties;
+import core.util.CommonProperties;
 import core.util.StringUtil;
 
 public class SQLUtil
@@ -123,4 +123,17 @@ public class SQLUtil
         }
     }
     
+    public static SisResultSet getResultSetWithClose(ClearStatement cstmt) throws SQLException
+    {
+        try
+        {
+            SisResultSet srs = SisResultSet.make(cstmt.executeQuery());
+            return srs;
+        }
+        finally
+        {
+            
+            cstmt.close();
+        }
+    }
 }

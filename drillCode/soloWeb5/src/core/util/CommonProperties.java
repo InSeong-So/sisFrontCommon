@@ -1,4 +1,4 @@
-package core;
+package core.util;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -10,8 +10,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
-
-import core.util.StringUtil;
 
 public class CommonProperties extends Properties
 {
@@ -32,12 +30,10 @@ public class CommonProperties extends Properties
     public static CommonProperties getInstance()
     {
         if (fileCONF_FILE == null)
-        {
             setConfFilePath(System.getProperty("biz.CONF_FILE_PATH"));
-        }
         
         if (fileCONF_FILE == null)
-            throw new RuntimeException("Conf file is not set.");
+            throw new RuntimeException("Configure File is Not Set.");
         
         lastModified = fileCONF_FILE.lastModified();
         
@@ -154,4 +150,5 @@ public class CommonProperties extends Properties
     {
         defaultMap.put(key, val);
     }
+    
 }

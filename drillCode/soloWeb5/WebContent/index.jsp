@@ -19,7 +19,7 @@
     <div class="collapse navbar-collapse" id="#bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li><a href="main.jsp">메인</a></li>
-        <li><a href="list.do">게시판</a></li>
+        <li><a href="#" onclick="javascript:page_move('/board/list.do', '001');">게시판</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">접속하기<span class="caret"></span></a>
@@ -54,5 +54,34 @@
   <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
   <!-- 부트스트랩 JS  -->
   <script src="common/lib/js/bootstrap.min.js"></script>
+  <script type="text/javascript">
+  function page_move(url, some_data)
+  {
+    var form = document.createElement("form");
+    var param = new Array();
+    var input = new Array();
+
+    var cnt = 0;
+    
+    form.action = url;
+    form.method = "post";
+
+    param.push( ['some_key1', 'some_value1'] );
+    param.push( ['some_key2', 'some_value2'] );
+    param.push( ['some_data', some_data] );
+
+    for (var i = 0; i < param.length; i++) {
+        input[i] = document.createElement("input");
+        input[i].setAttribute("type", "hidden");
+        input[i].setAttribute("name", param[i][0]);
+        input[i].setAttribute("value", param[i][1]);
+        form.appendChild(input[i]);
+        cnt++;
+    }
+    document.body.appendChild(form);
+    
+    form.submit();
+  }
+  </script>
 </body>
 </html>

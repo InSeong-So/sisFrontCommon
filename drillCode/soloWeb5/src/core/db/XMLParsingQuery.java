@@ -14,7 +14,7 @@ import org.jdom.Element;
 import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
 
-import core.CommonProperties;
+import core.util.CommonProperties;
 import core.util.StringUtil;
 
 public class XMLParsingQuery

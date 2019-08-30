@@ -13,7 +13,7 @@ import javax.sql.DataSource;
 
 import org.apache.log4j.Logger;
 
-import core.CommonProperties;
+import core.util.CommonProperties;
 import core.util.StringUtil;
 
 public class DBConnector

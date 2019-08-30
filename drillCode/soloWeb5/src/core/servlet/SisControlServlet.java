@@ -1,29 +1,21 @@
-package biz.controller;
+package core.servlet;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import core.CommonProperties;
-import core.SisServlet;
+import biz.controller.MainAction;
+import core.util.CommonProperties;
 
-public class ActionController extends SisServlet
+public class SisControlServlet extends SisAheadServlet
 {
     private static final long serialVersionUID = 1L;
     
-    private static List<String> urls;
-    
-    private static List<MainAction> ctrls;
-    
-    public ActionController()
+    public SisControlServlet()
     {
-        urls = new ArrayList<String>();
-        ctrls = new ArrayList<MainAction>();
     }
     
     @Override
@@ -51,15 +43,13 @@ public class ActionController extends SisServlet
         
         log.debug("uri : " + uri);
         
-        if (!uri.equals(prop.getProperty("/list.do")))
-            uri = prop.getProperty("/list.do");
+        uri = getClassPath(uri);
         
         log.debug("uri : " + uri);
         
         try
         {
             Class commandClass = Class.forName(uri);
-//            Method commandMethod = Method.
             Object commandInstance = commandClass.newInstance();
             
             ma = (MainAction) commandInstance;
@@ -67,7 +57,7 @@ public class ActionController extends SisServlet
         }
         catch (Throwable e)
         {
-            log.debug("AcitonController Exception : " + e + ", [ request.getRequestURI() : " + request.getRequestURI() + " ]");
+            log.debug("SisControlServlet Exception : " + e + ", [ request.getRequestURI() : " + request.getRequestURI() + " ]");
             throw new ServletException();
         }
         

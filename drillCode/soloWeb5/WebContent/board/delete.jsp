@@ -2,7 +2,7 @@
 <%@ page import="java.sql.*"%>
 <%
     request.setCharacterEncoding("UTF-8");
-    String SEQ_NO = request.getParameter("SEQ_NO");
+    String WRITE_NO = request.getParameter("WRITE_NO");
     String WRITER = request.getParameter("WRITER");
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -23,7 +23,7 @@
         conn = DriverManager.getConnection(jdbcUrl, dbId, dbPass);
         out.println("제대로 연결되었습니다.");
         Statement stmt = conn.createStatement();
-        String query = "DELETE FROM BR0010 WHERE SEQ_NO=" + SEQ_NO + " AND WRITER='" + WRITER + "'";
+        String query = "DELETE FROM BR0010 WHERE WRITE_NO=" + WRITE_NO + " AND WRITER='" + WRITER + "'";
         out.print("<br>실행 쿼리 >>>>>> " + query);
         stmt.executeQuery(query);
         
@@ -31,7 +31,7 @@
 %>
 <script type="text/javascript">
 console.log("<%=query%>");
-console.log("<%=SEQ_NO%>");
+console.log("<%=WRITE_NO%>");
 console.log("<%=WRITER%>");
   alert("게시글이 삭제되었습니다.");
   location.href = "redirect.jsp";
