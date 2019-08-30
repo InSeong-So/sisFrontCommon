@@ -9,19 +9,15 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import biz.controller.MainAction;
-import biz.domain.board.Board;
-import core.db.ClearStatement;
+import core.db.IUDSQL;
 import core.db.SQLUtil;
+import core.util.StringUtil;
 
 public class Board_insert_01 implements MainAction
 {
     @Override
     public String sisAction(HttpServletRequest request, HttpServletResponse response) throws Throwable
     {
-        String query = xmlParsingQuery.getElement(this, "insert", null);
-        
-        log.debug("check : " + query);
-        
         MultipartRequest mrequest = null;
         
         int size = 100 * 1024 * 1024;
@@ -41,7 +37,7 @@ public class Board_insert_01 implements MainAction
             log.debug("mrequest Exception : " + e);
         }
         
-        String FILE_NM = mrequest.getFilesystemName("input_file");
+        String FILE_NM = StringUtil.nvl(mrequest.getFilesystemName("input_file"));
         String TITLE = mrequest.getParameter("title");
         String WRITER = mrequest.getParameter("writer");
         String CONTENT = mrequest.getParameter("content");
@@ -60,18 +56,20 @@ public class Board_insert_01 implements MainAction
             log.debug("Exception : " + e);
         }
         
-        ClearStatement cstmt = new ClearStatement(conn, query);
+        IUDSQL iud = new IUDSQL(conn, request);
         
-        cstmt.setParameter("FILE_NM", FILE_NM);
-        cstmt.setParameter("TITLE", TITLE);
-        cstmt.setParameter("WRITER", WRITER);
-        cstmt.setParameter("CONTENT", CONTENT);
-        cstmt.setParameter("REG_IP", REG_IP);
+        iud.setTable("BR0010");
+        iud.addKey("WRITER", WRITER);
+        iud.addKeyRaw("WRITE_NO", "(SELECT NVL(MAX(WRITE_NO + 1), 1) FROM BR0010 WHERE WRITER = :K0)");
+        iud.addFieldRaw("SEQ_NO", "(SELECT NVL(MAX(SEQ_NO + 1), 1) FROM BR0010)");
+        iud.addField("FILE_NM", FILE_NM);
+        iud.addField("TITLE", TITLE);
+        iud.addField("CONTENT", CONTENT);
+        iud.addField("REG_IP", REG_IP);
+        iud.addFieldRaw("REG_DATE", "CURRENT_TIMESTAMP");
+        iud.addFieldRaw("MOD_DATE", "CURRENT_TIMESTAMP");
         
-        log.debug(cstmt.getQueryString());
-        
-        cstmt.executeQuery();
-        cstmt.close();
+        iud.insert();
         
         return "/board/list.do";
     }

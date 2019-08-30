@@ -49,17 +49,18 @@ INSERT INTO BR0010
                ,TITLE
                ,CONTENT
                ,WRITER
+               ,WRITE_NO
                ,FILE_NM
                ,REG_DATE
                ,MOD_DATE
             )
-     VALUES ((SELECT NVL(MAX(SEQ_NO + 1), 1)
-                FROM BR0010
-               WHERE WRITER = 'ADMIN')
+     VALUES ((SELECT NVL(MAX(SEQ_NO + 1), 1) FROM BR0010)
             ,'ADMIN_TEST'
             ,'ADMIN_TEST_CONTENTS'
             ,'ADMIN'
+            ,(SELECT NVL(MAX(WRITE_NO + 1), 1)
+                FROM BR0010
+               WHERE WRITER = 'ADMIN')
             ,'123456789.jpg'
             ,SYSDATE
-            ,SYSDATE
-            );
+            ,SYSDATE);

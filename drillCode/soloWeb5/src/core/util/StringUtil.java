@@ -112,4 +112,16 @@ public class StringUtil
         }
         return retVal;
     }
+    
+    // 해당 문자열을 인자값만큼 반복하여 생성
+    public static String repeat(String str, int cnt)
+    {
+        StringBuffer sb = new StringBuffer();
+        for (int n = cnt; n > 0; n--)
+        {
+            sb.append(str);
+        }
+        return sb.toString();
+    }
+    
 }

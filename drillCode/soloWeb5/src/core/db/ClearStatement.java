@@ -161,12 +161,14 @@ public class ClearStatement
         String alterSessionYn = StringUtil.nvl(commProp.getProperty("ALTER_SESSION_USE_YN"), "Y");
         setParameters();
         
+        StringBuffer sb;
+        
         if (this.request == null)
         {
             if ("Y".equals(alterSessionYn))
             {
                 
-                StringBuffer sb = new StringBuffer();
+                sb = new StringBuffer();
                 sb.append("ALTER SESSION SET TIME_ZONE = ");
                 sb.append("'Asia/Seoul'");
                 String query = sb.toString();
@@ -196,19 +198,18 @@ public class ClearStatement
                 
                 if ("Y".equals(alterSessionYn))
                 {
-                    
-                    StringBuffer sb = new StringBuffer();
+                    sb = new StringBuffer();
                     sb.append("ALTER SESSION SET TIME_ZONE = ");
-                    sb.append("''");
+                    sb.append("'Asia/Seoul'");
                     String query = sb.toString();
                     
                     try
                     {
-                        ClearStatement vstmt = new ClearStatement(this.conn, query, this.request);
+                        ClearStatement cstmt = new ClearStatement(this.conn, query, this.request);
                         
-                        log.debug(vstmt.getQueryString());
+                        log.debug(cstmt.getQueryString());
                         
-                        vstmt.executeUpdate();
+                        cstmt.executeUpdate();
                     }
                     catch (Exception exception)
                     {
@@ -217,14 +218,7 @@ public class ClearStatement
             }
         }
         
-        int executeCount = this.stmt.executeUpdate();
-        
-        //        if (this.clearQuery.toUpperCase().trim().startsWith("{CALL"))
-        //        {
-        //            insertAccessLog();
-        //        }
-        
-        return executeCount;
+        return this.stmt.executeUpdate();
     }
     
     public ResultSet executeQuery() throws SQLException
@@ -266,16 +260,16 @@ public class ClearStatement
             
             StringBuffer sb = new StringBuffer();
             sb.append("ALTER SESSION SET TIME_ZONE = ");
-            sb.append("''");
+            sb.append("'Asia/Seoul'");
             String query = sb.toString();
             
             try
             {
-                ClearStatement vstmt = new ClearStatement(this.conn, query, this.request);
+                ClearStatement cstmt = new ClearStatement(this.conn, query, this.request);
                 
-                log.debug(vstmt.getQueryString());
+                log.debug(cstmt.getQueryString());
                 
-                vstmt.executeUpdate();
+                cstmt.executeUpdate();
             }
             catch (Exception exception)
             {

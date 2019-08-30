@@ -1,4 +1,4 @@
-<%@page import="core.util.StringUtil"%>
+<%@page import="core.util.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
@@ -14,7 +14,7 @@ String WRITE_NO = request.getParameter("WRITE_NO");
 String WRITER = request.getParameter("WRITER");
 String TITLE = request.getParameter("TITLE");
 String CONTENT = request.getParameter("CONTENT");
-String FILE_NM = StringUtil.nvl(getParameter("FILE_NM"), "파일명");
+String FILE_NM = StringUtil.nvl(request.getParameter("FILE_NM"), "파일명");
 %>
 <body>
   <div class="container">
