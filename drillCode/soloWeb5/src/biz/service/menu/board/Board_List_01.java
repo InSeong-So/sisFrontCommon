@@ -1,7 +1,6 @@
 package biz.service.menu.board;
 
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,9 +10,17 @@ import biz.controller.MainAction;
 import biz.domain.board.Board;
 import core.db.ClearStatement;
 import core.db.SQLUtil;
+import core.db.SisResultSet;
+import core.util.SisRequiredClass;
 
-public class Board_List_01 implements MainAction
+public class Board_List_01 extends SisRequiredClass implements MainAction
 {
+    
+    public Board_List_01(Connection conn, HttpServletRequest request, HttpServletResponse response)
+    {
+        super(conn, request, response);
+    }
+    
     @Override
     public String sisAction(HttpServletRequest request, HttpServletResponse response) throws Throwable
     {
@@ -21,48 +28,25 @@ public class Board_List_01 implements MainAction
         
         ArrayList<Board> boardList = new ArrayList<Board>();
         
-        Connection conn = null;
-        
-        try
-        {
-            conn = SQLUtil.getConnection(request, prop.getProperty("DEFAULT_JNDINAME"));
-        }
-        catch (Exception e)
-        {
-            log.debug("Exception : " + e);
-        }
-        
         ClearStatement cstmt = new ClearStatement(conn, query);
         
         log.debug(cstmt.getQueryString());
         
-        //        try
-        //        {
-        //            CallableStatement cs = SQLUtil.getConnection("GRSEHR").prepareCall(query);
-        ResultSet rs = cstmt.executeQuery();
+        SisResultSet srs = SQLUtil.getResultSetWithClose(cstmt);
         
-        while (rs.next())
+        while (srs.next())
         {
             Board board = new Board();
             
-            board.setSeq_no(rs.getInt("SEQ_NO"));
-            board.setTitle(rs.getString("TITLE"));
-            board.setContent(rs.getString("CONTENT"));
-            board.setWriter(rs.getString("WRITER"));
-            board.setReg_date(rs.getString("REG_DATE"));
-            board.setView_cnt(rs.getInt("VIEW_CNT"));
+            board.setSeq_no(srs.getInt("SEQ_NO"));
+            board.setTitle(srs.getString("TITLE"));
+            board.setContent(srs.getString("CONTENT"));
+            board.setWriter(srs.getString("WRITER"));
+            board.setReg_date(srs.getString("REG_DATE"));
+            board.setView_cnt(srs.getInt("VIEW_CNT"));
             boardList.add(board);
         }
-        //            
-        cstmt.close();
-        //        }
-        //        catch (Exception e)
-        //        {
-        //            log.debug("에러ㅠㅠ : " + e);
-        //            throw new SQLException();
-        //        }
         
-        //        request.setAttribute("boardList", SQLUtil.getResultSetWithClose(cstmt));
         request.setAttribute("boardList", boardList);
         return "list.jsp";
     }

@@ -1,13 +1,15 @@
 package core.servlet;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import biz.controller.MainAction;
+import core.db.SQLUtil;
 import core.util.CommonProperties;
 
 public class SisControlServlet extends SisAheadServlet
@@ -33,10 +35,10 @@ public class SisControlServlet extends SisAheadServlet
     protected void sisAction(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         CommonProperties prop = CommonProperties.getInstance();
+        MainAction ma = null;
+        Connection conn = null;
         
         String uri = request.getRequestURI();
-        
-        MainAction ma = null;
         
         if (uri.indexOf(request.getContextPath()) == 0)
             uri = uri.substring(request.getContextPath().length());
@@ -49,20 +51,49 @@ public class SisControlServlet extends SisAheadServlet
         
         try
         {
+            try
+            {
+                SQLUtil.setAutoCommit(conn, false);
+            }
+            catch (SQLException e)
+            {
+                log.debug("Exception : " + e);
+                throw new Exception("DB Connection has Fail!");
+            }
+            
             Class commandClass = Class.forName(uri);
             Object commandInstance = commandClass.newInstance();
             
             ma = (MainAction) commandInstance;
             uri = ma.sisAction(request, response);
+            
+            SQLUtil.commit(conn);
         }
         catch (Throwable e)
         {
             log.debug("SisControlServlet Exception : " + e + ", [ request.getRequestURI() : " + request.getRequestURI() + " ]");
-            throw new ServletException();
+            try
+            {
+                SQLUtil.rollback(conn);
+            }
+            catch (SQLException e1)
+            {
+                e1.printStackTrace();
+            }
         }
-        
-        RequestDispatcher dispatcher = request.getRequestDispatcher(uri);
-        dispatcher.forward(request, response);
+        finally
+        {
+            try
+            {
+                SQLUtil.releaseConnection(conn);
+            }
+            catch (SQLException e)
+            {
+                e.printStackTrace();
+            }
+            
+            request.getRequestDispatcher(uri).forward(request, response);
+        }
     }
     
 }

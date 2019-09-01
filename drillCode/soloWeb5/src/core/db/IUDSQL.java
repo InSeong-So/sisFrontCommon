@@ -327,7 +327,6 @@ public class IUDSQL
         Iterator it = map.keySet().iterator();
         while (it.hasNext())
         {
-            
             String pName = (String) it.next();
             String pValue = (String) map.get(pName);
             cstmt.setParameter(pName, pValue);

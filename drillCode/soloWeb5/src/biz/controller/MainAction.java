@@ -11,11 +11,7 @@ import core.util.CommonProperties;
 
 public interface MainAction
 {
-    Logger log = Logger.getRootLogger();
-    
     CommonProperties prop = CommonProperties.getInstance();
-    
-    XMLParsingQuery xmlParsingQuery = XMLParsingQuery.getInstance();
     
     public String sisAction(HttpServletRequest request, HttpServletResponse response) throws Throwable;
     
