@@ -24,6 +24,8 @@ public class Board_List_01 extends SisRequiredClass implements MainAction
     @Override
     public String sisAction(HttpServletRequest request, HttpServletResponse response) throws Throwable
     {
+        log.debug(":::::::::::::::::::::::::::::::::::::::::::: 진입");
+        
         String query = xmlParsingQuery.getElement(this, "search", null);
         
         ArrayList<Board> boardList = new ArrayList<Board>();
@@ -33,6 +35,8 @@ public class Board_List_01 extends SisRequiredClass implements MainAction
         log.debug(cstmt.getQueryString());
         
         SisResultSet srs = SQLUtil.getResultSetWithClose(cstmt);
+        
+        log.debug(":::::::::::::::::::::::::::::::::::::::::::: srs 선언 완료");
         
         while (srs.next())
         {

@@ -1,6 +1,7 @@
 package core.servlet;
 
 import java.io.IOException;
+import java.lang.reflect.Constructor;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import biz.controller.MainAction;
+import core.db.DBConnectionWrapper;
 import core.db.SQLUtil;
 import core.util.CommonProperties;
 
@@ -37,7 +39,7 @@ public class SisControlServlet extends SisAheadServlet
         CommonProperties prop = CommonProperties.getInstance();
         MainAction ma = null;
         Connection conn = null;
-        
+        Object commandInstance;
         String uri = request.getRequestURI();
         
         if (uri.indexOf(request.getContextPath()) == 0)
@@ -51,23 +53,28 @@ public class SisControlServlet extends SisAheadServlet
         
         try
         {
-            try
-            {
-                SQLUtil.setAutoCommit(conn, false);
-            }
-            catch (SQLException e)
-            {
-                log.debug("Exception : " + e);
-                throw new Exception("DB Connection has Fail!");
-            }
+            conn = SQLUtil.getConnection(request, request.getParameter("CONNECTION_KEY"));
+            
+            commandInstance = (DBConnectionWrapper) conn;
+            
+            SQLUtil.setAutoCommit(conn, false);
+        }
+        catch (SQLException e)
+        {
+            log.debug("Exception : DB Connection has Fail! [ " + e + " ]");
+        }
+        
+        try
+        {
+            SQLUtil.commit(conn);
             
             Class commandClass = Class.forName(uri);
-            Object commandInstance = commandClass.newInstance();
+            Class[] parameterTypes = { Connection.class, HttpServletRequest.class, HttpServletResponse.class };
+            Constructor constructor = commandClass.getConstructor(parameterTypes);
+            commandInstance = constructor.newInstance(new Object[] { conn, request, response });
             
             ma = (MainAction) commandInstance;
             uri = ma.sisAction(request, response);
-            
-            SQLUtil.commit(conn);
         }
         catch (Throwable e)
         {
