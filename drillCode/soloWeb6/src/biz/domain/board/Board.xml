@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap
+        PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap>
+
+  <typeAlias alias="board" type="biz.domain.board.Board" />
+
+  <insert id="insertBoard" parameterClass="board">
+    <![CDATA[
+      INSERT INTO BR0010
+              (
+                  SEQ_NO
+                 ,TITLE
+                 ,CONTENT
+                 ,WRITER
+                 ,WRITE_NO
+                 ,REG_IP
+                 ,FILE_NM
+                 ,REG_DATE
+                 ,MOD_DATE
+                 ,VIEW_CNT
+              )
+       VALUES ((SELECT NVL(MAX(SEQ_NO + 1), 1) FROM BR0010)
+              ,#title#
+              ,#content#
+              ,#writer#
+              ,(SELECT NVL(MAX(WRITE_NO + 1), 1)
+                  FROM BR0010
+                 WHERE WRITER = #writer#)
+              ,#reg_ip#
+              ,#file_nm#
+              ,SYSDATE
+              ,SYSDATE
+              ,0)
+    ]]>
+  </insert>
+
+  <select id="getBoardList" resultClass="board">
+    <![CDATA[
+      SELECT SEQ_NO
+            ,TITLE
+            ,WRITER
+            ,CONTENT
+            ,WRITE_NO
+            ,REG_IP
+            ,REG_DATE
+            ,VIEW_CNT
+        FROM BR0010
+    ORDER BY SEQ_NO DESC
+    ]]>
+  </select>
+
+  <select id="getContent" parameterClass="board" resultClass="board">
+    <![CDATA[
+      SELECT T1.SEQ_NO
+            ,T1.TITLE
+            ,T1.WRITER
+            ,T1.CONTENT
+            ,T1.WRITE_NO
+            ,T1.REG_IP
+            ,T1.FILE_NM
+            ,T1.REG_DATE
+            ,T1.MOD_DATE
+            ,T1.VIEW_CNT
+        FROM BR0010 T1
+       WHERE T1.WRITER = #writer#
+         AND T1.WRITE_NO = #write_no#
+    ]]>
+  </select>
+
+  <update id="updateBoard" parameterClass="board">
+    <![CDATA[
+      UPDATE BR0010
+         SET TITLE             = #title#
+            ,CONTENT           = #content#
+            ,FILE_NM           = #file_nm#
+            ,MOD_DATE          = SYSDATE
+       WHERE WRITER = #writer#
+         AND WRITE_NO = #write_no#
+    ]]>
+  </update>
+
+  <update id="setBoardViewCnt" parameterClass="board">
+    <![CDATA[
+      UPDATE BR0010
+         SET VIEW_CNT          = #view_cnt#
+       WHERE WRITER = #writer#
+         AND WRITE_NO = #write_no#
+    ]]>
+  </update>
+
+  <delete id="deleteBoard" parameterClass="board">
+    <![CDATA[
+      DELETE FROM BR0010
+            WHERE WRITER = #writer#
+              AND WRITE_NO = #write_no#
+    ]]>
+  </delete>
+
+  <update id="deleteBoard2" parameterClass="board">
+    <![CDATA[
+      UPDATE BR0010
+         SET DEL_YN          = 'Y'
+       WHERE WRITER = #writer#
+         AND WRITE_NO = #write_no#
+    ]]>
+  </update>
+  
+</sqlMap>
