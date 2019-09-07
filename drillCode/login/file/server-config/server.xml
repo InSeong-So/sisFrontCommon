@@ -18,9 +18,9 @@
       <Realm className="org.apache.catalina.realm.UserDatabaseRealm" resourceName="UserDatabase"/>
       <Host appBase="webapps" autoDeploy="true" name="localhost" unpackWARs="true" xmlNamespaceAware="false" xmlValidation="false">
 <!--         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="common" prefix="sis_access_log." resolveHosts="false" suffix=".txt"/> -->
-        <Context docBase="C:/EHR_PROJECT/soloWeb/WebContent" path="" privileged="true" reloadable="true">
-<!--         <Context docBase="ProjectBase/ProjectName/WebContent" path="" privileged="true" reloadable="true"> -->
-          <Resource auth="Container" connectionProperties="SetBigStringTryClob=true" driverClassName="oracle.jdbc.driver.OracleDriver" factory="org.apache.tomcat.dbcp.dbcp.BasicDataSourceFactory" maxActive="20" maxIdle="10" name="SISMATSER" password="SIS!MASTER" type="javax.sql.DataSource" url="jdbc:oracle:thin:@localhost:1522:SISMATSER" username="SISMATSER" validationQuery="SELECT 1 FROM DUAL"/>
+<!--         <Context docBase="C:/Users/SIS/Documents/privateCode/soloWeb/WebContent" path="" privileged="true" reloadable="true"> -->
+        <Context docBase="C:/EHR_PROJECT/login/WebContent" path="" privileged="true" reloadable="true">
+          <Resource auth="Container" connectionProperties="SetBigStringTryClob=true" driverClassName="oracle.jdbc.driver.OracleDriver" factory="org.apache.tomcat.dbcp.dbcp.BasicDataSourceFactory" maxActive="20" maxIdle="10" name="SISMASTER" password="SIS!MASTER" type="javax.sql.DataSource" url="jdbc:oracle:thin:@localhost:1521:orcl" username="SISMASTER" validationQuery="SELECT 1 FROM DUAL"/>
         </Context>
       </Host>
     </Engine>

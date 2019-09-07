@@ -52,7 +52,7 @@
     </div>
   </div>
   <!-- 애니매이션 담당 JQUERY -->
-  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <script src="common/lib/js/jquery-3.4.1.min.js"></script>
   <!-- 부트스트랩 JS  -->
   <script src="common/lib/js/bootstrap.min.js"></script>
 </body>
