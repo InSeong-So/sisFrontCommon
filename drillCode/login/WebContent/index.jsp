@@ -26,7 +26,7 @@
         <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">접속하기<span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li class="active"><a href="login.jsp">로그인</a></li>
-            <li><a href="join.jsp">회원가입</a></li>
+            <li><a href="main/resistration.jsp">회원가입</a></li>
           </ul></li>
       </ul>
     </div>
@@ -39,7 +39,7 @@
       <div class="jumbotron" style="padding-top: 20px;">
         <!-- 로그인 정보를 숨기면서 전송post -->
         <form method="post" action="loginAction.jsp">
-          <h3 style="text-align: center;">로그인화면</h3>
+          <h3 style="text-align: center;">로그인</h3>
           <div class="form-group">
             <input type="text" class="form-control" placeholder="아이디" name="userId" maxlength="20">
           </div>

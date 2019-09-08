@@ -72,12 +72,20 @@ public abstract class SisAheadServlet extends HttpServlet
     
     private void setClassPath()
     {
+        log.debug("setClassPath() Start ===============================================");
+        
+        // 유저
+        pathMap.put("/main/login.do", "biz.service.User_00_login");
+        pathMap.put("/main/resistration.do", "biz.service.User_01_resistration");
+        // 게시판
         pathMap.put("/board/list.do", "biz.service.menu.board.Board_List_01");
         pathMap.put("/board/insert.do", "biz.service.menu.board.Board_insert_01");
         pathMap.put("/board/content.do", "biz.service.menu.board.Board_content_01");
         pathMap.put("/board/count.do", "biz.service.menu.board.Board_count_01");
         pathMap.put("/board/delete.do", "biz.service.menu.board.Board_delete_01");
         pathMap.put("/board/modify.do", "biz.service.menu.board.Board_modify_01");
+        
+        log.debug("setClassPath() End ===============================================");
     }
     
     public String getClassPath(String key)

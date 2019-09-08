@@ -10,9 +10,11 @@ public class User
     
     private String userPassword;
     
-    private String phoneNumber;
+    private String userName;
     
-    private String email;
+    private String userPhoneNumber;
+    
+    private String userEmail;
     
     private String zipNo;
     
@@ -20,7 +22,7 @@ public class User
     
     private String dtlAddress;
     
-    private Timestamp birthday;
+    private String userBirthday;
     
     private Timestamp regDate;
     
@@ -56,24 +58,34 @@ public class User
         this.userPassword = userPassword;
     }
     
-    public String getPhoneNumber()
+    public String getUserName()
     {
-        return phoneNumber;
+        return userName;
     }
     
-    public void setPhoneNumber(String phoneNumber)
+    public void setUserName(String userName)
     {
-        this.phoneNumber = phoneNumber;
+        this.userName = userName;
     }
     
-    public String getEmail()
+    public String getUserPhoneNumber()
     {
-        return email;
+        return userPhoneNumber;
     }
     
-    public void setEmail(String email)
+    public void setUserPhoneNumber(String userPhoneNumber)
     {
-        this.email = email;
+        this.userPhoneNumber = userPhoneNumber;
+    }
+    
+    public String getUserEmail()
+    {
+        return userEmail;
+    }
+    
+    public void setUserEmail(String userEmail)
+    {
+        this.userEmail = userEmail;
     }
     
     public String getZipNo()
@@ -106,14 +118,14 @@ public class User
         this.dtlAddress = dtlAddress;
     }
     
-    public Timestamp getBirthday()
+    public String getUserBirthday()
     {
-        return birthday;
+        return userBirthday;
     }
     
-    public void setBirthday(Timestamp birthday)
+    public void setUserBirthday(String userBirthday)
     {
-        this.birthday = birthday;
+        this.userBirthday = userBirthday;
     }
     
     public Timestamp getRegDate()
@@ -134,6 +146,13 @@ public class User
     public void setLoginFailCount(int loginFailCount)
     {
         this.loginFailCount = loginFailCount;
+    }
+    
+    @Override
+    public String toString()
+    {
+        return "User [seqNo=" + seqNo + ", userId=" + userId + ", userPassword=" + userPassword + ", userName=" + userName + ", userPhoneNumber=" + userPhoneNumber + ", userEmail=" + userEmail + ", zipNo=" + zipNo + ", address=" + address + ", dtlAddress=" + dtlAddress + ", userBirthday="
+                + userBirthday + ", regDate=" + regDate + ", loginFailCount=" + loginFailCount + "]";
     }
     
 }
