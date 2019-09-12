@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SQLResource version='1'>
+
+<query name="login"><![CDATA[
+SELECT CASE WHEN MIN(SEQ_NO) IS NOT NULL THEN 1 ELSE 0 END LOGIN_CHECK
+  FROM UR0010 T1
+ WHERE USER_ID = :USER_ID
+   AND USER_PASSWORD = :USER_PASSWORD
+]]></query>
+</SQLResource>
