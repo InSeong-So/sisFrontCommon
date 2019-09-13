@@ -2,6 +2,7 @@ package core.servlet;
 
 import java.io.IOException;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -13,6 +14,7 @@ import biz.controller.MainAction;
 import core.db.DBConnectionWrapper;
 import core.db.SQLUtil;
 import core.util.CommonProperties;
+import core.util.DataForm;
 
 public class SisControlServlet extends SisAheadServlet
 {
@@ -37,9 +39,12 @@ public class SisControlServlet extends SisAheadServlet
     protected void sisAction(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         CommonProperties prop = CommonProperties.getInstance();
+        DataForm dataForm = new DataForm(request, response);
+        String METHOD_FLAG = dataForm.getValue("METHOD_FLAG");
         MainAction ma = null;
         Connection conn = null;
         Object commandInstance;
+        Object[] commandInstances = new Object[] { dataForm };
         String uri = request.getRequestURI();
         
         if (uri.indexOf(request.getContextPath()) == 0)
@@ -68,9 +73,11 @@ public class SisControlServlet extends SisAheadServlet
             
             Class commandClass = Class.forName(uri);
             Class[] parameterTypes = { Connection.class, HttpServletRequest.class, HttpServletResponse.class };
+            Class[] parameterTypes2 = new Class[] { DataForm.class };
             Constructor constructor = commandClass.getConstructor(parameterTypes);
             commandInstance = constructor.newInstance(new Object[] { conn, request, response });
-            
+            Method method = commandClass.getMethod(METHOD_FLAG, parameterTypes2);
+            method.invoke(commandInstance, commandInstances);
             ma = (MainAction) commandInstance;
             uri = ma.sisAction(request, response);
         }
