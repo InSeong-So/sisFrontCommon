@@ -63,6 +63,12 @@ network={
 
 <br>
 
+## shell에서 라즈베리 파이 설정 메뉴 실행
+- `sudo raspi-config`
+  - 비밀번호 변경 등 여러 설정을 진행할 수 있음
+
+<br>
+
 ## [Ref. Pi Guide: 라즈베리파이 이야기 한눈에 보기](https://geeksvoyage.com/pi-guide/)
 
 <br>
@@ -74,11 +80,6 @@ network={
 
 - 패키지 버전 정보 최신 업데이트(root 계정으로 실행)
   - `sudo apt-get update -y && apt-get upgrade -y`
-
-<br>
-
-## shell에서 라즈베리 파이 설정 메뉴 실행
-- `sudo raspi-config`
 
 <br>
 
@@ -222,7 +223,11 @@ network={
 - 라즈베리파이는 기본 이미지에 스크린 세이버가 설정되어 있음
   - 일정 시간(10분) 사용자의 입력이 없을 경우, 자동으로 화면이 꺼짐
 
-- `sudo apt install xscreensaver -y`
+- 스크린 세이버
+  - `sudo apt install xscreensaver -y`
+
+- 커널 cmdline
+  - `sudo vi /boot/cmdline.txt`
   - `consoleblank=0`을 행의 마지막에 추가
 
 <br>
@@ -255,3 +260,20 @@ network={
 # [PostgreSQL 설치](sisFrontCommon/server/DB/postgresql/README.md)
 
 <br>
+
+# 라즈베리 파이에 외장하드로 NAS 구성하기
+- NTFS 시스템 패키지 설치
+  - `sudo apt-get install ntfs-3g -y`
+
+- 외장하드 UUID 정보 확인
+  - sudo blkid
+
+- 마운트 디렉토리 생성
+  - mkdir /home/pi/hdd_storage
+
+- 외장하드 마운트
+  - sudo mount /dev/sda1 /home/pi/hdd_storage
+
+- 부팅 후에도 마운트 유지 설정
+  - sudo vim /etc/fstab
+  - UUID=[]
