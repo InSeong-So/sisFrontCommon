@@ -266,14 +266,18 @@ network={
   - `sudo apt-get install ntfs-3g -y`
 
 - 외장하드 UUID 정보 확인
-  - sudo blkid
+  - `sudo blkid`
 
 - 마운트 디렉토리 생성
-  - mkdir /home/pi/hdd_storage
+  - `mkdir /home/pi/hdd_storage`
 
 - 외장하드 마운트
-  - sudo mount /dev/sda1 /home/pi/hdd_storage
+  - `sudo mount /dev/sda1 /home/pi/hdd_storage`
 
 - 부팅 후에도 마운트 유지 설정
-  - sudo vim /etc/fstab
-  - UUID=[]
+  - `sudo vim /etc/fstab`
+  
+  - `UUID=[UUID]     [경로]      [PATH]      [OPTIONS]`
+
+- 외장하드 언마운트
+  - `sudo umount /home/pi/hdd_storage`
