@@ -144,25 +144,27 @@ network={
   - 일정 횟수의 로그인 실패 시 해당 IP를 iptables 명령으로 차단
   - 침입자가 brute-force 공격을 시도할 경우의 대비책임
 
-- `sudo apt install fail2ban -y`
+- 설치
+  - `sudo apt install fail2ban -y`
 
-- `sudo cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local`
+- 파일 설정 변경
+  - `sudo cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local`
+  - `sudo vi /etc/fail2ban/jail.local`
 
-- `sudo vi /etc/fail2ban/jail.local`
+  - jail.local 파일의 `[sshd]` 항목을 찾아 기재
+    - `port` : ssh 기본 포트가 기록되어 있으며 변경한 포트 번호로 교체
+    - `logpath` : %(sshd_log) 변수로 되어 있으며 이 변수가 지정하는 파일이 /var/log/auth.log이다. auth.log 파일을 모니터링하여 login fail 여부를 확인
+    - `maxretry` : 허용할 fail 횟수. 이를 초과하면 bantime만큼 차단
+    - `bantime` : 차단을 수행할 초 단위의 시간. -1은 영구적인 차단을 의미
 
-- jail.local 파일의 `[sshd]` 항목을 찾아 기재
-  - `port` : ssh 기본 포트가 기록되어 있으며 변경한 포트 번호로 교체
-  - `logpath` : %(sshd_log) 변수로 되어 있으며 이 변수가 지정하는 파일이 /var/log/auth.log이다. auth.log 파일을 모니터링하여 login fail 여부를 확인
-  - `maxretry` : 허용할 fail 횟수. 이를 초과하면 bantime만큼 차단
-  - `bantime` : 차단을 수행할 초 단위의 시간. -1은 영구적인 차단을 의미
+- 설정 적용을 위한 재시작
+  - `sudo service fail2ban restart`
 
-- `sudo service fail2ban restart`
+- 차단 현황 확인
+  - `sudo iptables -L`
 
-- `sudo iptables -L`
-
-- `sudo tail -10 /var/log/fail2ban.log` : 확인
-
-- `sudo iptables -L`
+- 접속 로그 확인
+  - `sudo tail -10 /var/log/fail2ban.log`
 
 <br>
 
@@ -185,33 +187,35 @@ network={
 <br>
 
 ## vim 설치
-- `sudo apt-get install vim -y`
+- vim 설치
+  - `sudo apt-get install vim -y`
 
-- `sudo vim /etc/vim/vimrc`
-    ```sh
-    set number              # line 표시를 해줍니다.
-    set ai                  # auto index
-    set si                  # smart index
-    set cindent             # c style index
-    set shiftwidth=4        # shift를 4칸으로 ( >, >>, <, << 등의 명령어)
-    set tabstop=4           # tab을 4칸으로
-    set ignorecase          # 검색시 대소문자 구별하지않음
-    set hlsearch            # 검색시 하이라이트(색상 강조)
-    set expandtab           # tab 대신 띄어쓰기로
-    set background=dark   # 검정배경을 사용할 때, (이 색상에 맞춰 문법 하이라이트 색상이 달라집니다.)
-    set nocompatible        # 방향키로 이동가능
-    set fileencodings=utf-8,euc-kr    # 파일인코딩 형식 지정
-    set bs=indent,eol,start    # backspace 키 사용 가능
-    set history=1000        # 히스토리를 1000개까지 출력
-    set ruler               # 상태표시줄에 커서의 위치 표시
-    set nobackup            # 백업파일을 만들지 않음
-    set title               # 제목을 표시
-    set showmatch           # 매칭되는 괄호를 보여줌
-    set nowrap              # 자동 줄바꿈 하지 않음
-    set wmnu                # tab 자동완성 가능한 목록을 출력
+- vim 사용자 서식 설정
+  - `sudo vim /etc/vim/vimrc`
+      ```sh
+      set number              # line 표시를 해줍니다.
+      set ai                  # auto index
+      set si                  # smart index
+      set cindent             # c style index
+      set shiftwidth=4        # shift를 4칸으로 ( >, >>, <, << 등의 명령어)
+      set tabstop=4           # tab을 4칸으로
+      set ignorecase          # 검색시 대소문자 구별하지않음
+      set hlsearch            # 검색시 하이라이트(색상 강조)
+      set expandtab           # tab 대신 띄어쓰기로
+      set background=dark   # 검정배경을 사용할 때, (이 색상에 맞춰 문법 하이라이트 색상이 달라집니다.)
+      set nocompatible        # 방향키로 이동가능
+      set fileencodings=utf-8,euc-kr    # 파일인코딩 형식 지정
+      set bs=indent,eol,start    # backspace 키 사용 가능
+      set history=1000        # 히스토리를 1000개까지 출력
+      set ruler               # 상태표시줄에 커서의 위치 표시
+      set nobackup            # 백업파일을 만들지 않음
+      set title               # 제목을 표시
+      set showmatch           # 매칭되는 괄호를 보여줌
+      set nowrap              # 자동 줄바꿈 하지 않음
+      set wmnu                # tab 자동완성 가능한 목록을 출력
 
-    syntax on               # 문법 하이라이트 킴
-    ```
+      syntax on               # 문법 하이라이트 킴
+      ```
 
 - [참고1](http://norus.tistory.com/13)
 
@@ -233,27 +237,44 @@ network={
 <br>
 
 ## IP 접속 주소(지역) 확인
-- `sudo apt install jwhois -y`
+- whois 설치
+  - `sudo apt install jwhois -y`
 
-- `whois [ip]`
+- IP 접속 지역 확인
+  - `whois [ip]`
 
 <br>
 
 ## IP 주소 확인
-- `curl bot.whatismyipaddress.com` : 공인 IP 확인
+- 공인 IP 확인
+  - `curl bot.whatismyipaddress.com`
 
-- `ifconfig` 또는 `ipconfig` : 내부 IP 확인
+- 내부 IP 확인
+  - `ifconfig` 또는 `ipconfig`
 
 <br>
 
 ## 방화벽 설치
-- `sudo apt install ufw -y`
+- 방화벽 설치
+  - `sudo apt install ufw -y`
 
-- `sudo ufw status` : 상태 확인
+- 방화벽 활성화
+  - `sudo ufw enable`
 
-- `sudo ufw enable` : 방화벽 활성화
+- 접근 허용 룰 설정
+  - `sudo ufw allow [port]`
 
-- `sudo ufw allow [port]` : 방화벽 포트 해제
+- 접근 거부 룰 설정
+  - `sudo ufw deny [port]`
+
+- 접근 거부 룰 삭제
+  - `sudo ufw delete deny [port]`
+
+- 방화벽 상태와 룰 확인
+  - `sudo ufw status`
+
+- 접속차단(벤) 된 IP 해제하기
+  - `sudo ufw allow [port]`
 
 <br>
 
@@ -281,3 +302,41 @@ network={
 
 - 외장하드 언마운트
   - `sudo umount /home/pi/hdd_storage`
+
+## 공유를 위한 계정 추가와 디렉토리 설정
+- FTP는 리눅스 계정과 연결되므로 리눅스 계정을 추가
+  - `sudo adduser [계정이름]`
+  - 비밀번호 설정
+
+- 리눅스 로그인 막기
+  - `sudo vim /etc/passwd`
+  - `계정명:x:번호:번호:,,,:/home/계정명:/usr/sbin/nologin`
+
+- bind 옵션을 이용하여 마운트된 디렉토리를 다른 디렉토리에 붙이기
+  - `sudo mount --bind /home/pi/hdd_storage/07_video/movie /home/sis_01/hdd_storage/movie`
+
+- 위의 방법으론 재부팅 시 해제되므로 부팅 시 자동 적용 변경(마지막 행에 추가)
+  - `/home/pi/hdd_storage/07_video/movie /home/sis_01/hdd_storage/movie/ none bind,defaults 0 1`
+
+<br>
+
+# 라즈베리 파이에 웹 서비스 호스팅하기
+- `sudo apt-get install openjdk-8-jdk -y`
+
+- `sudo apt-get install tomcat8 -y`
+
+- `sudo apt-get install maven`
+
+<br>
+
+# 라즈베리 파이 한글 설정
+- 라즈베리 파이 지역 설정
+  - `sudo raspi-config`
+
+-` Localisation Options` 선택
+  - `Change Locale`
+    - `en_GB(UTF-8)`, `en_US(UTF-8)`, `ko_KR(UTF-8)`, `ko_KR(EUC-KR)` 선택
+    - 기본은 `ko_KR(UTF-8)` 선택
+  - `Change Timezone`
+    - `Asia` 선택
+    - `Seoul` 선택
