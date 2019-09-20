@@ -161,10 +161,13 @@ network={
   - `sudo service fail2ban restart`
 
 - 차단 현황 확인
-  - `sudo iptables -L`
+  - `sudo iptables -L` 또는 `sudo fail2ban-client status`
 
-- 접속 로그 확인
+- 접속 ip 로그 확인
   - `sudo tail -10 /var/log/fail2ban.log`
+
+- 접속 차단된 ip 해제
+  - `sudo fail2ban-client set sshd unbanip [ip]`
 
 <br>
 
@@ -340,3 +343,56 @@ network={
   - `Change Timezone`
     - `Asia` 선택
     - `Seoul` 선택
+
+# 라즈베리 파이 subversion 설치
+- 패키지 설치
+  - `sudo apt-get install subversion apache2 libapache2-mod-svn -y`
+
+- svn 통합 저장소 디렉토리 생성
+  - `sudo mkdir /home/pi/svnRepository`
+  - `cd /home/pi/svnRepository`
+
+- 테스트
+  -  `sudo svn import -m 'CREATE_TEST' /home/pi/test/temp.txt http://101.235.204.93:19039/home/pi/svnRepository/temp01/`
+
+<br>
+
+# sudo 명령어로 root 권한을 얻지 못할 때
+- 경고문
+  - `userid is not in the sudoers file. This incident will be reported`
+  - `userid 은(는) sudoers 설정 파일에 없습니다.  이 시도를 보고합니다.`
+
+- sudoers 파일 사용
+  - default sudo security policy plugin
+  - `sudo visudo -f /etc/sudoers`
+
+- root    ALL=(ALL:ALL) ALL 이라는 부분이 root 유저가 sudo 명령어를 사용할 수 있도록 하는 부분
+    ```sh
+    #
+    # This file MUST be edited with the 'visudo' command as root.
+    #
+    # Please consider adding local content in /etc/sudoers.d/ instead of
+    # directly modifying this file.
+    #
+    # See the man page for details on how to write a sudoers file.
+    #
+    Defaults        env_reset
+    Defaults        mail_badpass
+    Defaults        secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+
+    # Host alias specification
+
+    # User alias specification
+
+    # Cmnd alias specification
+
+    # User privilege specification
+    root    ALL=(ALL:ALL) ALL
+    sis_01  ALL=(ALL:ALL) ALL
+    # Allow members of group sudo to execute any command
+    %sudo   ALL=(ALL:ALL) ALL
+
+    # See sudoers(5) for more information on "#include" directives:
+
+    #includedir /etc/sudoers.d
+    ```
