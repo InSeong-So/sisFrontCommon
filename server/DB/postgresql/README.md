@@ -84,6 +84,58 @@
 
 <br>
 
+## 테이블 스페이스 생성하기
+- 존재하는 테이블 스페이스 확인하기
+    ```sql
+    select * from pg_tablespace;
+    ```
+
+    ```sql
+    \db
+    \db+
+    ```
+
+- 테이블 스페이스 생성하기
+    ```sql
+    create tablespace ts_sismaster location '/home/pi/db/db_postgresql';
+    ```
+
+- 권한 에러 발생 시
+  - ERROR:  could not set permissions on directory "/home/pi/db/db_postgresql": Operation not permitted
+  - `sudo chown -R postgres:postgres /home/pi/db`
+
+- default 테이블 스페이스 설정
+    ```sql
+    alter role sismaster set  default_tablespace = ts_sismaster;
+    ```
+
+<br>
+
+## 데이터베이스 생성하기
+- 존재하는 데이터베이스 확인하기
+    ```sql
+    select * from pg_database;
+    ```
+
+    ```sql
+    \list
+    \l
+    \list+
+    \l+
+    ```
+
+- 생성한 테이블 스페이스에 데이터베이스 생성하기
+    ```sql
+    create database sismaster with tablespace = ts_sismaster;
+    ```
+
+- 생성한 데이터베이스의 소유자 부여하기
+    ```sql
+    alter database sismaster owner to sismaster;
+    ```
+
+<br>
+
 ## 데이터 디렉토리 변경하기
 - 디렉토리 확인
   - `su - postgres`
@@ -127,25 +179,12 @@
 
 <br>
 
-## 테이블 스페이스 생성하기
-- 존재하는 테이블 스페이스 확인하기
-    ```sql
-    select * from pg_tablespace;
-    ```
+## postgresql 삭제
+- 설치된 패키지 조회
+  - `sudo apt list --installed | grep postgre`
 
-- 테이블 스페이스 생성하기
-    ```sql
-    create tablespace ts_sismaster location '/home/pi/db/db_postgresql';
-    ```
+- 패키지 삭제
+  - `sudo apt-get remove postgresql postgresql-common postgresql-client-common postgresql-client-11 postgresql-11`
 
-- 권한 에러 발생 시
-  - ERROR:  could not set permissions on directory "/home/pi/db/db_postgresql": Operation not permitted
-  - `sudo chown -R postgres:postgres /home/pi/db`
-
-<br>
-
-## 데이터베이스 생성하기
-- 생성한 테이블 스페이스에 데이터베이스 생성하기
-    ```sql
-    create database sismaster with tablespace = ts_sismaster;
-    ```
+- 제거되었는지 확인
+  - `sudo apt list --installed | grep postgre`
