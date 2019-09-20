@@ -145,7 +145,7 @@ network={
   - 침입자가 brute-force 공격을 시도할 경우의 대비책임
 
 - 설치
-  - `sudo apt install fail2ban -y`
+  - `sudo apt-get install fail2ban -y`
 
 - 파일 설정 변경
   - `sudo cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local`
@@ -231,7 +231,7 @@ network={
   - 일정 시간(10분) 사용자의 입력이 없을 경우, 자동으로 화면이 꺼짐
 
 - 스크린 세이버
-  - `sudo apt install xscreensaver -y`
+  - `sudo apt-get install xscreensaver -y`
 
 - 커널 cmdline
   - `sudo vi /boot/cmdline.txt`
@@ -241,7 +241,7 @@ network={
 
 ## IP 접속 주소(지역) 확인
 - whois 설치
-  - `sudo apt install jwhois -y`
+  - `sudo apt-get install jwhois -y`
 
 - IP 접속 지역 확인
   - `whois [ip]`
@@ -259,7 +259,7 @@ network={
 
 ## 방화벽 설치
 - 방화벽 설치
-  - `sudo apt install ufw -y`
+  - `sudo apt-get install ufw -y`
 
 - 방화벽 활성화
   - `sudo ufw enable`
@@ -305,6 +305,12 @@ network={
 
 - 외장하드 언마운트
   - `sudo umount /home/pi/hdd_storage`
+
+## vsftpd로 ftp 서버 구축하기
+- vsftpd 설치하기
+  - `sudo apt-get install vsftpd -y`
+
+<br>
 
 ## 공유를 위한 계정 추가와 디렉토리 설정
 - FTP는 리눅스 계정과 연결되므로 리눅스 계정을 추가
