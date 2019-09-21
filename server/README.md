@@ -402,3 +402,11 @@ network={
 
     #includedir /etc/sudoers.d
     ```
+
+<br>
+
+# Oracle DB Client 연결
+- [Oracle InstantClient 설치](https://www.oracle.com/database/technologies/instant-client/downloads.html)
+  - 압축해제 및 설치(압축 해제경로: D:\OracleClient)
+    - C:\OracleClient 하위폴더로 network 폴더 생성
+    - C:\OracleClient\network 하위폴더로 admin 폴더생성
