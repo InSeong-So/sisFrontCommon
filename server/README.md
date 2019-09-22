@@ -406,7 +406,32 @@ network={
 <br>
 
 # Oracle DB Client 연결
-- [Oracle InstantClient 설치](https://www.oracle.com/database/technologies/instant-client/downloads.html)
-  - 압축해제 및 설치(압축 해제경로: D:\OracleClient)
-    - C:\OracleClient 하위폴더로 network 폴더 생성
-    - C:\OracleClient\network 하위폴더로 admin 폴더생성
+- 리눅스 버전 확인
+  - `uname -m`
+  - armv71 이면 32bit, 8 이상이면 64bit
+
+- [Oracle InstantClient 다운로드](https://www.oracle.com/database/technologies/instant-client/downloads.html)
+  - basic, sql*plus, jdbc development 다운로드
+
+- rpm 패키지 설치
+  - `sudo apt-get install rpm -y`
+
+- libaio 설치
+  - `sudo apt-get install libaio-dev -y`
+  - `sudo apt-get install alien libaio1 -y`
+
+- InstantClient 설치
+  - basic
+    - `sudo alien -ct oracle-instantclient19.3-basic-19.3.0.0.0-1.i386.rpm`
+    - `sudo alien -c oracle-instantclient19.3-basic-19.3.0.0.0.tgz`
+    - `sudo dpkg -i 3-basic_19.3.0.0.0-2_all.deb`
+
+  - sqlplus
+    - `sudo alien -ct oracle-instantclient19.3-sqlplus-19.3.0.0.0-1.i386.rpm`
+    - `sudo alien -c oracle-instantclient19.3-sqlplus-19.3.0.0.0.tgz`
+    - `sudo dpkg -i 3-sqlplus_19.3.0.0.0-2_all.deb`
+    
+  - jdb devleopment
+    - `sudo alien -ct oracle-instantclient19.3-jdbc-19.3.0.0.0-1.i386.rpm`
+    - `sudo alien -c oracle-instantclient19.3-jdbc-19.3.0.0.0.tgz`
+    - `sudo dpkg -i 3-jdbc_19.3.0.0.0-2_all.deb`
