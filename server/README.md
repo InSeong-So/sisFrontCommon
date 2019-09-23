@@ -330,6 +330,9 @@ network={
   - `sudo /etc/vsftpd.conf`
   - [vsftpd 옵션들](vsftpd/vsftpd.md)
 
+- 접속 중인 유저 확인
+  - `ps aux | grep vsftpd`
+
 <br>
 
 ## 공유를 위한 계정 추가와 디렉토리 설정
