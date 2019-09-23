@@ -195,6 +195,16 @@ network={
 
 <br>
 
+## 계정 추가 및 삭제
+- 사용자 계정 추가
+  - `sudo adduser [계정이름]`
+  - 비밀번호 설정
+
+- 사용자 계정 삭제
+  - `sudo deluser --remove-all-files [계정이름]`
+
+<br>
+
 ## vim 설치
 - vim 설치
   - `sudo apt-get install vim -y`
@@ -316,6 +326,10 @@ network={
 - vsftpd 설치하기
   - `sudo apt-get install vsftpd -y`
 
+- vsftpd 설정
+  - `sudo /etc/vsftpd.conf`
+  - [vsftpd 옵션들](vsftpd/vsftpd.md)
+
 <br>
 
 ## 공유를 위한 계정 추가와 디렉토리 설정
@@ -331,6 +345,7 @@ network={
   - `sudo mount --bind /home/pi/hdd_storage/07_video/movie /home/sis_01/hdd_storage/movie`
 
 - 위의 방법으론 재부팅 시 해제되므로 부팅 시 자동 적용 변경(마지막 행에 추가)
+  - `sudo vim /etc/fstab`
   - `/home/pi/hdd_storage/07_video/movie /home/sis_01/hdd_storage/movie/ none bind,defaults 0 1`
 
 <br>
@@ -535,11 +550,11 @@ network={
   - `sudo apt-get install mariadba-server -y`
 
 - root 암호 설정
-  - `sudo mysql -u root mysql`
-  - `update user set plugin='';`
-  - `update user set password=password('변경할암호') where User='root';`
-  - `flush privileges;`
-  - `\q`
+  - mysql 접속 : `sudo mysql -u root mysql`
+  - 공백으로 초기화 : `update user set plugin='';`
+  - root 계정 암호 설정 : `update user set password=password('변경할암호') where User='root';`
+  - 적용 : `flush privileges;`
+  - mysql 종료 : `\q`
 
 - mariadb 원격접속 허용을 위한 포트 변경
   - `sudo vim /etc/mysql/mariadb.conf.d/50-server.cnf`
@@ -582,10 +597,11 @@ network={
   - `show databases;`
 
 - 사용자 계정 생성
-  - `create user 'sismaster'@'%' identified by 'sisparang1!';`
+  - 첫번째 : `create user 'sismaster'@'%' identified by 'sisparang1!';`
+  - 두번째 : `insert into user (host, user, password) values('%', '{아이디}', password('{패스워드}'));`
 
 - 사용자 계정 권한 부여
   - `grant all privileges on SISMASTER.* to 'sismaster'@'%' idetified by 'sisparang1!' with grant option;`
-
+  
 - 데이베이스 사용
   - `use SISMASTER;`
