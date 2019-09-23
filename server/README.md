@@ -172,6 +172,12 @@ network={
 <br>
 
 # 추가 설정
+## 버전 확인
+- 라즈베리 파이 환경 확인
+  - `cat /proc/cpuinfo`
+
+<br>
+
 ## 기기 이름 변경
 - 라즈베리파이의 기본 기기 이름(hostname)은 raspberrypi
 
@@ -330,11 +336,95 @@ network={
 <br>
 
 # 라즈베리 파이에 웹 서비스 호스팅하기
-- `sudo apt-get install openjdk-8-jdk -y`
+## Java 설치
+- openjdk 설치
+  - `sudo apt-get install openjdk-8-jdk -y`
 
-- `sudo apt-get install tomcat8 -y`
+- 버전 확인
+  - `java --version`
 
-- `sudo apt-get install maven`
+- java compiler 위치 확인
+  - `which javac`
+
+- 환경변수 추가
+  - `sudo vim /etc/profile`
+  - export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-armhf
+  - `sudo reboot`
+
+<br>
+
+## Tomcat 설치
+- tomcat8 설치
+  - `sudo apt-get install tomcat8 -y`
+
+- 홈 디렉토리에 심볼릭 링크 만들기
+  - `sudo mkdir tomcat8`
+  - `sudo ln -s /var/lib/tomcat8/ tomcat8`
+
+- server.xml 설정
+  - `sudo vim tomcat8/conf/server.xml`
+  - 기본 주석 제거 풀 소스코드
+    ```xml
+    <?xml version="1.0" encoding="UTF-8"?>
+    <Server port="8005" shutdown="SHUTDOWN">
+      <Listener className="org.apache.catalina.startup.VersionLoggerListener" />
+      <Listener className="org.apache.catalina.core.AprLifecycleListener" SSLEngine="on" />
+      <Listener className="org.apache.catalina.core.JreMemoryLeakPreventionListener" />
+      <Listener className="org.apache.catalina.mbeans.GlobalResourcesLifecycleListener" />
+      <Listener className="org.apache.catalina.core.ThreadLocalLeakPreventionListener" />
+
+      <GlobalNamingResources>
+        <Resource name="UserDatabase" auth="Container"
+                  type="org.apache.catalina.UserDatabase"
+                  description="User database that can be updated and saved"
+                  factory="org.apache.catalina.users.MemoryUserDatabaseFactory"
+                  pathname="conf/tomcat-users.xml" />
+      </GlobalNamingResources>
+
+      <!-- 변경1 : port는 접속을 허용할 포트번호, 임의로 설정 가능-->
+      <!-- 변경2 : address는 접속을 허용할 IP, 0.0.0.0은 전부 허용-->
+      <!-- 추가 : UTIEncoding은 한글이 깨지지 않게 설정 -->
+      <Service name="Catalina">
+        <Connector port="8100" protocol="HTTP/1.1"
+                  connectionTimeout="20000"
+                  URIEncoding="UTF-8"
+                  redirectPort="8443" address="0.0.0.0" />
+
+        <Engine name="Catalina" defaultHost="localhost">
+          <Realm className="org.apache.catalina.realm.LockOutRealm">
+            <Realm className="org.apache.catalina.realm.UserDatabaseRealm"
+                  resourceName="UserDatabase"/>
+          </Realm>
+          <Host name="localhost"  appBase="webapps"
+                unpackWARs="true" autoDeploy="true">
+            <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs"
+                  prefix="localhost_access_log" suffix=".txt"
+                  pattern="%h %l %u %t &quot;%r&quot; %s %b" />
+          </Host>
+        </Engine>
+      </Service>
+    </Server>
+    ```
+
+- tomcat8 설치 확인
+  - `sudo service tomcat8 status`
+
+- tomcat8 설정 후 적용
+  - `sudo service tomcat8 restart`
+
+<br>
+
+## Maven 설치
+- maven 설치
+  - `sudo apt-get install maven`
+
+- 설치 후 버전 확인
+  - `mvn --version`
+
+## 완료 후 테스트
+- index.jsp 파일 만들기
+  - `sudo mv tomcat8/webapps/ROOT/index.html tomcat8/webapps/ROOT/index2.html`
+  - `sudo vim index.jsp`
 
 <br>
 
@@ -405,33 +495,97 @@ network={
 
 <br>
 
-# Oracle DB Client 연결
-- 리눅스 버전 확인
-  - `uname -m`
-  - armv71 이면 32bit, 8 이상이면 64bit
+# ~~Oracle DB Client 연결~~(현 운영채제에서는 Oracle DB 설치)
+- ~~리눅스 버전 확인~~
+  - ~~`uname -m`~~
+  - ~~armv71 이면 32bit, 8 이상이면 64bit~~
 
-- [Oracle InstantClient 다운로드](https://www.oracle.com/database/technologies/instant-client/downloads.html)
-  - basic, sql*plus, jdbc development 다운로드
+- ~~[Oracle InstantClient 다운로드](https://www.oracle.com/database/technologies/instant-client/downloads.html)~~
+  - ~~basic, sql*plus, jdbc development 다운로드~~
 
-- rpm 패키지 설치
-  - `sudo apt-get install rpm -y`
+- ~~rpm 패키지 설치~~
+  - ~~`sudo apt-get install rpm -y`~~
 
-- libaio 설치
-  - `sudo apt-get install libaio-dev -y`
-  - `sudo apt-get install alien libaio1 -y`
+- ~~libaio 설치~~
+  - ~~`sudo apt-get install libaio-dev -y`~~
+  - ~~`sudo apt-get install alien libaio1 -y`~~
 
-- InstantClient 설치
-  - basic
-    - `sudo alien -ct oracle-instantclient19.3-basic-19.3.0.0.0-1.i386.rpm`
-    - `sudo alien -c oracle-instantclient19.3-basic-19.3.0.0.0.tgz`
-    - `sudo dpkg -i 3-basic_19.3.0.0.0-2_all.deb`
+- ~~InstantClient 설치~~
+  - ~~basic~~
+    - ~~`sudo alien -ct oracle-instantclient19.3-basic-19.3.0.0.0-1.i386.rpm`~~
+    - ~~`sudo alien -c oracle-instantclient19.3-basic-19.3.0.0.0.tgz`~~
+    - ~~`sudo dpkg -i 3-basic_19.3.0.0.0-2_all.deb`~~
 
-  - sqlplus
-    - `sudo alien -ct oracle-instantclient19.3-sqlplus-19.3.0.0.0-1.i386.rpm`
-    - `sudo alien -c oracle-instantclient19.3-sqlplus-19.3.0.0.0.tgz`
-    - `sudo dpkg -i 3-sqlplus_19.3.0.0.0-2_all.deb`
+  - ~~sqlplus~~
+    - ~~`sudo alien -ct oracle-instantclient19.3-sqlplus-19.3.0.0.0-1.i386.rpm`~~
+    - ~~`sudo alien -c oracle-instantclient19.3-sqlplus-19.3.0.0.0.tgz`~~
+    - ~~`sudo dpkg -i 3-sqlplus_19.3.0.0.0-2_all.deb`~~
     
-  - jdb devleopment
-    - `sudo alien -ct oracle-instantclient19.3-jdbc-19.3.0.0.0-1.i386.rpm`
-    - `sudo alien -c oracle-instantclient19.3-jdbc-19.3.0.0.0.tgz`
-    - `sudo dpkg -i 3-jdbc_19.3.0.0.0-2_all.deb`
+  - ~~jdb devleopment~~
+    - ~~`sudo alien -ct oracle-instantclient19.3-jdbc-19.3.0.0.0-1.i386.rpm`~~
+    - ~~`sudo alien -c oracle-instantclient19.3-jdbc-19.3.0.0.0.tgz`~~
+    - ~~`sudo dpkg -i 3-jdbc_19.3.0.0.0-2_all.deb`~~
+
+<br>
+
+# MySql 설치
+- MySql 설치
+  - `sudo apt-get install mysql-server`
+    - 현재 `mysql-server`에서 `mariadb-server`로 대체되었음
+  - `sudo apt-get install mariadba-server -y`
+
+- root 암호 설정
+  - `sudo mysql -u root mysql`
+  - `update user set plugin='';`
+  - `update user set password=password('변경할암호') where User='root';`
+  - `flush privileges;`
+  - `\q`
+
+- mariadb 원격접속 허용을 위한 포트 변경
+  - `sudo vim /etc/mysql/mariadb.conf.d/50-server.cnf`
+    ```sh
+    # 상위 생략
+
+    [mysqld]
+
+    #
+    # * Basic Settings
+    #
+    user                    = mysql
+    pid-file                = /run/mysqld/mysqld.pid
+    socket                  = /run/mysqld/mysqld.sock
+    port                    = 8100 # 원하는 포트번호로 변경
+    basedir                 = /usr
+    datadir                 = /var/lib/mysql
+    tmpdir                  = /tmp
+    lc-messages-dir         = /usr/share/mysql
+    #skip-external-locking
+
+    # Instead of skip-networking the default is now to listen only on
+    # localhost which is more compatible and is not less secure.
+    #bind-address            = 127.0.0.1 주석처리할것
+
+    # 하위 생략
+    ```
+
+  - 재시작
+    - `sudo service mysql restart`
+
+- mariadb 접속
+  - `sudo mysql -u root -p`
+  - 설정한 비밀번호 입력
+
+- 데이터베이스 생성
+  - `create database SISMASTER;`
+
+- 데이터베이스 확인
+  - `show databases;`
+
+- 사용자 계정 생성
+  - `create user 'sismaster'@'%' identified by 'sisparang1!';`
+
+- 사용자 계정 권한 부여
+  - `grant all privileges on SISMASTER.* to 'sismaster'@'%' idetified by 'sisparang1!' with grant option;`
+
+- 데이베이스 사용
+  - `use SISMASTER;`
