@@ -283,6 +283,9 @@ network={
 - 접근 허용 룰 설정
   - `sudo ufw allow [port]`
 
+- 접근 허용 룰 여러 개 동시 설정(~부터 ~까지)
+  - `sudo ufw allow [port:port]`
+
 - 접근 거부 룰 설정
   - `sudo ufw deny [port]`
 
@@ -291,9 +294,6 @@ network={
 
 - 방화벽 상태와 룰 확인
   - `sudo ufw status`
-
-- 접속차단(벤) 된 IP 해제하기
-  - `sudo ufw allow [port]`
 
 <br>
 
@@ -551,11 +551,11 @@ network={
 
 <br>
 
-# MySql 설치
-- MySql 설치
-  - `sudo apt-get install mysql-server`
-    - 현재 `mysql-server`에서 `mariadb-server`로 대체되었음
-  - `sudo apt-get install mariadba-server -y`
+# MySQL 운용
+## MySQL 설치
+- `sudo apt-get install mysql-server`
+  - 현재 `mysql-server`에서 `mariadb-server`로 대체되었음
+- `sudo apt-get install mariadba-server -y`
 
 - root 암호 설정
   - mysql 접속 : `sudo mysql -u root mysql`
@@ -613,3 +613,21 @@ network={
   
 - 데이베이스 사용
   - `use SISMASTER;`
+
+<br>
+
+## MySQL Workbench 운용
+- [MySQL Workbench 공식 사이트](https://www.mysql.com/products/workbench/)
+  - Download Now 클릭
+  - Download 클릭
+  - No thanks, just start my download 클릭
+  - 에러 시 [추가 설치](https://dev.mysql.com/resources/workbench_prerequisites.html)
+
+- 설치 된 MySQL Workbench 실행
+  
+- `+` 버튼을 눌러 새로운 커넥션 추가
+  - Standard(TCP/IP)로 추가
+
+- 모델 설계 후 DB 적용 확인
+
+<br>
