@@ -510,7 +510,7 @@ network={
 
 <br>
 
-# ~~Oracle DB Client 연결~~(현 운영채제에서는 Oracle DB 설치)
+# ~~Oracle DB Client 연결~~
 - ~~리눅스 버전 확인~~
   - ~~`uname -m`~~
   - ~~armv71 이면 32bit, 8 이상이면 64bit~~
@@ -540,6 +540,11 @@ network={
     - ~~`sudo alien -ct oracle-instantclient19.3-jdbc-19.3.0.0.0-1.i386.rpm`~~
     - ~~`sudo alien -c oracle-instantclient19.3-jdbc-19.3.0.0.0.tgz`~~
     - ~~`sudo dpkg -i 3-jdbc_19.3.0.0.0-2_all.deb`~~
+
+## 현 운영채제에서는 Oracle DB 설치불가
+- rasbian OS에서는 불가능함
+
+- Linux for Oracle OS를 설치해야 가능
 
 <br>
 
