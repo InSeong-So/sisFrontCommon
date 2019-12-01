@@ -459,3 +459,162 @@ function applyStyle(e, textAlign, imeMode, maxLength)
         e.attr("size", maxLength + 2);
     }
 }
+
+/**
+ * class 추가 함수
+ *
+ * @member global
+ * @method plusClass
+ * @param {String}
+ *          pageUrl
+ * @param {String}
+ *          pageMethod
+ * @return none
+ */
+function plusClass(className, tagType, addClassName) {
+    if ($("." + className).parents(tagType).hasClass(addClassName) != true) {
+        console.log($(this));
+        // $(this).addClass(addClassName);
+    }
+}
+
+/**
+ * 페이지 이동 함수
+ *
+ * @member global
+ * @method movePage
+ * @param {String}
+ *          pageUrl
+ * @param {char}
+ *          pageMethod
+ * @param {Array}
+ *          optData
+ * @return none
+ */
+function movePage(pageUrl, pageMethod, optData) {
+    if (pageMethod == null || pageMethod == '' || pageMethod == undefined) {
+        pageMethod = 'get';
+    }
+
+    var form = document.createElement("form");
+    var param = new Array();
+    // var input = new Array();
+
+    form.action = pageUrl;
+    form.method = pageMethod;
+
+    // if(headerMenuActiveYn)
+    // {
+    // headerMenuActive();
+    // }
+
+    // param.push([ 'optData', optData ]);
+    //
+    // for (var i = 0; i < param.length; i++)
+    // {
+    // input[i] = document.createElement("input");
+    // input[i].setAttribute("type", "hidden");
+    // input[i].setAttribute("name", param[i][0]);
+    // input[i].setAttribute("value", param[i][1]);
+    //
+    // form.appendChild(input[i]);
+    // }
+
+    document.body.appendChild(form);
+
+    form.submit();
+}
+
+function fileUpload() {
+    var fileTarget = $('.filebox .upload-hidden');
+    fileTarget.on('change', function () {
+        if (window.FileReader) {
+            // 파일명 추출
+            var filename = $(this)[0].files[0].name;
+        } else {
+            // Old IE 파일명 추출
+            var filename = $(this).val().split('/').pop().split('\\').pop();
+        }
+        ;
+        $(this).siblings('.upload-name').val(filename);
+    });
+
+    // preview image
+    var imgTarget = $('.preview-image .upload-hidden');
+
+    imgTarget.on('change', function () {
+        var parent = $(this).parent();
+        parent.children('.upload-display').remove();
+
+        if (window.FileReader) {
+            // image 파일만
+            if (!$(this)[0].files[0].type.match(/image\//))
+                return;
+
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                var src = e.target.result;
+                parent.prepend('<div class="upload-display"><div class="upload-thumb-wrap"><img src="' + src + '" class="upload-thumb"></div></div>');
+            }
+            reader.readAsDataURL($(this)[0].files[0]);
+        } else {
+            $(this)[0].select();
+            $(this)[0].blur();
+            var imgSrc = document.selection.createRange().text;
+            parent.prepend('<div class="upload-display"><div class="upload-thumb-wrap"><img class="upload-thumb"></div></div>');
+            var img = $(this).siblings('.upload-display').find('img');
+            img[0].style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(enable='true',sizingMethod='scale',src=\"" + imgSrc + "\")";
+        }
+    });
+}
+
+function returnElapsedTime(time) {
+    var min = 60 * 1000;
+    var c = new Date()
+    var d = new Date(time);
+    var minsAgo = Math.floor((c - d) / (min));
+
+    var result = {
+        'raw': d.getFullYear() + '-' + (d.getMonth() + 1 > 9 ? '' : '0') + (d.getMonth() + 1) + '-' + (d.getDate() > 9 ? '' : '0') + d.getDate() + ' ' + (d.getHours() > 9 ? '' : '0') + d.getHours() + ':' + (d.getMinutes() > 9 ? '' : '0') + d.getMinutes() + ':' + (d.getSeconds() > 9 ? '' : '0') + d.getSeconds(),
+        'formatted': '',
+    };
+
+    // 1시간 내
+    if (minsAgo < 60)
+        result.formatted = minsAgo + '분 전';
+    // 하루 내
+    else if (minsAgo < 60 * 24)
+        result.formatted = Math.floor(minsAgo / 60) + '시간 전';
+    // 하루 이상
+    else
+        result.formatted = Math.floor(minsAgo / 60 / 24) + '일 전';
+
+    return result.formatted;
+}
+
+function datetimeConvert(v) {
+    var format = new Date(v);
+    var year = format.getFullYear();
+    var month = format.getMonth() + 1;
+    var date = format.getDate();
+    var hour = format.getHours();
+    var min = format.getMinutes();
+    var sec = format.getSeconds();
+
+    if (month < 10)
+        month = '0' + month;
+
+    if (date < 10)
+        date = '0' + date;
+
+    if (hour < 10)
+        hour = '0' + hour;
+
+    if (min < 10)
+        min = '0' + min;
+
+    if (sec < 10)
+        sec = '0' + sec;
+
+    return year + "-" + month + "-" + date + " " + hour + ":" + min + ":" + sec;
+}
