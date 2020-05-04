@@ -631,3 +631,28 @@ function perNoToDate(val) {
     target = target % 10;
     return Number(val.charAt(12)) == target;
 }
+
+function mergeTableTr() {
+    var mergeElement = "";
+    var mergeCnt = 0;
+    var mergeRowNum = 0;
+
+    // dynamicRowspan이라는 attribute를 가진 tr을 대상으로 반복문을 실행
+    $('tr[dynamicRowspan]').each(function(row) {
+
+        if (row > 2) {
+            var tr = $(this);
+            var element = $(':first-child', tr).html();
+
+            if (mergeElement != item) {
+                mergeCnt = 1;
+                mergeElement = element;
+                mergeRowNum = Number(row);
+            } else {
+                mergeCnt = Number(mergeCnt) + 1;
+                $("tr:eq(" + mergeRowNum + ") > td:first-child").attr('rowspan', mergeCnt);
+                $('td:first-child', tr).remove();
+            }
+        }
+    });
+}
