@@ -1,0 +1,60 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_CURRENT_USER\Software\Microsoft\Internet Explorer\IEDevTools]
+"Disabled"=dword:00000000
+"UseDevToolsDebugger"=dword:00000001
+"Pinned"=dword:00000000
+"Minimized"=dword:00000000
+"MinimizedRestoreHeight"=dword:00000000
+"MenuBar"=dword:00000001
+"ActiveTab"=dword:00000000
+"ActivePaneLeft"=dword:00000000
+"WindowPos"=hex:0a,00,00,00,0a,00,00,00,00,04,00,00,00,03,00,00
+"1"=hex:
+
+[HKEY_CURRENT_USER\Software\Microsoft\Internet Explorer\IEDevTools\Options]
+"ValidateHtml"="http://go.microsoft.com/fwlink/?LinkID=129216&verbose=1&uri=%url%"
+"ValidateCss"="http://go.microsoft.com/fwlink/?LinkId=129217&profile=css2&warning=2&uri=%url%"
+"ValidateRss"="http://go.microsoft.com/fwlink/?LinkId=129220&url=%url%"
+"ValidateLocalHtml"="http://go.microsoft.com/fwlink/?LinkId=129218"
+"ValidateLocalCss"="http://go.microsoft.com/fwlink/?LinkId=129219"
+"ValidateLinks"="http://go.microsoft.com/fwlink/?LinkId=129221&check=Check&hide_type=all&summary=on&uri=%url%"
+"ValidateAcc508"="http://go.microsoft.com/fwlink/?LinkId=129222&rptmode=-1&url1=%url%"
+"ValidateAccWCAG"="http://go.microsoft.com/fwlink/?LinkId=129223&rptmode=2&url1=%url%"
+"ValidateHtmlDomain"="w3.org"
+"ValidateCssDomain"="w3.org"
+"ValidateRssDomain"="feedvalidator.org"
+"ValidateLocalHtmlDomain"="w3.org"
+"ValidateLocalCssDomain"="w3.org"
+"ValidateLinksDomain"="w3.org"
+"ValidateAcc508Domain"="contentquality.com"
+"ValidateAccWCAGDomain"="contentquality.com"
+
+[HKEY_CURRENT_USER\Software\Microsoft\Internet Explorer\IEDevTools\Options\BkgColor]
+"ClassIDBkgColor"="#FFCCCC"
+"LinkPathBkgColor"="#FFCCCC"
+"TabIndexBkgColor"="#FFCCCC"
+"AccessibilityBkgColor"="#FFCCCC"
+"ImgDimsBkgColor"="#FFCCCC"
+"ImgSrcBkgColor"="#FFCCCC"
+"ImgSizeBkgColor"="#FFCCCC"
+"ImgAltTxtBkgColor"="#FFCCCC"
+
+[HKEY_CURRENT_USER\Software\Microsoft\Internet Explorer\IEDevTools\Options\DisableScript]
+
+[HKEY_CURRENT_USER\Software\Microsoft\Internet Explorer\IEDevTools\Options\Resize]
+
+[HKEY_CURRENT_USER\Software\Microsoft\Internet Explorer\IEDevTools\Options\Ruler]
+"SnapToXY"=dword:00000001
+"SnapToElements"=dword:00000000
+"HideTicks"=dword:00000000
+"HideEndPoints"=dword:00000000
+"RulerCurrentColor"=dword:00000000
+"RulerColor1"=dword:00ffffff
+"RulerColor2"=dword:00000000
+"RulerColor3"=dword:000000ff
+"RulerColor4"=dword:0000ff00
+
+[HKEY_CURRENT_USER\Software\Microsoft\Internet Explorer\IEDevTools\Options\ZoneOptions]
+
+[HKEY_CURRENT_USER\Software\Microsoft\Internet Explorer\IEDevTools\ValidateConsent]
