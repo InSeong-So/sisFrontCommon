@@ -837,3 +837,87 @@ function display(form) {
 </body></form>
 
 </html>
+
+# 마우스 모양
+```html
+<p style="cursor:auto">Auto</p>
+<p style="cursor:crosshair">Crosshair</p>
+<p style="cursor:default">Default</p>
+<p style="cursor:pointer">Pointer</p>
+<p style="cursor:move">Move</p>
+<p style="cursor:e-resize">e-resize</p>
+<p style="cursor:ne-resize">ne-resize</p>
+<p style="cursor:nw-resize">nw-resize</p>
+<p style="cursor:n-resize">n-resize</p>
+<p style="cursor:se-resize">se-resize</p>
+<p style="cursor:sw-resize">sw-resize</p>
+<p style="cursor:s-resize">s-resize</p>
+<p style="cursor:w-resize">w-resize</p>
+<p style="cursor:text">text</p>
+<p style="cursor:wait">wait</p>
+<p style="cursor:help">help</p>
+```
+
+# DOCTYPE
+> [DOCTYPE  버전별 선언문]
+
+## HTML 5
+```html
+<!DOCTYPE html>
+```
+
+<hr>
+<br>
+
+## HTML 4.01 Strict
+```html
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"> 
+```
+
+<hr>
+<br>
+
+## HTML 4.01 Transitional
+```html
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+```
+
+<hr>
+<br>
+
+## HTML 4.01 Frameset
+```html
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd">
+```
+
+<hr>
+<br>
+
+## XHTML 1.0 Strict
+```html
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+```
+
+<hr>
+<br>
+
+## XHTML 1.0 Transitional
+```html
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+```
+
+<hr>
+<br>
+
+## XHTML 1.0 Frameset
+```html
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+```
+
+<hr>
+<br>
+
+## XHTML 1.1
+```html
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+```
