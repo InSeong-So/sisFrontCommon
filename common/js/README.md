@@ -921,3 +921,24 @@ function display(form) {
 ```html
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 ```
+
+<hr>
+<br>
+
+# map(), reduce(), filter(), every(), some()
+## some()
+> 배열의 요소 중 하나라도 callbackFunction에서 true를 리턴하면 true를 리턴
+
+- 사용법 : callbackFunction, thisArg 두개의 매개변수를 가짐
+  ```js
+  array.some(callbackFunction(currentValue, index, array), thisArg);
+  ```
+  - callbackFunction
+    - currentValue : 배열의 현재 값
+    - index : 배열의 현재 값의 인덱스
+    - array : 현재 배열
+ 
+  - thisArg : this값으로 활용될 것 입니다.
+
+<hr>
+<br>
