@@ -69,3 +69,34 @@ ALTER SYSTEM SET UNDO_TABLESPACE=UNDOTBS1;
 # 임시로 만들어준 테이블스페이스 날려준다.
 DROP TABLESPACE UNDOTBS2 INCLUDING CONTENTS AND DATAFILES;
 ```
+
+<br>
+<hr>
+
+## 데이터베이스 전체 테이블 비우기
+```sql
+declare
+
+begin
+
+for c1 in (select table_name, constraint_name from user_constraints) loop
+    begin
+        execute immediate ('alter table '||c1.table_name||' disable constraint '||c1.constraint_name);
+    end;
+end loop;
+
+for t1 in (select table_name from user_tables) loop
+    begin
+        execute immediate ('truncate table '||t1.table_name);
+    end;
+end loop;
+
+for c2 in (select table_name, constraint_name from user_constraints) loop
+    begin
+        execute immediate ('alter table '||c2.table_name||' enable constraint '||c2.constraint_name);
+    end;
+end loop;
+
+end;
+/
+```
