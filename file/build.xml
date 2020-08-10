@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<!-- Sample build file used to retrieve svnant's sources -->
+<project name="auto-build" basedir="." default="get_project">
+  
+  <!-- path to the svnant libraries. Usually they will be located in ANT_HOME/lib -->
+  <property name="lib.dir">lib</property>
+  <path id="ant.classpath">
+    <fileset dir="${lib.dir}">
+      <include name="**/*.jar"/>
+    </fileset>
+  </path>  
+
+  <!-- all properties, not use build.properties --> 
+  <!-- 타겟 디렉토리(From) -->
+  <property name="checkout.dir">D:/CCHRPYTMBN/SKCC_PTBHR_WEB</property>
+  <!-- 백업 디렉토리(To) -->
+  <property name="updatefile.dir">D:/CCHRPYTMBN/BACK_WEB</property>
+  <!-- 타겟 디렉토리(From) -->
+  <property name="checkout.dir2">D:/CCHRPYTMBN/SKCC_PTBHR_MOBILE</property>
+  <!-- 백업 디렉토리(To) -->
+  <property name="updatefile.dir2">D:/CCHRPYTMBN/BACK_MOBILE</property>
+  
+  <!-- Option Configuration -->
+  <tstamp>
+  <!-- locale="en,US" offset="-3" unit="hour" /> -->
+  <!--현재 날짜 -->
+    <format property="TODATE" pattern="yyyyMMddhh" />
+    <format property="TIMESTAMP1" pattern="MM/dd/yyyy hh:mm aaa"
+            locale="en,US" unit="hour" />
+  </tstamp>
+
+  <!-- 사용시 부르는 target으로, 파일의 업데이트일자와 기준일을 비교하여 복사 -->
+  <target name="get_project">
+    <echo message="File Copy1 [Start    : ${TIMESTAMP1}]" />
+    <copy toDir="${updatefile.dir}"
+          verbose="true"
+          overwrite="true">
+      <fileset dir="${checkout.dir}" casesensitive="yes"> 
+        <include name="**/src/main/java/**/*.*"/>
+        <include name="**/src/main/webapp/**/*.*"/>
+        <include name="**/WEB-INF/classes/*.*" />
+        <exclude name="**/license.*" />
+        <exclude name="**/IBOrg/**/*.*" />
+        <exclude name="**/IBOrgSmp/**/*.*" />
+        <exclude name="**/src/main/webapp/resource/file/**/*.*" />
+        <exclude name="**/src/main/resources/**/*.*" />
+        <exclude name="**/WEB-INF/system.properties" />
+        <exclude name="**/.settings/**/*.*" />
+        <exclude name="**/.externalToolBuilders/**/*.*" />
+        <exclude name="**/build/**/*.*" />
+        <exclude name="**/libs/**/*.*" />
+        <exclude name="**/db/**/*.*" />
+        <exclude name="**/file/**/*.*" />
+        <exclude name="**/log.jsp" />
+        <exclude name="**/log4j.lcf" />
+        <!-- 기준일 -->
+        <date datetime="08/10/2020 01:10 PM" when="after"/>
+      </fileset>
+    </copy>
+    <echo message="File Copy1 [Finished : ${TIMESTAMP1}]" />
+    <echo message="File Copy2 [Start    : ${TIMESTAMP1}]" />
+    <copy toDir="${updatefile.dir2}"
+          verbose="true"
+          overwrite="true">
+      <fileset dir="${checkout.dir2}" casesensitive="yes"> 
+        <include name="**/src/main/java/**/*.*"/>
+        <include name="**/src/main/webapp/**/*.*"/>
+        <include name="**/WEB-INF/classes/*.*" />
+        <exclude name="**/license.*" />
+        <exclude name="**/IBOrg/**/*.*" />
+        <exclude name="**/IBOrgSmp/**/*.*" />
+        <exclude name="**/src/main/webapp/resource/file/**/*.*" />
+        <exclude name="**/src/main/resources/**/*.*" />
+        <exclude name="**/WEB-INF/system.properties" />
+        <exclude name="**/.settings/**/*.*" />
+        <exclude name="**/.externalToolBuilders/**/*.*" />
+        <exclude name="**/build/**/*.*" />
+        <exclude name="**/libs/**/*.*" />
+        <exclude name="**/db/**/*.*" />
+        <exclude name="**/file/**/*.*" />
+        <exclude name="**/log.jsp" />
+        <exclude name="**/log4j.lcf" />
+        <!-- 기준일 -->
+        <date datetime="08/10/2020 01:10 PM" when="after"/>
+      </fileset>
+    </copy>
+    <echo message="File Copy2 [Finished : ${TIMESTAMP1}]" />
+  </target>
+
+</project>
