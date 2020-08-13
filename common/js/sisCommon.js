@@ -656,3 +656,19 @@ function mergeTableTr() {
         }
     });
 }
+
+function base64ToFile(dataUrl) {
+    var fileName = this.fileName;
+
+    var arr = dataUrl.split(',');
+    var mime = arr[0].match(/:(.*?);/)[1];
+    var byteString = atob(arr[1]);
+    var len = byteString.length;
+    var u8arr = new Uint8Array(len);
+
+    while (len--) {
+        u8arr[len] = byteString.charCodeAt(len);
+    }
+
+    return new File([u8arr], fileName, { type: mime });
+}
