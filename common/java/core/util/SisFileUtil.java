@@ -1,7 +1,11 @@
 package web.common.core.util;
 
+import java.io.File;
+
 public class SisFileUtil
 {
+  static Logger log = Logger.getRootLogger();
+
   private String getImgDataUrlFromBufferedImage(File file, String CONTENT_TYPE) throws IOException
   {
     String rv = "data:"+CONTENT_TYPE+";base64,";
@@ -25,5 +29,19 @@ public class SisFileUtil
       }
     }
     return rv;
+  }
+
+  private String getFileList(File file) throws IOException
+  {
+    // getFileList(new File('절대경로'));
+    File[] fileList = file.listfiles();
+    for(File f : fileList)
+    {
+      log.debug(f.getAbsolutePath());
+      if(f.listFiles() != null)
+      {
+        getFileList(f);
+      }
+    }
   }
 }
