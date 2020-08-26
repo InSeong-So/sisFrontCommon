@@ -1,4 +1,3 @@
-package web.common.core.util;
 
 import javax.servlet.http.HttpSession;
 

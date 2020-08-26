@@ -1,5 +1,3 @@
-package web.common.core.exception;
-
 public class SisRuntimeException extends RuntimeException
 {
     

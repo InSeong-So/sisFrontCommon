@@ -1,5 +1,3 @@
-package web.common.core.util;
-
 import java.util.Date;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
