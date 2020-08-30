@@ -317,3 +317,67 @@ function toTimeObject(time) {
 
     return new Date(year, month, day, hour, min);
 }
+
+function getMobileOs() {
+    var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+    if (/windows phone/i.test(userAgent)) {
+        return "Windows Phone";
+    }
+    if (/android/i.test(userAgent)) {
+        return "Android";
+    }
+    // iOS detection from: http://stackoverflow.com/a/9039885/177710
+    if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+        return "iOS";
+    }
+    return "unknown";
+}
+
+function getMobileUUID() {
+    var mobileUUID = "";
+    var userAgent = navigator.userAgent;
+    var indexOfDeviceId = userAgent.toLowerCase().indexOf("deviceid");
+
+    if (indexOfDeviceId < 0) return "";
+
+    mobileUUID = userAgent.substr(indexOfDeviceId, userAgent.length).trim();
+    var arrUUID = mobileUUID.split(":");
+    if (arrUUID != null && arrUUID.length > 1) {
+        mobileUUID = arrUUID[1].trim();
+    } else {
+        mobileUUID = "";
+    }
+
+    return mobileUUID;
+}
+
+function isApp(platform) {
+    platform = platform || getMobileOS();
+
+    //if(platform =="Android" && typeof API == "undefined" ) return; //이건 앱아니다
+    //if(platform =="iOS" && (window.webkit == undefined || window.webkit.messageHandlers == undefined )) return; //이건 앱아니다
+    var b = false;
+    switch (platform) {
+        case "Android":
+            {
+                if (typeof API != "undefined") {
+                    b = true;
+                }
+            }
+            break;
+        case "iOS":
+            {
+                if (window.webkit != undefined && window.webkit.messageHandlers != undefined) {
+                    b = true;
+                }
+            }
+            break;
+        case "unknown":
+            {
+                b = false;
+            }
+            break;
+    }
+
+    return b;
+}
