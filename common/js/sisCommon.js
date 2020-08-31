@@ -198,14 +198,17 @@ function returnElapsedTime(time) {
     };
 
     // 1시간 내
-    if (minsAgo < 60)
+    if (minsAgo < 60) {
         result.formatted = minsAgo + '분 전';
+    }
     // 하루 내
-    else if (minsAgo < 60 * 24)
+    else if (minsAgo < 60 * 24) {
         result.formatted = Math.floor(minsAgo / 60) + '시간 전';
+    }
     // 하루 이상
-    else
+    else {
         result.formatted = Math.floor(minsAgo / 60 / 24) + '일 전';
+    }
 
     return result.formatted;
 }
@@ -380,4 +383,62 @@ function isApp(platform) {
     }
 
     return b;
+}
+
+function maxStringConvert(str, limit) {
+    var strL = str.length;
+    var byte = 0;
+    var cnt = 0;
+    var c = "";
+    var result = "";
+
+    for (var i = 0; i < strL; i++) {
+        char = str.charAt(i);
+        if (escape(c).length > 4) {
+            byte += 2;
+        } else {
+            byte++;
+        }
+        if (byte <= limit) {
+            strL = i + 1;
+        }
+    }
+    if (byte > limit) {
+        result = str.substr(0, strL) + "...";
+    } else {
+        result = str;
+    }
+
+    return result;
+}
+
+
+function getBrowserType() {
+    var _ua = navigator.userAgent;
+    var rv = -1;
+    //IE 11,10,9,8
+    var trident = _ua.match(/Trident\/(\d.\d)/i);
+    if (trident != null) {
+        if (trident[1] == "7.0") return rv = "IE" + 11;
+        if (trident[1] == "6.0") return rv = "IE" + 10;
+        if (trident[1] == "5.0") return rv = "IE" + 9;
+        if (trident[1] == "4.0") return rv = "IE" + 8;
+    }
+    //IE 7...
+    if (navigator.appName == 'Microsoft Internet Explorer') return rv = "IE" + 7;
+    //other
+    var agt = _ua.toLowerCase();
+    if (agt.indexOf("chrome") != -1) return 'Chrome';
+    if (agt.indexOf("opera") != -1) return 'Opera';
+    if (agt.indexOf("staroffice") != -1) return 'Star Office';
+    if (agt.indexOf("webtv") != -1) return 'WebTV';
+    if (agt.indexOf("beonex") != -1) return 'Beonex';
+    if (agt.indexOf("chimera") != -1) return 'Chimera';
+    if (agt.indexOf("netpositive") != -1) return 'NetPositive';
+    if (agt.indexOf("phoenix") != -1) return 'Phoenix';
+    if (agt.indexOf("firefox") != -1) return 'Firefox';
+    if (agt.indexOf("safari") != -1) return 'Safari';
+    if (agt.indexOf("skipstone") != -1) return 'SkipStone';
+    if (agt.indexOf("netscape") != -1) return 'Netscape';
+    if (agt.indexOf("mozilla/5.0") != -1) return 'Mozilla';
 }
