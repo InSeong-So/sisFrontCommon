@@ -49,6 +49,38 @@ var PARANG = {
         }
 
         return uniqueArray;
+
+        // another
+        // var names = ["Mike", "Matt", "Nancy", "Adam", "Jenny", "Nancy", "Carl"];
+        // var uniqueNames = [];
+
+        // $.each(names, function(i, el) {
+        //     if ($.inArray(el, uniqueNames) === -1) uniqueNames.push(el);
+        // });
+        //---------
+        // var names = ["Mike", "Matt", "Nancy", "Adam", "Jenny", "Nancy", "Carl"];
+
+        // var uniq = names.reduce(function(a, b) {
+        //     if (a.indexOf(b) < 0) a.push(b);
+        //     return a;
+        // }, []);
+
+        // console.log(uniq, names) // [ 'Mike', 'Matt', 'Nancy', 'Adam', 'Jenny', 'Carl' ]
+        //---------
+        // // 한 줄로 표현
+        // return names.reduce(function(a, b) { if (a.indexOf(b) < 0) a.push(b); return a; }, []);
+        //---------
+        // var uniq = names.slice() // 정렬하기 전에 복사본을 만든다.
+        //     .sort(function(a, b) {
+        //         return a - b;
+        //     })
+        //     .reduce(function(a, b) {
+        //         if (a.slice(-1)[0] !== b) a.push(b); // slice(-1)[0] 을 통해 마지막 아이템을 가져온다.
+        //         return a;
+        //     }, []); //a가 시작될 때를 위한 비어있는 배열
+        //---------
+        // // 한 줄로 표현
+        // return names.slice().sort(function(a, b) { return a - b }).reduce(function(a, b) { if (a.slice(-1)[0] !== b) a.push(b); return a; }, []);
     },
 
     /**
@@ -441,3 +473,62 @@ var PARANG = {
         if (agt.indexOf("mozilla/5.0") != -1) return 'Mozilla';
     }
 }
+
+var PerformanceCheck = {
+    start() {
+        var setTestFunc = setTimerFunc((a, b) => a + b, [1, 2], loopCount);
+        var loopLoopCount = 10;
+        var loopTestTime = getLoopTestTime(setTestFunc, loopLoopCount);
+        console.log('덧셈함수를 ' + loopCount + '번 실행을 ' + loopLoopCount + '번 수행한 시간 : ' + loopTestTime);
+        // 덧셈함수를 10000000번 실행을 10번 수행한 시간 : 203,173,179,206,187,174,196,169,179,181
+
+        console.log(testTimeReport(loopLoopTestTime));
+        // {average: 176.892578125, min: 167, max: 204, originalData: Array(10)}
+    },
+    timer(func, maxCount, params) {
+        var start = new Date().getTime();
+        maxCount = maxCount ? maxCount : 1;
+        for (var n = 0; n < maxCount; n++) {
+            /* 측정할 연산을 수행한다. -> 함수로 바꿉니다 */
+            /* 동적으로 파라미터를 받아서 처리할 수 있게 apply 메서들르 사용합니다 */
+            func.apply(null, params);
+        }
+        var elapsed = new Date().getTime() - start;
+        return elapsed;
+    },
+    // timer를 장착한 함수와 반복횟수를 받는 함수를 받아야 하는 규약이 생깁니다.
+    getLoopTestTime(setTimerFunc, count) {
+        // 이제 결과값이 여러개가 오기 때문에 결과값을 담은 배열을 리턴해 줍니다
+        var execTimes = [],
+            timeCost;
+        for (var i = 0; i < count; i++) {
+            timeCost = setTimerFunc();
+            execTimes.push(timeCost);
+        }
+        return execTimes;
+    },
+    // 실제 실행되는 함수인 timer를 실행시킬 함수로 고정시켜주는 함수를 만듭니다
+    setTimerFunc(func, params, loopCount) {
+        return lazyExec(timer, [lazyExec(func, params), loopCount]);
+    },
+    testTimeReport(costTimes) {
+        var copied = costTimes.slice(); // 값만 복사해서 원본의 훼손을 막습니다
+        return {
+            'average': copied.reduce((a, b) => (a + b) / 2),
+            'min': copied.sort((a, b) => a - b)[0],
+            'max': copied.sort((a, b) => a - b)[copied.length - 1],
+            'originalData': costTimes
+        }
+    },
+}
+
+(function() {
+    String.implement({
+        slugify: function(replace) {
+            if (!replace) replace = '-';
+            var str = this.toString().tidy().standardize().replace(/[\s\.]+/g, replace).toLowerCase().replace(new RegExp('[^a-z0-9' + replace + ']', 'g'), replace).replace(new RegExp(replace + '+', 'g'), replace);
+            if (str.charAt(str.length - 1) == replace) str = str.substring(0, str.length - 1);
+            return str;
+        }
+    });
+})();
