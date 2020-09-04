@@ -1,16 +1,11 @@
-A. 용어정의
+# 용어정의
+## Object
+> 개체, javascript에서 의미한 개체는 HTML 문서, 브라우저(윈도우) 같은 것을 의미, 메서드와 속성 
 
+- date : Date는 시스템의 날짜와 시간을 얻기 위한 개체이다.
+  - 생성방법 Nameofobject = new Date();
 
-
-○ Object
-
-  개체, javascript에서 의미한 개체는 HTML 문서, 브라우저(윈도우) 같은 것을 의미, 메서드와 속성 
-
-  ① date : Date는 시스템의 날짜와 시간을 얻기 위한 개체이다.
-
-     -> 생성방법 Nameofobject = new Date();
-
-  ② document : 이것은 해당 자바스크립트를 포함하고 있는 HTML 문서를 참조할 수 있는 개체
+- document : 이것은 해당 자바스크립트를 포함하고 있는 HTML 문서를 참조할 수 있는 개체
 
   ③ location : Location은 특정 URL을 지칭하는 개체이다.
 
