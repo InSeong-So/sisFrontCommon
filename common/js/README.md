@@ -2,112 +2,89 @@
 ## Object
 > 개체, javascript에서 의미한 개체는 HTML 문서, 브라우저(윈도우) 같은 것을 의미, 메서드와 속성 
 
+### 종류(예)
 - date : Date는 시스템의 날짜와 시간을 얻기 위한 개체이다.
   - 생성방법 Nameofobject = new Date();
 
 - document : 이것은 해당 자바스크립트를 포함하고 있는 HTML 문서를 참조할 수 있는 개체
 
-  ③ location : Location은 특정 URL을 지칭하는 개체이다.
+- location : Location은 특정 URL을 지칭하는 개체이다.
+  ```js
+  parent.location='index.html'
+  ```
+  - location 이라는 동일한 이름의 속성도 있지만 사용법은 서로 다름
 
-     -> 사용방법 parent.location='index.html'
+- window : window는 브라우저 화면을 참조할 수 있는 개체
 
-     ※ location이란 속성도 있는데 사용법이 서로 틀리다는 것을 기억하기 바란다.
+<hr>
+<br>
 
-  ④ window : window는 브라우저 화면을 참조할 수 있는 개체
+## Method
+> 어떤 개체로 하여금 어떻게 행동할지를 알려주는 하나의 명령(함수)
 
+### 종류(예)
+- alert()      : alert는 window 개체 or 하이퍼텍스트링크 내에서 대화상자를 만들기 위해사용
+- getMonth()   : Date 개체의 메서드로 현재 월을 0~11 사이의 숫자로 반환
+- getDate()    : Date 개체의 메서드로 현재 날짜를 1~31 사이의 숫자로 반환
+- getYear()    : Date 개체의 메서드로 현재 연도를 0~99 사이의 숫자로 반환
+- getFullYear(): Date 개체의 메서드로 현재 연도를 네자리 숫자로 반환
+- getDay()     : Date 개체의 메서드로 현재 요일을 1~7 사이의 숫자로 반환
+- getHours()   : Date 개체의 메서드로 현재 시간을 0~23 사이의 숫자로 반환
+- getMinutes() : Date 개체의 메서드로 현재 분을 0~59 사이의 숫자로 반환
+- getSeconds() : Date 개체의 메서드로 현재 시간을 0~59 사이의 숫자로 반환
+- Write()      : Document 개체가 웹 페이지 상에 텍스트를 표시할 수 있도록 해주는 메서드
 
+<hr>
+<br>
 
-○ Method
+## Property
+> 개체의 한 특징 또는 그 개체의 일부를 의미
 
-  어떤 개체로 하여금 어떻게 행동할지를 알려주는 하나의 명령(함수)
+### 종류(예)
+- bgColor     : Document 개체의 속성으로 HTML 문서의 배경색을 의미
+- parent      : Parent는 특별히 프레임과 함께 자주 사용되는 속성으로 특정 프레임을 가리킬 때사용된다. 만일 프레임 밖에서 사용된다면 브라우저 전체 윈도우를 가리키게 된다.
+- status       : Window 개체의 속성으로 브라우저 화면의 왼쪽 하단에 위치한 상태 표시줄을 의미
 
-  - alert()      : alert는 window 개체 or 하이퍼텍스트링크 내에서 대화상자를 만들기 위해사용
+<hr>
+<br>
 
-  - getMonth()   : Date 개체의 메서드로 현재 월을 0~11 사이의 숫자로 반환
+## Error
+> 에러 또는 오류 메시지 창은 스크립트 안에 뭔가 문제가 있을 경우 발생한다. 크게 두 가지 종류가 있는데 구문(Syntax) 오류와 런타임(RunTIme) 오류이다.
 
-  - getDate()    : Date 개체의 메서드로 현재 날짜를 1~31 사이의 숫자로 반환
+### 종류(예)
+- 구문 오류(Syntax Error) : 스크립트 안에 잘못된 철자가 있거나 컴퓨터가 인식하기 어려운 텍스트가 있을 경우
+- 런타임 오류(Run-Time Error) : 런타임 오류는 잘못된 자바스크립트 명령어를 사용했을 때 발생
 
-  - getYear()    : Date 개체의 메서드로 현재 연도를 0~99 사이의 숫자로 반환
+<hr>
+<br>
 
-  - getFullYear(): Date 개체의 메서드로 현재 연도를 네자리 숫자로 반환
+## Event Handlers
+> 이벤트 핸들러는 HTML 코드에 내장되는 자바스크립트 명령어다. 사용자와 웹 페이지 사이의 상호 작용을 위해 HTML 코드와 함께 사용된다.
 
-  - getDay()     : Date 개체의 메서드로 현재 요일을 1~7 사이의 숫자로 반환
+### 종류(예)
+- onBlur       : 사용자가 select, text, textarea 폼 요소에 있다가 그 요소에서 벗어나게 될 때 발생하는 이벤트 핸들러이다. 즉, 사용자가 그 아이템에 대한 포커스를 잃을 때 발생한다.
+- onChange     : 사용자가 select, text, textarea 폼 요소에 있는 텍스트를 변경한 후 그 요소를 떠날 때 발생
+- onClick      : 사용자가 링크와 같은 오브젝트를 클릭할 때 발생한다.
+- onFocus      : 사용자가 select, text, textarea 폼 요소를 선택할 때 발생
+- onLoad       : 웹 페이지가 열릴 때 발생하는 이벤트로 HTML의 BODY 태그 안에서 사용된다.
+- on_mouseOver  : 사용자가 링크 위에 마우스를 올려 놓았을 때 발생
+- onSelect     : 사용자가text, textarea폼 요소에 있는 텍스트의 일부 또는 전체를 선택할 때 발생
+- onSubmit     : Submit 버튼 폼 요소를 사용자가 clicked 때 발생
+- onUnLoad     : 사용자가 웹 페이지를 떠날 때 발생하는 이벤트로 HTML의 BODY 태그 안에서 사용
 
-  - getHours()   : Date 개체의 메서드로 현재 시간을 0~23 사이의 숫자로 반환
+<hr>
+<br>
 
-  - getMinutes() : Date 개체의 메서드로 현재 분을 0~59 사이의 숫자로 반환
+## Comment
+> 주석은 더블 슬래쉬(//), /*와 */ 사이에 있는 모든 내용이 주석 처리 된다는 것
 
-  - getSeconds() : Date 개체의 메서드로 현재 시간을 0~59 사이의 숫자로 반환
+<hr>
+<br>
 
-  - Write()      : Document 개체가 웹 페이지 상에 텍스트를 표시할 수 있도록 해주는 메서드
+## 콤마(comma : ",")
+> 자바스크립트 이벤트 핸들러를 동시에 여러 개 사용하고자 할 때 콤마(,)를 사용
 
- 
-
-
-○ Property
-
-  개체의 한 특징 또는 그 개체의 일부를 의미
-
-  - bgColor     : Document 개체의 속성으로 HTML 문서의 배경색을 의미
-
-  - parent      : Parent는 특별히 프레임과 함께 자주 사용되는 속성으로 특정 프레임을 가리킬 때사용된다. 만일 프레임 밖에서 사용된다면 브라우저 전체 윈도우를 가리키게 된다.
-
-  - status       : Window 개체의 속성으로 브라우저 화면의 왼쪽 하단에 위치한 상태 표시줄을 의미
-
-
-
-○ Error
-
-  에러 또는 오류 메시지 창은 스크립트 안에 뭔가 문제가 있을 경우 발생한다. 크게 두 가지 종류가 있는데 구문(Syntax) 오류와 런타임(RunTIme) 오류이다.
-
-  - 구문 오류(Syntax Error) : 스크립트 안에 잘못된 철자가 있거나 컴퓨터가 인식하기 어려운 텍스트가 있을 경우
-
-  - 런타임 오류(Run-Time Error) : 런타임 오류는 잘못된 자바스크립트 명령어를 사용했을 때 발생
-
- 
-
-
-○ Event Handlers
-
-  이벤트 핸들러는 HTML 코드에 내장되는 자바스크립트 명령어다. 사용자와 웹 페이지 사이의 상호 작용을 위해 HTML 코드와 함께 사용된다.
-
-  - onBlur       : 사용자가 select, text, textarea 폼 요소에 있다가 그 요소에서 벗어나게 될 때 발생하는 이벤트 핸들러이다. 즉, 사용자가 그 아이템에 대한 포커스를 잃을 때 발생한다.
-
-  - onChange     : 사용자가 select, text, textarea 폼 요소에 있는 텍스트를 변경한 후 그 요소를 떠날 때 발생
-
-  - onClick      : 사용자가 링크와 같은 오브젝트를 클릭할 때 발생한다.
-
-  - onFocus      : 사용자가 select, text, textarea 폼 요소를 선택할 때 발생
-
-  - onLoad       : 웹 페이지가 열릴 때 발생하는 이벤트로 HTML의 BODY 태그 안에서 사용된다.
-
-  - on_mouseOver  : 사용자가 링크 위에 마우스를 올려 놓았을 때 발생
-
-  - onSelect     : 사용자가text, textarea폼 요소에 있는 텍스트의 일부 또는 전체를 선택할 때 발생
-
-  - onSubmit     : Submit 버튼 폼 요소를 사용자가 clicked 때 발생
-
-  - onUnLoad     : 사용자가 웹 페이지를 떠날 때 발생하는 이벤트로 HTML의 BODY 태그 안에서 사용
-
-
-
-○ Comment
-
-  주석은 더블 슬래쉬(//), /*와 */ 사이에 있는 모든 내용이 주석 처리 된다는 것
-
-
-
-○ 콤마(comma : ",")
-
-  자바스크립트 이벤트 핸들러를 동시에 여러 개 사용하고자 할 때 콤마(,)를 사용
-
- 
-
- 
-
-
-
-B. 사용법
+# 사용방법
 
 1. 윈도우 관련 함수
 
