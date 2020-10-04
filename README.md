@@ -6,7 +6,7 @@
 ## 목차
 - Front-end : Javascript, Typescript, React
 - Back-end : Java
-- Database : Oracle
+- Database : Oracle, MS-SQL, NO-SQL
 
 <br>
 <hr>
