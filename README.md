@@ -4,9 +4,9 @@
   - ECMA 변동에도 유동적으로 대응할 수 있게 적용할 것
 
 ## 목차
-- Front-end : Javascript, Typescript, React
+- Front-end : Javascript
 - Back-end : Java
-- Database : Oracle, MS-SQL, NO-SQL
+- Database : Oracle
 
 <br>
 <hr>
