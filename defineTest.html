@@ -5,8 +5,38 @@
     <title>sisCommon Define</title>
     <script src="lib/jquery-3.4.1.min.js"></script>
     <script src="lib/d3-5.9.7.min.js"></script>
-    <script src="common/sisCommon.js"></script>
+    <script src="common/js/protify.js"></script>
+    <script src="common/js/sisCommon.js"></script>
+    <script src="common/js/validate.js"></script>
 </head>
+<script type="text/javascript">
+    class HashTable{
+        constructor() {
+            this.table = [];
+        }
+
+        setValue(value = -1){
+            this.table[value] = value;
+        }
+
+        getValue(value = -1){
+            return this.table[value];
+        }
+
+        getTable(){
+            return this.table;
+        }
+    }
+
+    $(document).ready(function(){
+        var table = new HashTable();
+        table.setValue(3);
+        table.setValue(10);
+        table.setValue(9);
+
+        console.log(table.getValue());
+    });
+</script>
 <body>
 </body>
 </html>
