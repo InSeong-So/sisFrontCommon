@@ -1,3 +1,5 @@
+package core.util;
+
 
 import javax.servlet.http.HttpSession;
 

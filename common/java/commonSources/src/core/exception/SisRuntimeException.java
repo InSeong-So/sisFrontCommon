@@ -1,3 +1,5 @@
+package core.exception;
+
 public class SisRuntimeException extends RuntimeException
 {
     

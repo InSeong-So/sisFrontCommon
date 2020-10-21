@@ -1,3 +1,5 @@
+package web.common.filter;
+
 public class XssFilter {
 	
   // XSS필터 : 크로스 사이트 스크립트[Cross Site Scription]

@@ -1,3 +1,5 @@
+package core.exception;
+
 public class SisCheckedException extends Exception
 {
     private static final long serialVersionUID = 1731637868522525463L;
