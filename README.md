@@ -6,7 +6,7 @@
 ## 목차
 - Front-end : Javascript
 - Back-end : Java
-- Database : Oracle
+- Database : Oracle, Mysql
 
 <br>
 <hr>
