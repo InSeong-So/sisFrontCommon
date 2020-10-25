@@ -1,7 +1,9 @@
 # sisFrontCommon
-- Javascript 전용 정의함수집(sisCommon.js)
+- Javascript 전용 함수 패키지(sisCommon.js)
   - Jquery, Vue, React 등 범용으로 사용할 수 있게 만들거나, 분리할 것
   - ECMA 변동에도 유동적으로 대응할 수 있게 적용할 것
+- Java 전용 클래스 패키지
+- DB 전용 쿼리 패키지
 
 ## 목차
 - Front-end : Javascript
