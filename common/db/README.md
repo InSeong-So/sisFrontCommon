@@ -100,3 +100,36 @@ end loop;
 end;
 /
 ```
+
+<br>
+<hr>
+
+## 오브젝트 DDL 확인
+```sql
+-- 1
+  SELECT OBJECT_TYPE
+        ,OBJECT_NAME
+        ,STATUS
+        ,TO_CHAR(CREATED, 'YYYY.MM.DD') AS CREATED
+        ,TO_CHAR(LAST_DDL_TIME, 'YYYY.MM.DD') AS LAST_DDL_TIME
+    FROM USER_OBJECTS
+   WHERE OBJECT_TYPE IN ('FUNCTION'
+                        ,'PROCEDURE')
+     AND TO_CHAR(LAST_DDL_TIME, 'YYYYMMDD') > '20151006'
+     AND OBJECT_NAME = 'P_PM2_COPY_APP_BAS_SET'
+ORDER BY OBJECT_TYPE
+        ,OBJECT_NAME;
+        
+-- 2
+  SELECT TYPE
+        ,NAME
+        ,LINE
+        ,TEXT
+    FROM USER_SOURCE B
+   WHERE TYPE IN ('FUNCTION'
+                 ,'PROCEDURE')
+     AND TEXT LIKE '%''P_PM2_COPY_APP_BAS_SET''%'
+ORDER BY TYPE
+        ,NAME
+        ,LINE;
+```
