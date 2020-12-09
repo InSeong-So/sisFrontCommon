@@ -18,7 +18,7 @@
   - jquery.protify-0.3.js
   - jquery-3.4.1.js
   - d3-5.9.7.js
-  - bootstrap4
+  - bootstrap4.0.0.js
 
 <br>
 
