@@ -133,3 +133,16 @@ ORDER BY TYPE
         ,NAME
         ,LINE;
 ```
+
+<hr>
+<br>
+
+## 코멘트로 테이블 찾기
+```sql
+  SELECT T.*
+    FROM ALL_TAB_COMMENTS T
+   WHERE T.TABLE_TYPE = 'TABLE'
+     --AND T.OWNER = 'OWNER'
+     AND T.TABLE_NAME LIKE '%%'
+ORDER BY T.TABLE_NAME;
+```
